@@ -10,7 +10,8 @@
 			"a11y": {
 				"noBlankTarget": "off",
 				"useButtonType": "off",
-				"useKeyWithClickEvents": "off"
+				"useKeyWithClickEvents": "off",
+				"useAltText": "off"
 			},
 			"suspicious": {
 				"noArrayIndexKey": "off"

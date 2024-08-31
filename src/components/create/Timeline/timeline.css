@@ -1,0 +1,9 @@
+.timeline {
+  width: 100%;
+  --timeline-height: 16px;
+  height: var(--timeline-height);
+  background: #0B0B0B;
+  display: flex;
+  padding: 0 300px;
+  gap: 220px;
+}

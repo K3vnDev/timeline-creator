@@ -1,0 +1,18 @@
+.mark {
+  background: #0B0A0A;
+  border-radius: 10px;
+  color: #FFF;
+  font-family: Inter;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  height: 70px;
+  padding: 0 20px;
+  min-width: 120px;
+  position: absolute;
+  translate: -50% -50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

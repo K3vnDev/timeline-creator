@@ -1,0 +1,5 @@
+.tl-element {
+  height: var(--timeline-height);
+  width: var(--timeline-height);
+  position: relative;
+}
