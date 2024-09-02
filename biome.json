@@ -11,7 +11,8 @@
 				"noBlankTarget": "off",
 				"useButtonType": "off",
 				"useKeyWithClickEvents": "off",
-				"useAltText": "off"
+				"useAltText": "off",
+				"noSvgWithoutTitle": "off"
 			},
 			"suspicious": {
 				"noArrayIndexKey": "off"

@@ -1,11 +1,12 @@
 body {
   background: linear-gradient(180deg, #151515, #0C0C0C);
   height: 100vh;
+  overflow: auto hidden;
 }
 
 #root {
   height: 100%;
-  min-width: 100wv;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
