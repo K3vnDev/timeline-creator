@@ -1,12 +1,15 @@
 import './tlElement.css'
 
-type Type = 'point' | 'mark' | 'add'
-
 interface Props {
   children: JSX.Element
 }
 
 export const TLElement = ({ children }: Props) => {
-  const [type]: Type = children.props.className.split(' ')
+  const type: string = (() => {
+    const { className } = children.props
+    console.log({ className, children, props: children.props })
+    return className ? className.split(' ')[0] : ''
+  })()
+
   return <span className={`tl-element cont-${type}`}>{children}</span>
 }

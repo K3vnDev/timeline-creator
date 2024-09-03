@@ -1,17 +1,21 @@
 import { create } from 'zustand'
-import { intialTimeline, newPointTemplate } from '../consts.d'
-import type { Timeline } from '../types.d'
+import { intialTimeline, newMarkTemplate, newPointTemplate } from '../consts.d'
+import type { Mark, Timeline } from '../types.d'
 import { generateElementId } from '../utils/generateElementId'
+import { createElement } from './createElement'
 import { setPointContent } from './setPointContent'
 
 interface Store {
   timeline: Timeline
 
-  setPointTitle: (index: string, value: string) => void
-  setPointImage: (index: string, value: string) => void
-  setPointDesc: (index: string, value: string) => void
+  setPointTitle: (id: string, value: string) => void
+  setPointImage: (id: string, value: string) => void
+  setPointDesc: (id: string, value: string) => void
+
+  setMarkText: (id: string, value: string) => void
 
   createPoint: (index: number) => void
+  createMark: (index: number) => void
   deleteElement: (id: string) => void
 
   editingElement: string
@@ -31,14 +35,25 @@ export const useStore = create<Store>()(set => ({
   setPointDesc: (id, value) =>
     set(({ timeline }) => setPointContent({ desc: value }, timeline, id)),
 
-  createPoint: index =>
-    set(({ timeline, setEditingElement }) => {
+  setMarkText: (id, value) =>
+    set(({ timeline }) => {
       const newTimeline = structuredClone(timeline)
-      const newPoint = { ...newPointTemplate, id: generateElementId(timeline) }
-      setEditingElement(newPoint.id)
-      newTimeline.splice(index, 0, newPoint)
+      const index = newTimeline.findIndex(el => el.id === id)
+      const newMark = newTimeline[index] as Mark
+      newMark.content.text = value
+      newTimeline.splice(index, 1, newMark)
       return { timeline: newTimeline }
     }),
+
+  createPoint: index =>
+    set(({ timeline, setEditingElement }) =>
+      createElement(index, timeline, setEditingElement, newPointTemplate)
+    ),
+
+  createMark: index =>
+    set(({ timeline, setEditingElement }) =>
+      createElement(index, timeline, setEditingElement, newMarkTemplate)
+    ),
 
   deleteElement: id =>
     set(({ timeline }) => {

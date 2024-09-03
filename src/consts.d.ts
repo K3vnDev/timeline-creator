@@ -1,4 +1,4 @@
-import type { Point, Timeline } from './types.d'
+import type { Mark, Point, Timeline } from './types.d'
 import { generateElementId } from './utils/generateElementId'
 
 export const newPointTemplate: Point = {
@@ -7,6 +7,13 @@ export const newPointTemplate: Point = {
     title: '',
     image: '',
     desc: ''
+  }
+}
+
+export const newMarkTemplate: Mark = {
+  type: 'mark',
+  content: {
+    text: ''
   }
 }
 

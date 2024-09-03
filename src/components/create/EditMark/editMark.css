@@ -1,0 +1,19 @@
+.mark.editing {
+  --bg-light-color: #0f0f0f;
+  padding: 0 10px;
+
+  & input {
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    border: none;
+    color: #FFF;
+    outline: none;
+    width: 100%;
+    background: var(--bg-light-color);
+    border-radius: var(--p);
+    padding: 4px 10px;
+    text-align: center;
+  }
+}

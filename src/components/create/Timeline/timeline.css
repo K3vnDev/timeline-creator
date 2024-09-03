@@ -6,4 +6,5 @@
   background: #0B0B0B;
   display: flex;
   gap: 110px;
+  --p: 8px;
 }

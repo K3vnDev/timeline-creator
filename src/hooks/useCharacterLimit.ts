@@ -11,13 +11,13 @@ export const useCharacterLimit = (maxCharacters: number) => {
     cooldown: animationTime * 1000
   })
 
-  const validateValue = (newValue: string) => {
-    if (newValue.length <= maxCharacters) {
+  const validateText = (text: string) => {
+    if (text.length <= maxCharacters) {
       return true
     }
     triggerAnimation()
     return false
   }
 
-  return { animation, validateValue }
+  return { animation, validateText }
 }

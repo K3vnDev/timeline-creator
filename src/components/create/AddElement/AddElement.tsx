@@ -8,10 +8,11 @@ interface Props {
 }
 
 export const AddElement = ({ index }: Props) => {
-  const createPoint = useStore(s => s.createPoint)
+  const { createPoint, createMark } = useStore(s => s)
 
-  const handleClick = (/*e: React.MouseEvent<HTMLButtonElement, MouseEvent>*/) => {
-    createPoint(index)
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    if (e.shiftKey) createMark(index)
+    else createPoint(index)
   }
 
   return (

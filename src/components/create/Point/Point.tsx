@@ -20,23 +20,22 @@ export const Point = ({ id, content, onBottom }: Props) => {
 
   if (!(title || image || desc || onEditMode)) {
     deleteElement(id)
-    return
   }
 
   const handleClick = () => setEditingElement(id)
   const className = onBottom ? 'point on-bottom' : 'point'
 
-  if (onEditMode) {
-    return <EditPoint className={className} title={title} image={image} desc={desc} id={id} />
-  }
-
   return (
     <TLElement>
-      <article className={className} onClick={handleClick}>
-        {title && <Title txt={title} />}
-        {image && <Image url={image} />}
-        {desc && <Desc txt={desc} />}
-      </article>
+      {onEditMode ? (
+        <EditPoint className={className} title={title} image={image} desc={desc} id={id} />
+      ) : (
+        <article className={className} onClick={handleClick}>
+          {title && <Title txt={title} />}
+          {image && <Image url={image} />}
+          {desc && <Desc txt={desc} />}
+        </article>
+      )}
     </TLElement>
   )
 }
@@ -52,7 +51,7 @@ const Desc = ({ txt }: { txt: string }) => {
 const Image = ({ url }: { url: string }) => {
   return (
     <div className='image-wrapper'>
-      <img className='image' src={url} />
+      <img className='image' src={url} draggable={false} />
     </div>
   )
 }
