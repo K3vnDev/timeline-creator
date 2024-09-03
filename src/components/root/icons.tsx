@@ -9,7 +9,6 @@ export const ImageUpload = () => {
       strokeWidth='2'
       strokeLinecap='round'
       strokeLinejoin='round'
-      className='icon icon-tabler icons-tabler-outline icon-tabler-photo-up'
     >
       <path stroke='none' d='M0 0h24v24H0z' fill='none' />
       <path d='M15 8h.01' />
@@ -33,7 +32,6 @@ export const ImageDelete = () => {
       strokeWidth='2'
       strokeLinecap='round'
       strokeLinejoin='round'
-      className='icon icon-tabler icons-tabler-outline icon-tabler-photo-x'
     >
       <path stroke='none' d='M0 0h24v24H0z' fill='none' />
       <path d='M15 8h.01' />
@@ -42,6 +40,25 @@ export const ImageDelete = () => {
       <path d='M14 14l1 -1c.928 -.893 2.072 -.893 3 0' />
       <path d='M22 22l-5 -5' />
       <path d='M17 22l5 -5' />
+    </svg>
+  )
+}
+
+export const Plus = () => {
+  return (
+    <svg
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+      <path d='M12 5l0 14' />
+      <path d='M5 12l14 0' />
     </svg>
   )
 }

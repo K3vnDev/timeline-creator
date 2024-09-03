@@ -1,15 +1,15 @@
 import type { Timeline } from '../types.d'
 
-interface Params {
+interface Values {
   title?: string
   image?: string
   desc?: string
-  timeline: Timeline
-  index: number
 }
 
-export const setPointContent = ({ title, image, desc, timeline, index }: Params) => {
+export const setPointContent = ({ title, image, desc }: Values, timeline: Timeline, id: string) => {
   const newTimeline = structuredClone(timeline)
+  const index = timeline.findIndex(el => el.id === id)
+
   const newPoint = timeline[index]
   if (newPoint.type !== 'point') return {}
 

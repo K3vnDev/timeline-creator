@@ -5,5 +5,5 @@
   height: var(--timeline-height);
   background: #0B0B0B;
   display: flex;
-  gap: 220px;
+  gap: 110px;
 }

@@ -3,16 +3,14 @@ import { TLElement } from '../TLElement/TLElement'
 import './mark.css'
 
 interface Props {
-  content: {
-    text: string
-  }
-  index: number
+  id: string
+  content: { text: string }
 }
-export const Mark = ({ content, index }: Props) => {
-  const setEditingIndex = useStore(s => s.setEditingIndex)
+export const Mark = ({ id, content }: Props) => {
+  const setEditingElement = useStore(s => s.setEditingElement)
 
   const handleClick = () => {
-    setEditingIndex(index)
+    setEditingElement(id)
   }
 
   return (

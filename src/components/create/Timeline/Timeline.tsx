@@ -1,34 +1,52 @@
 import { useEffect } from 'react'
 import { useStore } from '../../../store/useStore'
+import type { Timeline as TimelineType } from '../../../types.d'
 import { Mark } from '../Mark/Mark'
 import { Point } from '../Point/Point'
 import './timeline.css'
+import { AddElement } from '../AddElement/AddElement'
 
 export const Timeline = () => {
-  const { timeline, setEditingIndex } = useStore(s => s)
-  let pointsCount = 0
+  const { timeline, setEditingElement, onAddingElementCooldown, deleteElement } = useStore(s => s)
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       const target = e?.target as HTMLElement
-      if (!target.closest('.point') && !target.closest('.mark')) {
-        setEditingIndex(-1)
+      if (
+        !target.closest('.point') &&
+        !target.closest('.mark') &&
+        !target.closest('.add-element') &&
+        !onAddingElementCooldown
+      ) {
+        setEditingElement('')
       }
     }
     document.addEventListener('click', handleClick)
     return () => document.removeEventListener('click', handleClick)
-  }, [setEditingIndex])
+  }, [deleteElement, onAddingElementCooldown, setEditingElement])
 
-  return (
-    <main className='timeline'>
-      {timeline.map(({ content, type }, index) => {
-        if (type === 'point') {
-          return (
-            <Point content={content} key={index} index={index} onBottom={pointsCount++ % 2 === 0} />
+  const mapElements = (timeline: TimelineType) => {
+    const elements = [<AddElement key={-0.5} index={0} />]
+    let pointsCount = 0
+
+    for (let i = 0; i < timeline.length; i++) {
+      const { type, content, id } = timeline[i]
+
+      switch (type) {
+        case 'point':
+          elements.push(
+            <Point id={id} content={content} key={id} onBottom={pointsCount++ % 2 === 0} />
           )
-        }
-        return <Mark content={content} key={index} index={index} />
-      })}
-    </main>
-  )
+          break
+        case 'mark':
+          elements.push(<Mark id={id} content={content} key={id} />)
+      }
+
+      elements.push(<AddElement key={i + 0.5} index={i + 1} />)
+    }
+
+    return elements
+  }
+
+  return <main className='timeline'>{mapElements(timeline)}</main>
 }

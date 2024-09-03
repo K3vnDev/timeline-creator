@@ -1,0 +1,54 @@
+.add-element {
+  border: none;
+  background: transparent;
+  max-height: 100%;
+  position: absolute;
+  --size: calc(var(--timeline-height) * 2.5);
+  min-width: var(--size);
+  min-height: var(--size);
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  --base-color: #222;
+  --bg-color: #030303;
+  --lighter-color: #b0b0b0;
+
+  & svg {
+    --size: 45%;
+    width: var(--size);
+    height: var(--size);
+    color: var(--base-color);
+    transition: all .25s ease-out;
+  }
+
+  transition: all .25s ease-out;
+
+  &:hover {
+    --target-scale: 1.1;
+
+    scale: var(--target-scale);
+    --trans: calc((var(--target-scale) - 1) * 50%);
+    translate: var(--trans) var(--trans);
+    border-radius: 8px;
+    background: var(--bg-color);
+
+    & svg {
+      --size: 65%;
+      color: var(--lighter-color);
+    }
+
+    & .type-selection {
+      display: flex;
+    }
+  }
+
+  &:active {
+    scale: 1;
+    translate: 0 0;
+  }
+}

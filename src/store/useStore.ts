@@ -1,60 +1,56 @@
 import { create } from 'zustand'
-import type { Timeline } from '../types'
+import { intialTimeline, newPointTemplate } from '../consts.d'
+import type { Timeline } from '../types.d'
+import { generateElementId } from '../utils/generateElementId'
 import { setPointContent } from './setPointContent'
 
 interface Store {
   timeline: Timeline
 
-  setPointTitle: (index: number, value: string) => void
-  setPointImage: (index: number, value: string) => void
-  setPointDesc: (index: number, value: string) => void
+  setPointTitle: (index: string, value: string) => void
+  setPointImage: (index: string, value: string) => void
+  setPointDesc: (index: string, value: string) => void
 
-  deletePoint: (index: number) => void
+  createPoint: (index: number) => void
+  deleteElement: (id: string) => void
 
-  editingIndex: number
-  setEditingIndex: (value: number) => void
+  editingElement: string
+  setEditingElement: (id: string) => void
+
+  onAddingElementCooldown: boolean
+  setOnAddingElementCooldown: (value: boolean) => void
 }
 
 export const useStore = create<Store>()(set => ({
-  timeline: [
-    {
-      type: 'mark',
-      content: {
-        text: '2019'
-      }
-    },
-    {
-      type: 'point',
-      content: {
-        title: 'My first time point',
-        image: '',
-        desc: 'hell yeah'
-      }
-    },
-    ...Array(5).fill({
-      type: 'point',
-      content: {
-        title: 'My first time point',
-        image: 'https://www.cdc.gov/healthy-pets/media/images/2024/04/Cat-on-couch.jpg',
-        desc: 'hell yeah'
-      }
-    })
-  ],
+  timeline: intialTimeline,
 
-  setPointTitle: (index, value) =>
-    set(({ timeline }) => setPointContent({ title: value, timeline, index })),
-  setPointImage: (index, value) =>
-    set(({ timeline }) => setPointContent({ image: value, timeline, index })),
-  setPointDesc: (index, value) =>
-    set(({ timeline }) => setPointContent({ desc: value, timeline, index })),
+  setPointTitle: (id, value) =>
+    set(({ timeline }) => setPointContent({ title: value }, timeline, id)),
+  setPointImage: (id, value) =>
+    set(({ timeline }) => setPointContent({ image: value }, timeline, id)),
+  setPointDesc: (id, value) =>
+    set(({ timeline }) => setPointContent({ desc: value }, timeline, id)),
 
-  deletePoint: index =>
+  createPoint: index =>
+    set(({ timeline, setEditingElement }) => {
+      const newTimeline = structuredClone(timeline)
+      const newPoint = { ...newPointTemplate, id: generateElementId(timeline) }
+      setEditingElement(newPoint.id)
+      newTimeline.splice(index, 0, newPoint)
+      return { timeline: newTimeline }
+    }),
+
+  deleteElement: id =>
     set(({ timeline }) => {
       const newTimeline = structuredClone(timeline)
+      const index = timeline.findIndex(el => el.id === id)
       newTimeline.splice(index, 1)
       return { timeline: newTimeline }
     }),
 
-  editingIndex: -1,
-  setEditingIndex: value => set(() => ({ editingIndex: value }))
+  editingElement: '',
+  setEditingElement: id => set(() => ({ editingElement: id })),
+
+  onAddingElementCooldown: false,
+  setOnAddingElementCooldown: (value: boolean) => set(() => ({ onAddingElementCooldown: value }))
 }))

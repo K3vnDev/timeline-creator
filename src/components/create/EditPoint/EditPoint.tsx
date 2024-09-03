@@ -9,28 +9,28 @@ interface Props {
   image?: string
   desc?: string
   className: string
-  index: number
+  id: string
 }
 
-export const EditPoint = ({ title = '', image = '', desc = '', className, index }: Props) => {
+export const EditPoint = ({ title = '', image = '', desc = '', className, id }: Props) => {
   return (
     <TLElement>
       <article className={`${className} editing`}>
-        <Title txt={title} index={index} />
-        <Image url={image} index={index} />
-        <Desc txt={desc} index={index} />
+        <Title txt={title} id={id} />
+        <Image url={image} id={id} />
+        <Desc txt={desc} id={id} />
       </article>
     </TLElement>
   )
 }
 
-const Title = ({ txt, index }: { txt: string; index: number }) => {
+const Title = ({ txt, id }: { txt: string; id: string }) => {
   const setPointTitle = useStore(s => s.setPointTitle)
   const { animation, validateValue } = useCharacterLimit(20)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trimStart()
-    if (validateValue(value)) setPointTitle(index, value)
+    if (validateValue(value)) setPointTitle(id, value)
   }
 
   return (
@@ -47,11 +47,11 @@ const Title = ({ txt, index }: { txt: string; index: number }) => {
   )
 }
 
-const Image = ({ url, index }: { url: string; index: number }) => {
+const Image = ({ url, id }: { url: string; id: string }) => {
   const setPointImage = useStore(s => s.setPointImage)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPointImage(index, e.target.value)
+    setPointImage(id, e.target.value)
   }
 
   return (
@@ -71,13 +71,13 @@ const Image = ({ url, index }: { url: string; index: number }) => {
   )
 }
 
-const Desc = ({ txt, index }: { txt: string; index: number }) => {
+const Desc = ({ txt, id }: { txt: string; id: string }) => {
   const setPointDesc = useStore(s => s.setPointDesc)
   const { animation, validateValue } = useCharacterLimit(120)
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value.trimStart()
-    if (validateValue(value)) setPointDesc(index, value)
+    if (validateValue(value)) setPointDesc(id, value)
   }
 
   return (
