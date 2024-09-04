@@ -30,14 +30,13 @@ export const useTimeline = () => {
     for (let i = 0; i < timeline.length; i++) {
       const { type, content, id } = timeline[i]
 
-      if (type === 'point') {
-        elements.push(
-          <Point content={content} id={id} key={id} onBottom={pointsCount++ % 2 === 0} />
+      elements.push(
+        type === 'point' ? (
+          <Point content={content} id={id} key={id} onBottom={pointsCount++ % 2 === 0} index={i} />
+        ) : (
+          <Mark content={content} id={id} key={id} index={i} />
         )
-      } else {
-        elements.push(<Mark content={content} id={id} key={id} />)
-      }
-
+      )
       elements.push(<AddElement key={i + 0.5} index={i + 1} />)
     }
 

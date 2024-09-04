@@ -46,7 +46,7 @@ const Title = ({ txt, id }: { txt: string; id: string }) => {
         placeholder='Add a title...'
         style={{ animation }}
       />
-      <ClearButton onClick={() => setPointTitle(id, '')} />
+      <ClearButton onClick={() => setPointTitle(id, '')} text={txt} />
     </div>
   )
 }
@@ -93,15 +93,18 @@ const Desc = ({ txt, id }: { txt: string; id: string }) => {
         placeholder='Add a description...'
         style={{ animation }}
       />
-      <ClearButton onClick={() => setPointDesc(id, '')} />
+      <ClearButton onClick={() => setPointDesc(id, '')} text={txt} />
     </div>
   )
 }
 
-const ClearButton = ({ onClick }: { onClick: () => void }) => {
+const ClearButton = ({ onClick, text }: { onClick: () => void; text: string }) => {
+  const disabled = text === ''
+  const buttonClassName = disabled ? 'clear-btn hidden' : 'clear-btn'
+
   return (
     <div className='clear-btn-container'>
-      <button className='clear-btn' onClick={onClick}>
+      <button className={buttonClassName} onClick={onClick} disabled={disabled}>
         <CrossIcon />
       </button>
     </div>

@@ -6,9 +6,10 @@ import './mark.css'
 interface Props {
   id: string
   content: { text: string }
+  index: number
 }
 
-export const Mark = ({ id, content: { text } }: Props) => {
+export const Mark = ({ id, index, content: { text } }: Props) => {
   const { setEditingElement, editingElement, deleteElement } = useStore(s => s)
   const onEditMode = id === editingElement
 
@@ -20,7 +21,7 @@ export const Mark = ({ id, content: { text } }: Props) => {
   const handleClick = () => setEditingElement(id)
 
   return (
-    <TLElement>
+    <TLElement index={index}>
       {!onEditMode ? (
         <div className={className} onClick={handleClick}>
           {text}

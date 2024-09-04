@@ -9,6 +9,7 @@
   flex-direction: column;
   --bg-color: #252525;
   gap: 10px;
+  user-select: none;
 
   &::before {
     content: '';
@@ -22,54 +23,54 @@
     rotate: 45deg;
     z-index: -1;
   }
-}
 
-.point:not(.on-bottom) {
-  translate: -50% calc(-100% - var(--timeline-height) - var(--timeline-p));
-  flex-direction: column-reverse;
+  &:not(.on-bottom) {
+    translate: -50% calc(-100% - var(--timeline-height) - var(--timeline-p));
+    flex-direction: column-reverse;
 
-  &::before {
-    translate: -50% 50%;
+    &::before {
+      translate: -50% 50%;
+    }
   }
-}
 
-.point>.title,
-.point>.desc {
-  padding: calc(var(--p) * 1.25) var(--p);
-  border-radius: var(--p);
-  background: var(--bg-color);
-  font-style: normal;
-  line-height: normal;
-  font-family: Inter;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  white-space: normal;
-}
-
-.point>.title {
-  color: #FFF;
-  text-align: center;
-  font-size: 22px;
-  font-weight: 600;
-  min-height: 48px;
-}
-
-.point>.desc {
-  color: #AFAFAF;
-  font-family: Inter;
-  font-size: 16px;
-  font-weight: 400;
-}
-
-.point>.image-wrapper {
-  padding: var(--p);
-  border-radius: var(--p);
-  background: var(--bg-color);
-  width: 100%;
-
-  &>.image {
-    width: 100%;
+  &>.title,
+  &>.desc {
+    padding: calc(var(--p) * 1.25) var(--p);
     border-radius: var(--p);
-    object-fit: cover;
+    background: var(--bg-color);
+    font-style: normal;
+    line-height: normal;
+    font-family: Inter;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+
+  &>.title {
+    color: #FFF;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+    min-height: 48px;
+  }
+
+  &>.desc {
+    color: #AFAFAF;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  &>.image-wrapper {
+    padding: var(--p);
+    border-radius: var(--p);
+    background: var(--bg-color);
+    width: 100%;
+
+    &>.image {
+      width: 100%;
+      border-radius: var(--p);
+      object-fit: cover;
+    }
   }
 }

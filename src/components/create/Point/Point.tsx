@@ -1,4 +1,3 @@
-import type { CSSProperties } from 'react'
 import { useStore } from '../../../store/useStore'
 import { EditPoint } from '../EditPoint/EditPoint'
 import { TLElement } from '../TLElement/TLElement'
@@ -12,9 +11,10 @@ interface Props {
     desc: string
   }
   onBottom: boolean
+  index: number
 }
 
-export const Point = ({ id, content, onBottom }: Props) => {
+export const Point = ({ id, content, onBottom, index }: Props) => {
   const { editingElement, setEditingElement, deleteElement } = useStore(s => s)
   const { title, image, desc } = content
   const onEditMode = id === editingElement
@@ -34,7 +34,7 @@ export const Point = ({ id, content, onBottom }: Props) => {
   const className = onBottom ? 'point on-bottom' : 'point'
 
   return (
-    <TLElement>
+    <TLElement index={index}>
       {onEditMode ? (
         <EditPoint className={className} id={id} title={title} image={image} desc={desc} />
       ) : (

@@ -151,11 +151,18 @@
         width: var(--size);
         color: #555;
       }
+
+      &.hidden {
+        cursor: default;
+        opacity: 0;
+      }
     }
   }
 
-  & .desc-wrapper:hover .clear-btn,
-  & .title-wrapper:hover .clear-btn {
-    opacity: 1;
+  & .desc-wrapper:hover,
+  & .title-wrapper:hover {
+    & .clear-btn:not(.hidden) {
+      opacity: 1;
+    }
   }
 }
