@@ -15,6 +15,7 @@ export const Mark = ({ id, index, content: { text } }: Props) => {
 
   if (!(text || onEditMode)) {
     deleteElement(id)
+    return
   }
 
   const className = 'mark'
@@ -24,7 +25,7 @@ export const Mark = ({ id, index, content: { text } }: Props) => {
     <TLElement index={index}>
       {!onEditMode ? (
         <div className={className} onClick={handleClick}>
-          {text}
+          <h4>{text}</h4>
         </div>
       ) : (
         <EditMark className={className} id={id} text={text} />

@@ -21,6 +21,7 @@ export const Point = ({ id, content, onBottom, index }: Props) => {
 
   if (!(title || image || desc || onEditMode)) {
     deleteElement(id)
+    return
   }
 
   const imageHeight = (() => {
@@ -31,6 +32,7 @@ export const Point = ({ id, content, onBottom, index }: Props) => {
   })()
 
   const handleClick = () => setEditingElement(id)
+  const handleDragEnter = () => setEditingElement(id)
   const className = onBottom ? 'point on-bottom' : 'point'
 
   return (
@@ -38,7 +40,7 @@ export const Point = ({ id, content, onBottom, index }: Props) => {
       {onEditMode ? (
         <EditPoint className={className} id={id} title={title} image={image} desc={desc} />
       ) : (
-        <article className={className} onClick={handleClick}>
+        <article className={className} onClick={handleClick} onDragEnter={handleDragEnter}>
           {title && <Title txt={title} />}
           {image && <Image url={image} imageHeight={imageHeight} />}
           {desc && <Desc txt={desc} />}

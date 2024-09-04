@@ -19,5 +19,5 @@ export const useCharacterLimit = (maxCharacters: number) => {
     return false
   }
 
-  return { animation, validateText }
+  return { animation, triggerAnimation, validateText }
 }

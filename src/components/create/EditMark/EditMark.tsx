@@ -13,7 +13,7 @@ interface Props {
 
 export const EditMark = ({ id, text, className }: Props) => {
   const setMarkText = useStore(s => s.setMarkText)
-  const { animation, validateText } = useCharacterLimit(10)
+  const { animation, triggerAnimation, validateText } = useCharacterLimit(10)
   const inputRef = useRef<HTMLInputElement | null>(null)
   useInputExit({ disabledOnShiftKey: false })
 
@@ -33,13 +33,22 @@ export const EditMark = ({ id, text, className }: Props) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target
+
     if (validateText(value)) setMarkText(id, value)
     resizeScroll()
+
+    const inputWidth = Number(inputRef?.current?.style.width.slice(0, -2))
+    if (inputWidth > 200) {
+      setMarkText(id, value.slice(0, -1))
+      triggerAnimation()
+    }
   }
+  const trimText = () => setMarkText(id, text.trim())
 
   return (
     <div className={`${className} editing`}>
       <input
+        onBlur={trimText}
         value={text}
         onChange={handleChange}
         placeholder='Mark...'

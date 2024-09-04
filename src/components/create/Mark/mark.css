@@ -1,12 +1,6 @@
 .mark {
   background: #0B0A0A;
   border-radius: 10px;
-  color: #FFF;
-  font-family: Inter;
-  font-size: 32px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
   height: 70px;
   padding: 0 20px;
   min-width: 120px;
@@ -17,6 +11,22 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  text-wrap: nowrap;
   user-select: none;
+
+  &:not(.editing) {
+    max-width: 250px;
+  }
+
+  &>h4 {
+    text-wrap: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
 }

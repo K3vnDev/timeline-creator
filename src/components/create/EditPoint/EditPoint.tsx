@@ -19,15 +19,15 @@ export const EditPoint = ({ title = '', image = '', desc = '', className, id }: 
 
   return (
     <article className={`${className} editing`}>
-      <Title txt={title} id={id} />
+      <Title text={title} id={id} />
       <Image url={image} id={id} />
-      <Desc txt={desc} id={id} />
+      <Desc text={desc} id={id} />
       <DeleteButton id={id} />
     </article>
   )
 }
 
-const Title = ({ txt, id }: { txt: string; id: string }) => {
+const Title = ({ text, id }: { text: string; id: string }) => {
   const setPointTitle = useStore(s => s.setPointTitle)
   const { animation, validateText } = useCharacterLimit(20)
 
@@ -35,47 +35,34 @@ const Title = ({ txt, id }: { txt: string; id: string }) => {
     const value = e.target.value.trimStart()
     if (validateText(value)) setPointTitle(id, value)
   }
+  const trimText = () => setPointTitle(id, text.trim())
 
   return (
     <div className='title-wrapper'>
       <input
+        onBlur={trimText}
         className='title'
         type='text'
-        value={txt}
+        value={text}
         onChange={handleChange}
         placeholder='Add a title...'
         style={{ animation }}
       />
-      <ClearButton onClick={() => setPointTitle(id, '')} text={txt} />
+      <ClearButton onClick={() => setPointTitle(id, '')} text={text} />
     </div>
   )
 }
 
 const Image = ({ url, id }: { url: string; id: string }) => {
-  const setPointImage = useStore(s => s.setPointImage)
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPointImage(id, e.target.value)
-  }
-
   return (
     <div className='image-wrapper'>
-      {url && (
-        <div
-          style={{
-            background: `url(${url})`,
-            backgroundPosition: 'center',
-            backgroundSize: 'cover'
-          }}
-          className='image'
-        />
-      )}
-      <DragAndDropImage url={url} />
+      {url && <img className='image' src={url} draggable={false} />}
+      <DragAndDropImage url={url} id={id} />
     </div>
   )
 }
 
-const Desc = ({ txt, id }: { txt: string; id: string }) => {
+const Desc = ({ text, id }: { text: string; id: string }) => {
   const setPointDesc = useStore(s => s.setPointDesc)
   const { animation, validateText } = useCharacterLimit(120)
 
@@ -83,17 +70,19 @@ const Desc = ({ txt, id }: { txt: string; id: string }) => {
     const value = e.target.value.trimStart()
     if (validateText(value)) setPointDesc(id, value)
   }
+  const trimText = () => setPointDesc(id, text.trim())
 
   return (
     <div className='desc-wrapper'>
       <textarea
+        onBlur={trimText}
         className='desc'
-        value={txt}
+        value={text}
         onChange={handleChange}
         placeholder='Add a description...'
         style={{ animation }}
       />
-      <ClearButton onClick={() => setPointDesc(id, '')} text={txt} />
+      <ClearButton onClick={() => setPointDesc(id, '')} text={text} />
     </div>
   )
 }
