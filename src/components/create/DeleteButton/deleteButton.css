@@ -1,0 +1,47 @@
+.delete-btn {
+  --size: 50px;
+  height: var(--size);
+  width: var(--size);
+  align-self: center;
+  border-radius: 50%;
+  background: #000;
+  border: 1px solid #222;
+  cursor: pointer;
+  transition: background .15s ease, scale .3s ease;
+
+  &:hover {
+    background: #111;
+
+    &>svg {
+      color: #fff;
+    }
+  }
+
+  &:active {
+    scale: .9;
+    background: #000;
+
+    &>svg {
+      color: #bbb;
+    }
+  }
+
+
+  &>svg {
+    --size: 60%;
+    height: var(--size);
+    width: var(--size);
+    color: #bbb;
+    stroke-width: 1.4;
+    transition: color .15s ease;
+  }
+}
+
+.mark .delete-btn {
+  --size: 40px;
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+  --offset: 6px;
+  bottom: calc(-1 * (var(--size) + var(--offset)));
+}

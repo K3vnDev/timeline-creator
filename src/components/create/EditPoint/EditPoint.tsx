@@ -1,6 +1,8 @@
 import { useCharacterLimit } from '../../../hooks/useCharacterLimit'
 import { useInputExit } from '../../../hooks/useInputExit'
 import { useStore } from '../../../store/useStore'
+import { Cross as CrossIcon } from '../../root/icons'
+import { DeleteButton } from '../DeleteButton/DeleteButton'
 import { DragAndDropImage } from '../DragAndDropImage/DragAndDropImage'
 import './editPoint.css'
 
@@ -20,6 +22,7 @@ export const EditPoint = ({ title = '', image = '', desc = '', className, id }: 
       <Title txt={title} id={id} />
       <Image url={image} id={id} />
       <Desc txt={desc} id={id} />
+      <DeleteButton id={id} />
     </article>
   )
 }
@@ -43,6 +46,7 @@ const Title = ({ txt, id }: { txt: string; id: string }) => {
         placeholder='Add a title...'
         style={{ animation }}
       />
+      <ClearButton onClick={() => setPointTitle(id, '')} />
     </div>
   )
 }
@@ -89,6 +93,17 @@ const Desc = ({ txt, id }: { txt: string; id: string }) => {
         placeholder='Add a description...'
         style={{ animation }}
       />
+      <ClearButton onClick={() => setPointDesc(id, '')} />
+    </div>
+  )
+}
+
+const ClearButton = ({ onClick }: { onClick: () => void }) => {
+  return (
+    <div className='clear-btn-container'>
+      <button className='clear-btn' onClick={onClick}>
+        <CrossIcon />
+      </button>
     </div>
   )
 }

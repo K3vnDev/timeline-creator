@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import { useStore } from '../../../store/useStore'
 import { EditPoint } from '../EditPoint/EditPoint'
 import { TLElement } from '../TLElement/TLElement'
@@ -22,17 +23,24 @@ export const Point = ({ id, content, onBottom }: Props) => {
     deleteElement(id)
   }
 
+  const imageHeight = (() => {
+    let value = 230
+    if (title) value -= 35
+    if (desc) value -= 35
+    return `${value}px`
+  })()
+
   const handleClick = () => setEditingElement(id)
   const className = onBottom ? 'point on-bottom' : 'point'
 
   return (
     <TLElement>
       {onEditMode ? (
-        <EditPoint className={className} title={title} image={image} desc={desc} id={id} />
+        <EditPoint className={className} id={id} title={title} image={image} desc={desc} />
       ) : (
         <article className={className} onClick={handleClick}>
           {title && <Title txt={title} />}
-          {image && <Image url={image} />}
+          {image && <Image url={image} imageHeight={imageHeight} />}
           {desc && <Desc txt={desc} />}
         </article>
       )}
@@ -48,10 +56,10 @@ const Desc = ({ txt }: { txt: string }) => {
   return <p className='desc'>{txt}</p>
 }
 
-const Image = ({ url }: { url: string }) => {
+const Image = ({ url, imageHeight }: { url: string; imageHeight: string }) => {
   return (
     <div className='image-wrapper'>
-      <img className='image' src={url} draggable={false} />
+      <img className='image' src={url} style={{ height: imageHeight }} draggable={false} />
     </div>
   )
 }

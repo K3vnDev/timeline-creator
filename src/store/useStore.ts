@@ -1,7 +1,6 @@
 import { create } from 'zustand'
 import { intialTimeline, newMarkTemplate, newPointTemplate } from '../consts.d'
 import type { Mark, Timeline } from '../types.d'
-import { generateElementId } from '../utils/generateElementId'
 import { createElement } from './createElement'
 import { setPointContent } from './setPointContent'
 

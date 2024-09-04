@@ -1,5 +1,5 @@
 .mark.editing {
-  --bg-light-color: #0f0f0f;
+  --bg-light-color: #121212;
   padding: 0 10px;
 
   & input {
@@ -15,5 +15,11 @@
     border-radius: var(--p);
     padding: 4px 10px;
     text-align: center;
+
+    &::placeholder {
+      font-weight: 400;
+      font-size: 22px;
+      color: #444;
+    }
   }
 }
