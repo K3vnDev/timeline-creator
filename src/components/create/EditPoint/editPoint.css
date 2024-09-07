@@ -114,4 +114,12 @@
       opacity: 1;
     }
   }
+
+  &>.btns-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+    gap: 32px;
+  }
 }

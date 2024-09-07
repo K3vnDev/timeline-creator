@@ -3,17 +3,24 @@ import './tlElement.css'
 
 interface Props {
   children: JSX.Element
-  index: number
+  index?: number
 }
 
 export const TLElement = ({ children, index }: Props) => {
   const timeline = useStore(s => s.timeline)
 
-  const { marginLeft, marginRight }: { marginLeft: string; marginRight: string } = (() => {
-    const element = timeline[index]
+  const className = (() => {
+    const [type]: string = children.props.className.split(' ')
+    if (type === 'add-element') return 'tl-element'
 
-    if (index === undefined || element?.type === 'point')
+    return `tl-element t-${type.charAt(0)}`
+  })()
+
+  const { marginLeft, marginRight }: { marginLeft: string; marginRight: string } = (() => {
+    if (index === undefined || timeline[index]?.type === 'point')
       return { marginLeft: '0px', marginRight: '0px' }
+
+    const element = timeline[index]
 
     const calcMarkMargin = (direction: 1 | -1) => {
       let margin = element.content.text.length * 10
@@ -25,7 +32,7 @@ export const TLElement = ({ children, index }: Props) => {
   })()
 
   return (
-    <span className='tl-element' style={{ marginLeft, marginRight }}>
+    <span className={className} style={{ marginLeft, marginRight }}>
       {children}
     </span>
   )

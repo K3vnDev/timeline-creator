@@ -1,59 +1,73 @@
-import { useCharacterLimit } from '../../../hooks/useCharacterLimit'
-import { useInputExit } from '../../../hooks/useInputExit'
+import { useEffect, useRef } from 'react'
 import { useStore } from '../../../store/useStore'
 import { Cross as CrossIcon } from '../../root/icons'
 import { DeleteButton } from '../DeleteButton/DeleteButton'
 import { DragAndDropImage } from '../DragAndDropImage/DragAndDropImage'
+import { MoveArrows } from '../MoveArrows/MoveArrows'
 import './editPoint.css'
+import { useEditPoint } from '../../../hooks/useEditPoint'
+import { useTextInput } from '../../../hooks/useTextInput'
 
 interface Props {
   title?: string
   image?: string
   desc?: string
-  className: string
   id: string
 }
 
-export const EditPoint = ({ title = '', image = '', desc = '', className, id }: Props) => {
-  useInputExit({ disabledOnShiftKey: false })
+export const EditPoint = ({ title = '', image = '', desc = '', id }: Props) => {
+  const { checkFocusingElement } = useEditPoint()
 
   return (
-    <article className={`${className} editing`}>
-      <Title text={title} id={id} />
+    <>
+      <Title text={title} id={id} checkFocusingElement={checkFocusingElement} />
       <Image url={image} id={id} />
-      <Desc text={desc} id={id} />
-      <DeleteButton id={id} />
-    </article>
+      <Desc text={desc} id={id} checkFocusingElement={checkFocusingElement} />
+      <div className='btns-wrapper'>
+        <DeleteButton id={id} />
+        <MoveArrows id={id} />
+      </div>
+    </>
   )
 }
 
-const Title = ({ text, id }: { text: string; id: string }) => {
-  const setPointTitle = useStore(s => s.setPointTitle)
-  const { animation, validateText } = useCharacterLimit(20)
+interface TitleProps {
+  text: string
+  id: string
+  checkFocusingElement: (element: React.MutableRefObject<null>) => void
+}
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.trimStart()
-    if (validateText(value)) setPointTitle(id, value)
-  }
-  const trimText = () => setPointTitle(id, text.trim())
+const Title = ({ text, id, checkFocusingElement }: TitleProps) => {
+  const setPointTitle = useStore(s => s.setPointTitle)
+  const elementRef = useRef(null)
+  useEffect(() => checkFocusingElement(elementRef), [elementRef.current])
+
+  // biome-ignore format: <>
+  const { animation, handleChange, trimText, handleClear } = 
+    useTextInput(text, setPointTitle, id, 20)
 
   return (
     <div className='title-wrapper'>
       <input
+        ref={elementRef}
         onBlur={trimText}
         className='title'
-        type='text'
         value={text}
         onChange={handleChange}
         placeholder='Add a title...'
         style={{ animation }}
       />
-      <ClearButton onClick={() => setPointTitle(id, '')} text={text} />
+      <ClearButton onClick={handleClear} text={text} />
     </div>
   )
 }
 
-const Image = ({ url, id }: { url: string; id: string }) => {
+interface ImageProps {
+  url: string
+  id: string
+}
+
+const Image = ({ url, id }: ImageProps) => {
   return (
     <div className='image-wrapper'>
       {url && <img className='image' src={url} draggable={false} />}
@@ -62,19 +76,25 @@ const Image = ({ url, id }: { url: string; id: string }) => {
   )
 }
 
-const Desc = ({ text, id }: { text: string; id: string }) => {
-  const setPointDesc = useStore(s => s.setPointDesc)
-  const { animation, validateText } = useCharacterLimit(120)
+interface DescProps {
+  text: string
+  id: string
+  checkFocusingElement: (element: React.MutableRefObject<null>) => void
+}
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const value = e.target.value.trimStart()
-    if (validateText(value)) setPointDesc(id, value)
-  }
-  const trimText = () => setPointDesc(id, text.trim())
+const Desc = ({ text, id, checkFocusingElement }: DescProps) => {
+  const setPointDesc = useStore(s => s.setPointDesc)
+  const elementRef = useRef(null)
+  useEffect(() => checkFocusingElement(elementRef), [elementRef.current])
+
+  // biome-ignore format: <>
+  const { animation, handleChange, trimText, handleClear } = 
+    useTextInput(text, setPointDesc, id, 120)
 
   return (
     <div className='desc-wrapper'>
       <textarea
+        ref={elementRef}
         onBlur={trimText}
         className='desc'
         value={text}
@@ -82,7 +102,7 @@ const Desc = ({ text, id }: { text: string; id: string }) => {
         placeholder='Add a description...'
         style={{ animation }}
       />
-      <ClearButton onClick={() => setPointDesc(id, '')} text={text} />
+      <ClearButton onClick={handleClear} text={text} />
     </div>
   )
 }

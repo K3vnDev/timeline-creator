@@ -10,7 +10,9 @@ interface Props {
 }
 
 export const Mark = ({ id, index, content: { text } }: Props) => {
-  const { setEditingElement, editingElement, deleteElement } = useStore(s => s)
+  const setEditingElement = useStore(s => s.setEditingElement)
+  const editingElement = useStore(s => s.editingElement)
+  const deleteElement = useStore(s => s.deleteElement)
   const onEditMode = id === editingElement
 
   if (!(text || onEditMode)) {
@@ -18,18 +20,17 @@ export const Mark = ({ id, index, content: { text } }: Props) => {
     return
   }
 
-  const className = 'mark'
-  const handleClick = () => setEditingElement(id)
+  const className = onEditMode ? 'mark editing' : 'mark'
+  const handleClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    e.stopPropagation()
+    setEditingElement(id)
+  }
 
   return (
     <TLElement index={index}>
-      {!onEditMode ? (
-        <div className={className} onClick={handleClick}>
-          <h4>{text}</h4>
-        </div>
-      ) : (
-        <EditMark className={className} id={id} text={text} />
-      )}
+      <div className={className} onClick={handleClick}>
+        {!onEditMode ? <h2>{text}</h2> : <EditMark id={id} text={text} />}
+      </div>
     </TLElement>
   )
 }

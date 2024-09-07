@@ -27,13 +27,13 @@ export const DragAndDropImage = ({ url, id }: Props) => {
 
   useEffect(() => {
     if (!dragnDropRef.current) return
-    const dragnDrop = dragnDropRef.current as HTMLElement
+    const dragnDrop: HTMLElement = dragnDropRef.current
 
-    const handleDragEnter = () => setDraggingOver(true)
-    const handleDragLeave = () => setDraggingOver(false)
-    const handleDragOver = (e: DragEvent) => e.preventDefault()
+    dragnDrop.ondragenter = () => setDraggingOver(true)
+    dragnDrop.ondragleave = () => setDraggingOver(false)
+    dragnDrop.ondragover = e => e.preventDefault()
 
-    const handleDrop = (e: DragEvent) => {
+    dragnDrop.ondrop = e => {
       e.preventDefault()
       setDraggingOver(false)
 
@@ -41,19 +41,7 @@ export const DragAndDropImage = ({ url, id }: Props) => {
       const [file] = e.dataTransfer.files
       if (file) setImage(file)
     }
-
-    dragnDrop.addEventListener('dragenter', handleDragEnter)
-    dragnDrop.addEventListener('dragleave', handleDragLeave)
-    dragnDrop.addEventListener('dragover', handleDragOver)
-    dragnDrop.addEventListener('drop', handleDrop)
-
-    return () => {
-      dragnDrop.removeEventListener('dragenter', handleDragEnter)
-      dragnDrop.removeEventListener('dragleave', handleDragLeave)
-      dragnDrop.removeEventListener('dragover', handleDragOver)
-      dragnDrop.removeEventListener('drop', handleDrop)
-    }
-  }, [])
+  }, [dragnDropRef.current])
 
   const handleBrowseFile = () => {
     if (!inputRef.current) return

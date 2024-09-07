@@ -5,7 +5,12 @@ import { Point } from '../components/create/Point/Point'
 import { useStore } from '../store/useStore'
 
 export const useTimeline = () => {
-  const { timeline, setEditingElement, onAddingElementCooldown, deleteElement } = useStore(s => s)
+  const [timeline, setEditingElement, onAddingElementCooldown, deleteElement] = useStore(s => [
+    s.timeline,
+    s.setEditingElement,
+    s.onAddingElementCooldown,
+    s.deleteElement
+  ])
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {

@@ -15,7 +15,10 @@ interface Props {
 }
 
 export const Point = ({ id, content, onBottom, index }: Props) => {
-  const { editingElement, setEditingElement, deleteElement } = useStore(s => s)
+  const editingElement = useStore(s => s.editingElement)
+  const setEditingElement = useStore(s => s.setEditingElement)
+  const deleteElement = useStore(s => s.deleteElement)
+
   const { title, image, desc } = content
   const onEditMode = id === editingElement
 
@@ -31,21 +34,32 @@ export const Point = ({ id, content, onBottom, index }: Props) => {
     return `${value}px`
   })()
 
-  const handleClick = () => setEditingElement(id)
+  const className = (() => {
+    let c = 'point'
+    if (onBottom) c += ' on-bottom'
+    if (onEditMode) c += ' editing'
+    return c
+  })()
+
+  const handleClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    e.stopPropagation()
+    setEditingElement(id)
+  }
   const handleDragEnter = () => setEditingElement(id)
-  const className = onBottom ? 'point on-bottom' : 'point'
 
   return (
     <TLElement index={index}>
-      {onEditMode ? (
-        <EditPoint className={className} id={id} title={title} image={image} desc={desc} />
-      ) : (
-        <article className={className} onClick={handleClick} onDragEnter={handleDragEnter}>
-          {title && <Title txt={title} />}
-          {image && <Image url={image} imageHeight={imageHeight} />}
-          {desc && <Desc txt={desc} />}
-        </article>
-      )}
+      <article className={className} onClick={handleClick} onDragEnter={handleDragEnter}>
+        {onEditMode ? (
+          <EditPoint id={id} title={title} image={image} desc={desc} />
+        ) : (
+          <>
+            {title && <Title txt={title} />}
+            {image && <Image url={image} imageHeight={imageHeight} />}
+            {desc && <Desc txt={desc} />}
+          </>
+        )}
+      </article>
     </TLElement>
   )
 }

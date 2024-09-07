@@ -1,0 +1,58 @@
+.move-arrows {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+
+  button {
+    --size: 35px;
+    border: 1px solid #222;
+    border-radius: 50%;
+    height: var(--size);
+    width: var(--size);
+    background: #111;
+    transition: all .3s ease, filter .15s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+      --size: 80%;
+      height: var(--size);
+      width: var(--size);
+      color: #333;
+    }
+
+    &:not(:disabled) {
+      cursor: pointer;
+
+      &:hover {
+        filter: brightness(120%);
+
+        svg {
+          color: #444;
+        }
+      }
+
+      &:active {
+        scale: .9;
+        filter: brightness(90%);
+
+        &.arr-l {
+          transform: translateX(-4px);
+        }
+
+        &.arr-r {
+          transform: translateX(4px);
+        }
+
+        svg {
+          color: #222;
+        }
+      }
+    }
+
+    &:disabled {
+      filter: brightness(65%);
+    }
+  }
+}

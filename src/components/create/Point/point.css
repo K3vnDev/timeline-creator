@@ -10,6 +10,7 @@
   --bg-color: #252525;
   gap: 10px;
   user-select: none;
+  cursor: pointer;
 
   &::before {
     content: '';

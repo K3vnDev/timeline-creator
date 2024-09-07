@@ -1,5 +1,5 @@
 .delete-btn {
-  --size: 50px;
+  --size: 45px;
   height: var(--size);
   width: var(--size);
   align-self: center;
@@ -35,13 +35,4 @@
     stroke-width: 1.4;
     transition: color .15s ease;
   }
-}
-
-.mark .delete-btn {
-  --size: 40px;
-  position: absolute;
-  left: 50%;
-  translate: -50% 0;
-  --offset: 6px;
-  bottom: calc(-1 * (var(--size) + var(--offset)));
 }
