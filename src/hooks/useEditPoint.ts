@@ -29,7 +29,7 @@ export const useEditPoint = () => {
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [focusingInput])
 
-  const checkFocusingElement = (element: React.MutableRefObject<null>) => {
+  const checkElement = (element: React.MutableRefObject<null>) => {
     if (!element.current) return
     const el: HTMLElement = element.current
 
@@ -42,5 +42,5 @@ export const useEditPoint = () => {
     ;(focusingInput.current as HTMLElement).blur()
   }
 
-  return { checkFocusingElement }
+  return { checkElement }
 }

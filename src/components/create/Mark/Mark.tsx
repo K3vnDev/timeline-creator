@@ -1,3 +1,4 @@
+import { createContext } from 'react'
 import { useStore } from '../../../store/useStore'
 import { EditMark } from '../EditMark/EditMark'
 import { TLElement } from '../TLElement/TLElement'
@@ -26,11 +27,20 @@ export const Mark = ({ id, index, content: { text } }: Props) => {
     setEditingElement(id)
   }
 
+  const providerValue = { id, text }
+
   return (
     <TLElement index={index}>
-      <div className={className} onClick={handleClick}>
-        {!onEditMode ? <h2>{text}</h2> : <EditMark id={id} text={text} />}
-      </div>
+      <MarkContext.Provider value={providerValue}>
+        <div className={className} onClick={handleClick}>
+          {!onEditMode ? <h2>{text}</h2> : <EditMark />}
+        </div>
+      </MarkContext.Provider>
     </TLElement>
   )
 }
+
+export const MarkContext = createContext({
+  id: '',
+  text: ''
+})

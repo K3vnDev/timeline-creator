@@ -1,28 +1,25 @@
-import { useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef } from 'react'
+import { useEditPoint } from '../../../hooks/useEditPoint'
+import { useFocusOnKey } from '../../../hooks/useFocusOnKey'
+import { useTextInput } from '../../../hooks/useTextInput'
 import { useStore } from '../../../store/useStore'
-import { Cross as CrossIcon } from '../../root/icons'
 import { DeleteButton } from '../DeleteButton/DeleteButton'
 import { DragAndDropImage } from '../DragAndDropImage/DragAndDropImage'
 import { MoveArrows } from '../MoveArrows/MoveArrows'
+import { PointContext } from '../Point/Point'
 import './editPoint.css'
-import { useEditPoint } from '../../../hooks/useEditPoint'
-import { useTextInput } from '../../../hooks/useTextInput'
+import { ClearInputButton } from '../ClearInputButton/ClearInputButton'
 
-interface Props {
-  title?: string
-  image?: string
-  desc?: string
-  id: string
-}
-
-export const EditPoint = ({ title = '', image = '', desc = '', id }: Props) => {
-  const { checkFocusingElement } = useEditPoint()
+export const EditPoint = () => {
+  const { id } = useContext(PointContext)
+  const { checkElement } = useEditPoint()
 
   return (
     <>
-      <Title text={title} id={id} checkFocusingElement={checkFocusingElement} />
-      <Image url={image} id={id} />
-      <Desc text={desc} id={id} checkFocusingElement={checkFocusingElement} />
+      <Title checkElement={checkElement} />
+      <Image />
+      <Desc checkElement={checkElement} />
+
       <div className='btns-wrapper'>
         <DeleteButton id={id} />
         <MoveArrows id={id} />
@@ -31,16 +28,17 @@ export const EditPoint = ({ title = '', image = '', desc = '', id }: Props) => {
   )
 }
 
-interface TitleProps {
-  text: string
-  id: string
-  checkFocusingElement: (element: React.MutableRefObject<null>) => void
-}
-
-const Title = ({ text, id, checkFocusingElement }: TitleProps) => {
+const Title = ({
+  checkElement
+}: { checkElement: (element: React.MutableRefObject<null>) => void }) => {
+  const { title: text, id, onBottom } = useContext(PointContext)
   const setPointTitle = useStore(s => s.setPointTitle)
   const elementRef = useRef(null)
-  useEffect(() => checkFocusingElement(elementRef), [elementRef.current])
+
+  const focusOnKey = onBottom ? 'ArrowUp' : 'ArrowDown'
+  useFocusOnKey(elementRef, focusOnKey)
+
+  useEffect(() => checkElement(elementRef), [elementRef.current])
 
   // biome-ignore format: <>
   const { animation, handleChange, trimText, handleClear } = 
@@ -57,17 +55,14 @@ const Title = ({ text, id, checkFocusingElement }: TitleProps) => {
         placeholder='Add a title...'
         style={{ animation }}
       />
-      <ClearButton onClick={handleClear} text={text} />
+      <ClearInputButton onClick={handleClear} text={text} />
     </div>
   )
 }
 
-interface ImageProps {
-  url: string
-  id: string
-}
+const Image = () => {
+  const { image: url, id } = useContext(PointContext)
 
-const Image = ({ url, id }: ImageProps) => {
   return (
     <div className='image-wrapper'>
       {url && <img className='image' src={url} draggable={false} />}
@@ -76,16 +71,17 @@ const Image = ({ url, id }: ImageProps) => {
   )
 }
 
-interface DescProps {
-  text: string
-  id: string
-  checkFocusingElement: (element: React.MutableRefObject<null>) => void
-}
-
-const Desc = ({ text, id, checkFocusingElement }: DescProps) => {
+const Desc = ({
+  checkElement
+}: { checkElement: (element: React.MutableRefObject<null>) => void }) => {
+  const { desc: text, id, onBottom } = useContext(PointContext)
   const setPointDesc = useStore(s => s.setPointDesc)
   const elementRef = useRef(null)
-  useEffect(() => checkFocusingElement(elementRef), [elementRef.current])
+
+  const focusOnKey = onBottom ? 'ArrowDown' : 'ArrowUp'
+  useFocusOnKey(elementRef, focusOnKey)
+
+  useEffect(() => checkElement(elementRef), [elementRef.current])
 
   // biome-ignore format: <>
   const { animation, handleChange, trimText, handleClear } = 
@@ -102,20 +98,7 @@ const Desc = ({ text, id, checkFocusingElement }: DescProps) => {
         placeholder='Add a description...'
         style={{ animation }}
       />
-      <ClearButton onClick={handleClear} text={text} />
-    </div>
-  )
-}
-
-const ClearButton = ({ onClick, text }: { onClick: () => void; text: string }) => {
-  const disabled = text === ''
-  const buttonClassName = disabled ? 'clear-btn hidden' : 'clear-btn'
-
-  return (
-    <div className='clear-btn-container'>
-      <button className={buttonClassName} onClick={onClick} disabled={disabled}>
-        <CrossIcon />
-      </button>
+      <ClearInputButton onClick={handleClear} text={text} />
     </div>
   )
 }

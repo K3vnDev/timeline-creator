@@ -1,0 +1,47 @@
+.clear-input-btn-wrapper {
+  position: absolute;
+  --width: 60px;
+  width: var(--width);
+  height: 100%;
+  right: calc(-1 * var(--width));
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &>.clear-btn {
+    border: none;
+    border-radius: 50%;
+    --size: 26px;
+    height: var(--size);
+    width: var(--size);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #222;
+    cursor: pointer;
+    transition: scale .3s ease, filter .15s ease, opacity .2s ease;
+    opacity: 0;
+
+    &:hover {
+      filter: brightness(140%);
+    }
+
+    &:active {
+      filter: brightness(90%);
+      scale: .9;
+    }
+
+    &>svg {
+      --size: 75%;
+      height: var(--size);
+      width: var(--size);
+      color: #555;
+    }
+
+    &.hidden {
+      cursor: default;
+      opacity: 0;
+    }
+  }
+}

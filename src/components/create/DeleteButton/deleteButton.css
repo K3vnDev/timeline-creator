@@ -1,16 +1,16 @@
 .delete-btn {
-  --size: 45px;
+  --size: 40px;
   height: var(--size);
   width: var(--size);
   align-self: center;
   border-radius: 50%;
-  background: #000;
-  border: 1px solid #222;
+  background: #0f0f0f;
+  border: 1px solid #333;
   cursor: pointer;
   transition: background .15s ease, scale .3s ease;
 
   &:hover {
-    background: #111;
+    background: #161616;
 
     &>svg {
       color: #fff;

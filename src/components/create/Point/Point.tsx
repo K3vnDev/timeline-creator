@@ -1,3 +1,4 @@
+import { createContext } from 'react'
 import { useStore } from '../../../store/useStore'
 import { EditPoint } from '../EditPoint/EditPoint'
 import { TLElement } from '../TLElement/TLElement'
@@ -47,35 +48,41 @@ export const Point = ({ id, content, onBottom, index }: Props) => {
   }
   const handleDragEnter = () => setEditingElement(id)
 
+  const providerValue = { id, title, image, desc, imageHeight, onBottom }
+
   return (
     <TLElement index={index}>
-      <article className={className} onClick={handleClick} onDragEnter={handleDragEnter}>
-        {onEditMode ? (
-          <EditPoint id={id} title={title} image={image} desc={desc} />
-        ) : (
-          <>
-            {title && <Title txt={title} />}
-            {image && <Image url={image} imageHeight={imageHeight} />}
-            {desc && <Desc txt={desc} />}
-          </>
-        )}
-      </article>
+      <PointContext.Provider value={providerValue}>
+        <article className={className} onClick={handleClick} onDragEnter={handleDragEnter}>
+          {onEditMode ? (
+            <EditPoint />
+          ) : (
+            <>
+              {title && <h3 className='title'>{title}</h3>}
+              {image && (
+                <div className='image-wrapper'>
+                  <img
+                    className='image'
+                    src={image}
+                    style={{ height: imageHeight }}
+                    draggable={false}
+                  />
+                </div>
+              )}
+              {desc && <p className='desc'>{desc}</p>}
+            </>
+          )}
+        </article>
+      </PointContext.Provider>
     </TLElement>
   )
 }
 
-const Title = ({ txt }: { txt: string }) => {
-  return <h3 className='title'>{txt}</h3>
-}
-
-const Desc = ({ txt }: { txt: string }) => {
-  return <p className='desc'>{txt}</p>
-}
-
-const Image = ({ url, imageHeight }: { url: string; imageHeight: string }) => {
-  return (
-    <div className='image-wrapper'>
-      <img className='image' src={url} style={{ height: imageHeight }} draggable={false} />
-    </div>
-  )
-}
+export const PointContext = createContext({
+  id: '',
+  title: '',
+  image: '',
+  desc: '',
+  imageHeight: '',
+  onBottom: false
+})

@@ -1,16 +1,15 @@
-import { useRef } from 'react'
+import { useContext, useRef } from 'react'
 import './editMark.css'
 import { useEditMark } from '../../../hooks/useEditMark'
+import { useFocusOnKey } from '../../../hooks/useFocusOnKey'
 import { DeleteButton } from '../DeleteButton/DeleteButton'
+import { MarkContext } from '../Mark/Mark'
 import { MoveArrows } from '../MoveArrows/MoveArrows'
 
-interface Props {
-  text: string
-  id: string
-}
-
-export const EditMark = ({ id, text }: Props) => {
-  const inputRef = useRef<HTMLInputElement>(null)
+export const EditMark = () => {
+  const { id, text } = useContext(MarkContext)
+  const inputRef = useRef(null)
+  useFocusOnKey(inputRef, 'ArrowUp', 'ArrowDown')
   const { trimText, handleChange, animation } = useEditMark(id, text, inputRef)
 
   return (

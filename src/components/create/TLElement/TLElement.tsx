@@ -10,6 +10,7 @@ export const TLElement = ({ children, index }: Props) => {
   const timeline = useStore(s => s.timeline)
 
   const className = (() => {
+    if (!children.props.className) return 'tl-element'
     const [type]: string = children.props.className.split(' ')
     if (type === 'add-element') return 'tl-element'
 

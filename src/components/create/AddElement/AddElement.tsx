@@ -25,8 +25,8 @@ export const AddElement = ({ index }: Props) => {
       const { clientX, clientY } = e
       const distance = Math.sqrt((elementX - clientX) ** 2 + (elementY - clientY) ** 2)
 
-      const [threshold, gap] = [450, 100]
-      setOpacity(distance < threshold ? 1 - (distance + gap) / (threshold + gap) : 0)
+      const [threshold, gap] = [450, 50]
+      setOpacity(distance < gap ? 1 : distance < threshold ? 1 - distance / threshold : 0)
     }
     document.addEventListener('mousemove', handleMouseMove)
     return () => document.removeEventListener('mousemove', handleMouseMove)
