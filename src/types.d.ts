@@ -1,4 +1,5 @@
 export type Timeline = Array<Point | Mark>
+export type PointerEvents = 'auto' | 'none'
 
 export interface Point {
   type: 'point'

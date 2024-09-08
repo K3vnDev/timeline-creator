@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { intialTimeline, newMarkTemplate, newPointTemplate } from '../consts.d'
-import type { Mark, Timeline } from '../types.d'
+import type { Mark, PointerEvents, Timeline } from '../types.d'
 import { createElement } from './createElement'
 import { getIndex } from './getIndex'
 import { setPointContent } from './setPointContent'
@@ -25,6 +25,9 @@ interface Store {
 
   onAddingElementCooldown: boolean
   setOnAddingElementCooldown: (value: boolean) => void
+
+  pointerEvents: PointerEvents
+  setPointerEvents: (value: PointerEvents) => void
 }
 
 export const useStore = create<Store>()(set => ({
@@ -86,5 +89,8 @@ export const useStore = create<Store>()(set => ({
     }),
 
   onAddingElementCooldown: false,
-  setOnAddingElementCooldown: (value: boolean) => set(() => ({ onAddingElementCooldown: value }))
+  setOnAddingElementCooldown: (value: boolean) => set(() => ({ onAddingElementCooldown: value })),
+
+  pointerEvents: 'auto',
+  setPointerEvents: value => set(() => ({ pointerEvents: value }))
 }))

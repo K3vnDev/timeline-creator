@@ -1,13 +1,13 @@
 body {
   background: linear-gradient(180deg, #151515, #0C0C0C);
   height: 100vh;
-  overflow: auto hidden;
+  overflow: scroll hidden;
 }
 
 #root {
   height: 100%;
-  width: 100%;
+  min-width: 100vw;
   display: flex;
-  justify-content: center;
   align-items: center;
+  width: max-content;
 }

@@ -16,9 +16,9 @@ interface Props {
 }
 
 export const Point = ({ id, content, onBottom, index }: Props) => {
-  const editingElement = useStore(s => s.editingElement)
-  const setEditingElement = useStore(s => s.setEditingElement)
-  const deleteElement = useStore(s => s.deleteElement)
+  // biome-ignore format: <>
+  const [editingElement, setEditingElement, deleteElement] =
+    useStore(s => [s.editingElement, s.setEditingElement, s.deleteElement])
 
   const { title, image, desc } = content
   const onEditMode = id === editingElement

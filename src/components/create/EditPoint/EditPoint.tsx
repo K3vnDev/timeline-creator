@@ -34,9 +34,7 @@ const Title = ({
   const { title: text, id, onBottom } = useContext(PointContext)
   const setPointTitle = useStore(s => s.setPointTitle)
   const elementRef = useRef(null)
-
-  const focusOnKey = onBottom ? 'ArrowUp' : 'ArrowDown'
-  useFocusOnKey(elementRef, focusOnKey)
+  useFocusOnKey(elementRef, onBottom, 0)
 
   useEffect(() => checkElement(elementRef), [elementRef.current])
 
@@ -77,9 +75,7 @@ const Desc = ({
   const { desc: text, id, onBottom } = useContext(PointContext)
   const setPointDesc = useStore(s => s.setPointDesc)
   const elementRef = useRef(null)
-
-  const focusOnKey = onBottom ? 'ArrowDown' : 'ArrowUp'
-  useFocusOnKey(elementRef, focusOnKey)
+  useFocusOnKey(elementRef, onBottom, 1)
 
   useEffect(() => checkElement(elementRef), [elementRef.current])
 

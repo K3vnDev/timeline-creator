@@ -13,16 +13,21 @@ export const AddElement = ({ index }: Props) => {
   const [opacity, setOpacity] = useState(0)
   const buttonRef = useRef(null)
 
+  const getElementPosition = (element: HTMLButtonElement) => {
+    const { x, y } = element.getBoundingClientRect()
+    const { clientWidth: elementWidth, clientHeight: elementHeight } = element
+    const [elementX, elementY] = [x + elementWidth / 2, y + elementHeight / 2]
+    return { elementX, elementY }
+  }
+
   useEffect(() => {
     if (!buttonRef.current) return
     const element: HTMLButtonElement = buttonRef.current
 
-    const { clientWidth: elementWidth, clientHeight: elementHeight } = element
-    const { x, y } = element.getBoundingClientRect()
-    const [elementX, elementY] = [x + elementWidth / 2, y + elementHeight / 2]
-
     const handleMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e
+      const { elementX, elementY } = getElementPosition(element)
+
       const distance = Math.sqrt((elementX - clientX) ** 2 + (elementY - clientY) ** 2)
 
       const [threshold, gap] = [450, 50]

@@ -1,20 +1,38 @@
 import { useEffect } from 'react'
+import { useStore } from '../store/useStore'
 
-export const useFocusOnKey = (inputRef: React.MutableRefObject<null>, ...keys: Array<string>) => {
+export const useFocusOnKey = (
+  inputRef: React.MutableRefObject<null>,
+  onBottom?: boolean,
+  keyIndex?: 0 | 1
+) => {
+  const timeline = useStore(s => s.timeline)
+
   useEffect(() => {
     if (!inputRef.current) return
     const input: HTMLInputElement = inputRef.current
 
     const handleKeyDown = (e: KeyboardEvent) => {
       const { key, ctrlKey } = e
+      if (!ctrlKey) return
 
-      if (keys.includes(key) && ctrlKey) {
+      const keys = ['ArrowUp', 'ArrowDown']
+      if (onBottom === undefined && keys.includes(key)) {
+        e.preventDefault()
+        input.focus()
+        return
+      }
+
+      if (keyIndex === undefined || onBottom === undefined) return
+      const [triggerKey, otherKey] = [keys[keyIndex], keys[+!keyIndex]]
+
+      if ((triggerKey === key && onBottom) || (otherKey === key && !onBottom)) {
         e.preventDefault()
         input.focus()
       }
     }
 
     document.addEventListener('keydown', handleKeyDown)
-    return () => document.addEventListener('keydown', handleKeyDown)
-  }, [])
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [timeline])
 }

@@ -9,8 +9,8 @@ import { MoveArrows } from '../MoveArrows/MoveArrows'
 export const EditMark = () => {
   const { id, text } = useContext(MarkContext)
   const inputRef = useRef(null)
-  useFocusOnKey(inputRef, 'ArrowUp', 'ArrowDown')
   const { trimText, handleChange, animation } = useEditMark(id, text, inputRef)
+  useFocusOnKey(inputRef)
 
   return (
     <>
