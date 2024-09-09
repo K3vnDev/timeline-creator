@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { intialTimeline, newMarkTemplate, newPointTemplate } from '../consts.d'
 import type { Mark, PointerEvents, Timeline } from '../types.d'
+import { generateElementId } from '../utils/generateElementId'
 import { createElement } from './createElement'
 import { getIndex } from './getIndex'
 import { setPointContent } from './setPointContent'
@@ -22,6 +23,8 @@ interface Store {
   setEditingElement: (id: string) => void
 
   moveElement: (id: string, direction: 1 | -1) => void
+
+  duplicateElement: (id: string) => void
 
   onAddingElementCooldown: boolean
   setOnAddingElementCooldown: (value: boolean) => void
@@ -85,6 +88,16 @@ export const useStore = create<Store>()(set => ({
       newTimeline.splice(index, 1, replacingElement)
       newTimeline.splice(replacingIndex, 1, movingElement)
 
+      return { timeline: newTimeline }
+    }),
+
+  duplicateElement: id =>
+    set(({ timeline }) => {
+      const newTimeline = structuredClone(timeline)
+      const index = getIndex(newTimeline, id)
+      const newId = generateElementId(newTimeline)
+      const elementCopy = { ...newTimeline[index], id: newId }
+      newTimeline.splice(index, 0, elementCopy)
       return { timeline: newTimeline }
     }),
 

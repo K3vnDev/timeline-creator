@@ -25,12 +25,18 @@
 
   --buttons-offset: 60px;
 
-  .delete-btn {
-    --size: 40px;
+  .options-btns {
     position: absolute;
     left: 50%;
     translate: -50% var(--buttons-offset);
+    display: flex;
+    gap: 16px;
+
+    .delete-btn {
+      --size: 40px;
+    }
   }
+
 
   .move-arrows {
     position: absolute;

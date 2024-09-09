@@ -9,6 +9,7 @@ import { MoveArrows } from '../MoveArrows/MoveArrows'
 import { PointContext } from '../Point/Point'
 import './editPoint.css'
 import { ClearInputButton } from '../ClearInputButton/ClearInputButton'
+import { DuplicateButton } from '../DuplicateButton/DuplicateButton'
 
 export const EditPoint = () => {
   const { id } = useContext(PointContext)
@@ -22,6 +23,7 @@ export const EditPoint = () => {
 
       <div className='btns-wrapper'>
         <DeleteButton id={id} />
+        <DuplicateButton id={id} />
         <MoveArrows id={id} />
       </div>
     </>
