@@ -1,23 +1,18 @@
 import { useCharacterLimit } from './useCharacterLimit'
 
-type SetValue = (id: string, value: string) => void
+type SetValue = (value: string) => void
 type ChangeEvent = React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
 
-export const useTextInput = (
-  value: string,
-  setValue: SetValue,
-  id: string,
-  maxCharacters: number
-) => {
+export const useTextInput = (value: string, setValue: SetValue, maxCharacters: number) => {
   const { animation, validateText } = useCharacterLimit(maxCharacters)
 
   const handleChange = (e: ChangeEvent) => {
     const value = e.target.value.trimStart()
-    if (validateText(value)) setValue(id, value)
+    if (validateText(value)) setValue(value)
   }
 
-  const trimText = () => setValue(id, value.trim())
-  const handleClear = () => setValue(id, '')
+  const trimText = () => setValue(value.trim())
+  const handleClear = () => setValue('')
 
   return { animation, handleChange, trimText, handleClear }
 }

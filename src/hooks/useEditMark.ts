@@ -4,16 +4,16 @@ import { useCharacterLimit } from './useCharacterLimit'
 
 type InputRef = React.RefObject<HTMLInputElement>
 
-export const useEditMark = (id: string, text: string, inputRef: InputRef) => {
+export const useEditMark = (text: string, inputRef: InputRef) => {
   const [setMarkText, setEditingElement] = useStore(s => [s.setMarkText, s.setEditingElement])
   const { animation, triggerAnimation, validateText } = useCharacterLimit(10)
 
   useEffect(() => {
     inputRef.current?.focus()
-    resizeScroll()
+    recalculateWidth()
   }, [inputRef.current])
 
-  const resizeScroll = () => {
+  const recalculateWidth = () => {
     const input = inputRef.current
     if (!input) return
 
@@ -38,17 +38,17 @@ export const useEditMark = (id: string, text: string, inputRef: InputRef) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target
-    if (validateText(value)) setMarkText(id, value)
+    if (validateText(value)) setMarkText(value)
 
-    resizeScroll()
+    recalculateWidth()
     const inputWidth = Number(inputRef?.current?.style.width.slice(0, -2))
 
     if (inputWidth > 200) {
-      setMarkText(id, value.slice(0, -1))
+      setMarkText(value.slice(0, -1))
       triggerAnimation()
     }
   }
-  const trimText = () => setMarkText(id, text.trim())
+  const trimText = () => setMarkText(text.trim())
 
   return { trimText, handleChange, animation }
 }

@@ -18,14 +18,16 @@ export const TLElement = ({ children, index }: Props) => {
   })()
 
   const { marginLeft, marginRight }: { marginLeft: string; marginRight: string } = (() => {
-    if (index === undefined || timeline[index]?.type === 'point')
+    const { elements } = timeline
+
+    if (index === undefined || elements[index]?.type === 'point')
       return { marginLeft: '0px', marginRight: '0px' }
 
-    const element = timeline[index]
+    const element = elements[index]
 
     const calcMarkMargin = (direction: 1 | -1) => {
       let margin = element.content.text.length * 10
-      const sideElement = timeline[index + direction]
+      const sideElement = elements[index + direction]
       if (!sideElement || sideElement.type === 'mark') margin /= 3.5
       return `${margin}px`
     }

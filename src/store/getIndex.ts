@@ -1,5 +1,5 @@
-import type { Timeline } from '../types.d'
+import type { Element } from '../types.d'
 
-export const getIndex = (timeline: Timeline, id: string) => {
-  return timeline.findIndex(el => el.id === id)
+export const getIndex = (elements: Array<Element>, id: string) => {
+  return elements.findIndex(el => el.id === id)
 }

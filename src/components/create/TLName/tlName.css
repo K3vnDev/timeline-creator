@@ -1,0 +1,35 @@
+.tl-name {
+  &:not(input) {
+    cursor: pointer;
+  }
+
+  position: fixed;
+  left: 50%;
+  top: 50px;
+  font-size: 42px;
+  font-family: Inter;
+  transform: translateX(-50%);
+  text-align: center;
+
+  svg {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    --padding: 12px;
+    transform: translate(calc(100% + var(--padding)), -50%);
+    transition: opacity .2s ease;
+    opacity: 0;
+  }
+
+  &:hover svg {
+    opacity: 1;
+  }
+}
+
+input.tl-name {
+  border: none;
+  --bg-color: #222;
+  outline: 5px solid var(--bg-color);
+  border-radius: 8px;
+  background: var(--bg-color);
+}

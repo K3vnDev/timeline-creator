@@ -8,8 +8,8 @@ interface Props {
 }
 
 export const MoveArrows = ({ id }: Props) => {
-  const [moveElement, timeline] = useStore(s => [s.moveElement, s.timeline])
-  const index = timeline.findIndex(el => el.id === id)
+  const [moveElement, { elements }] = useStore(s => [s.moveElement, s.timeline])
+  const index = elements.findIndex(el => el.id === id)
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -27,7 +27,7 @@ export const MoveArrows = ({ id }: Props) => {
   const checkFocusingOnInput = () => Boolean(document.querySelector('input:focus, textarea:focus'))
 
   const [moveLeft, moveRight] = [() => moveElement(id, -1), () => moveElement(id, 1)]
-  const [onLeftEdge, onRightEdge] = [index === 0, index === timeline.length - 1]
+  const [onLeftEdge, onRightEdge] = [index === 0, index === elements.length - 1]
 
   return (
     <div className='move-arrows'>

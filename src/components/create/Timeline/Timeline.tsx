@@ -9,8 +9,10 @@ export const Timeline = () => {
   useScrollOnDrag()
 
   return (
-    <main style={{ pointerEvents }} className='timeline'>
-      {mappedElements}
-    </main>
+    <div className='timeline-wrapper'>
+      <main style={{ pointerEvents }} className='timeline'>
+        {mappedElements}
+      </main>
+    </div>
   )
 }

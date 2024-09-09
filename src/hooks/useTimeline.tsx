@@ -5,35 +5,31 @@ import { Point } from '../components/create/Point/Point'
 import { useStore } from '../store/useStore'
 
 export const useTimeline = () => {
-  const [timeline, setEditingElement, onAddingElementCooldown, deleteElement] = useStore(s => [
-    s.timeline,
-    s.setEditingElement,
-    s.onAddingElementCooldown,
-    s.deleteElement
-  ])
+  const [timeline, setEditingElement] = useStore(s => [s.timeline, s.setEditingElement])
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
+      e.stopPropagation()
+
       const target = e?.target as HTMLElement
       if (
         !target.closest('.point') &&
         !target.closest('.mark') &&
-        !target.closest('.add-element') &&
-        !onAddingElementCooldown
+        !target.closest('.add-element')
       ) {
         setEditingElement('')
       }
     }
     document.addEventListener('click', handleClick)
     return () => document.removeEventListener('click', handleClick)
-  }, [deleteElement, onAddingElementCooldown, setEditingElement])
+  }, [setEditingElement])
 
   const mappedElements = (() => {
     const elements = [<AddElement key={-0.5} index={0} />]
     let pointsCount = 0
 
-    for (let i = 0; i < timeline.length; i++) {
-      const { type, content, id } = timeline[i]
+    for (let i = 0; i < timeline.elements.length; i++) {
+      const { type, content, id } = timeline.elements[i]
 
       elements.push(
         type === 'point' ? (

@@ -33,7 +33,7 @@ export const EditPoint = () => {
 const Title = ({
   checkElement
 }: { checkElement: (element: React.MutableRefObject<null>) => void }) => {
-  const { title: text, id, onBottom } = useContext(PointContext)
+  const { title: text, onBottom } = useContext(PointContext)
   const setPointTitle = useStore(s => s.setPointTitle)
   const elementRef = useRef(null)
   useFocusOnKey(elementRef, onBottom, 0)
@@ -42,7 +42,7 @@ const Title = ({
 
   // biome-ignore format: <>
   const { animation, handleChange, trimText, handleClear } = 
-    useTextInput(text, setPointTitle, id, 20)
+    useTextInput(text, setPointTitle, 20)
 
   return (
     <div className='title-wrapper'>
@@ -74,7 +74,7 @@ const Image = () => {
 const Desc = ({
   checkElement
 }: { checkElement: (element: React.MutableRefObject<null>) => void }) => {
-  const { desc: text, id, onBottom } = useContext(PointContext)
+  const { desc: text, onBottom } = useContext(PointContext)
   const setPointDesc = useStore(s => s.setPointDesc)
   const elementRef = useRef(null)
   useFocusOnKey(elementRef, onBottom, 1)
@@ -83,7 +83,7 @@ const Desc = ({
 
   // biome-ignore format: <>
   const { animation, handleChange, trimText, handleClear } = 
-    useTextInput(text, setPointDesc, id, 120)
+    useTextInput(text, setPointDesc, 120)
 
   return (
     <div className='desc-wrapper'>

@@ -1,5 +1,12 @@
-export type Timeline = Array<Point | Mark>
+export type Element = Point | Mark
 export type PointerEvents = 'auto' | 'none'
+
+export type Timeline = {
+  name: string
+  id: string
+  color: `#${string}`
+  elements: Array<Element>
+}
 
 export interface Point {
   type: 'point'

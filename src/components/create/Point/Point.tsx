@@ -3,6 +3,7 @@ import { useStore } from '../../../store/useStore'
 import { EditPoint } from '../EditPoint/EditPoint'
 import { TLElement } from '../TLElement/TLElement'
 import './point.css'
+import { useElementFocusOnClick } from '../../../hooks/useElementFocusOnClick'
 
 interface Props {
   id: string
@@ -23,6 +24,13 @@ export const Point = ({ id, content, onBottom, index }: Props) => {
   const { title, image, desc } = content
   const onEditMode = id === editingElement
 
+  const handleClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    e.stopPropagation()
+    setEditingElement(id)
+  }
+
+  const handleDragEnter = () => setEditingElement(id)
+
   if (!(title || image || desc || onEditMode)) {
     deleteElement(id)
     return
@@ -42,18 +50,12 @@ export const Point = ({ id, content, onBottom, index }: Props) => {
     return c
   })()
 
-  const handleClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    e.stopPropagation()
-    setEditingElement(id)
-  }
-  const handleDragEnter = () => setEditingElement(id)
-
   const providerValue = { id, title, image, desc, imageHeight, onBottom }
 
   return (
     <TLElement index={index}>
       <PointContext.Provider value={providerValue}>
-        <article className={className} onClick={handleClick} onDragEnter={handleDragEnter}>
+        <article className={className} onDragEnter={handleDragEnter} onClick={handleClick}>
           {onEditMode ? (
             <EditPoint />
           ) : (

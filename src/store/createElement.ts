@@ -1,5 +1,5 @@
-import type { Mark, Point, Timeline } from '../types.d'
-import { generateElementId } from '../utils/generateElementId'
+import type { Element, Mark, Point, Timeline } from '../types.d'
+import { generateId } from '../utils/generateId'
 
 export const createElement = (
   index: number,
@@ -7,10 +7,12 @@ export const createElement = (
   setEditingElement: (id: string) => void,
   newElementTemplate: Point | Mark
 ) => {
-  const newTimeline = structuredClone(timeline)
-  const id = generateElementId(timeline)
+  const newElements: Element[] = structuredClone(timeline.elements)
+  const id = generateId(newElements)
   const newElement = { ...structuredClone(newElementTemplate), id }
-  newTimeline.splice(index, 0, newElement)
+  newElements.splice(index, 0, newElement)
   setEditingElement(id)
+
+  const newTimeline: Timeline = { ...timeline, elements: newElements }
   return { timeline: newTimeline }
 }

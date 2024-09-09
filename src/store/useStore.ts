@@ -1,19 +1,21 @@
 import { create } from 'zustand'
 import { intialTimeline, newMarkTemplate, newPointTemplate } from '../consts.d'
 import type { Mark, PointerEvents, Timeline } from '../types.d'
-import { generateElementId } from '../utils/generateElementId'
+import { generateId } from '../utils/generateId'
 import { createElement } from './createElement'
-import { getIndex } from './getIndex'
+import { modifyElements } from './modifyElements'
 import { setPointContent } from './setPointContent'
 
 interface Store {
   timeline: Timeline
 
-  setPointTitle: (id: string, value: string) => void
-  setPointImage: (id: string, value: string) => void
-  setPointDesc: (id: string, value: string) => void
+  setTimelineName: (value: string) => void
 
-  setMarkText: (id: string, value: string) => void
+  setPointTitle: (value: string) => void
+  setPointImage: (value: string) => void
+  setPointDesc: (value: string) => void
+
+  setMarkText: (value: string) => void
 
   createPoint: (index: number) => void
   createMark: (index: number) => void
@@ -26,9 +28,6 @@ interface Store {
 
   duplicateElement: (id: string) => void
 
-  onAddingElementCooldown: boolean
-  setOnAddingElementCooldown: (value: boolean) => void
-
   pointerEvents: PointerEvents
   setPointerEvents: (value: PointerEvents) => void
 }
@@ -36,22 +35,35 @@ interface Store {
 export const useStore = create<Store>()(set => ({
   timeline: intialTimeline,
 
-  setPointTitle: (id, value) =>
-    set(({ timeline }) => setPointContent({ title: value }, timeline, id)),
-  setPointImage: (id, value) =>
-    set(({ timeline }) => setPointContent({ image: value }, timeline, id)),
-  setPointDesc: (id, value) =>
-    set(({ timeline }) => setPointContent({ desc: value }, timeline, id)),
-
-  setMarkText: (id, value) =>
+  setTimelineName: value =>
     set(({ timeline }) => {
       const newTimeline = structuredClone(timeline)
-      const index = getIndex(newTimeline, id)
-      const newMark = newTimeline[index] as Mark
-      newMark.content.text = value
-      newTimeline.splice(index, 1, newMark)
+      newTimeline.name = value
       return { timeline: newTimeline }
     }),
+
+  setPointTitle: value =>
+    set(({ timeline, editingElement }) =>
+      setPointContent({ title: value }, timeline, editingElement)
+    ),
+  setPointImage: value =>
+    set(({ timeline, editingElement }) =>
+      setPointContent({ image: value }, timeline, editingElement)
+    ),
+  setPointDesc: value =>
+    set(({ timeline, editingElement }) =>
+      setPointContent({ desc: value }, timeline, editingElement)
+    ),
+
+  setMarkText: value =>
+    set(({ timeline, editingElement }) =>
+      modifyElements(timeline, editingElement, (newElements, index) => {
+        const newMark = newElements[index] as Mark
+        newMark.content.text = value
+        newElements.splice(index, 1, newMark)
+        return newElements
+      })
+    ),
 
   createPoint: index =>
     set(({ timeline, setEditingElement }) =>
@@ -64,45 +76,40 @@ export const useStore = create<Store>()(set => ({
     ),
 
   deleteElement: id =>
-    set(({ timeline }) => {
-      const newTimeline = structuredClone(timeline)
-      const index = getIndex(newTimeline, id)
-      newTimeline.splice(index, 1)
-      return { timeline: newTimeline }
-    }),
+    set(({ timeline }) =>
+      modifyElements(timeline, id, (newElements, index) => {
+        newElements.splice(index, 1)
+        return newElements
+      })
+    ),
 
   editingElement: '',
   setEditingElement: id => set(() => ({ editingElement: id })),
 
   moveElement: (id, direction) =>
-    set(({ timeline }) => {
-      const newTimeline = structuredClone(timeline)
-      const index = getIndex(newTimeline, id)
+    set(({ timeline }) =>
+      modifyElements(timeline, id, (newElements, index) => {
+        const replacingIndex = index + direction
+        if (replacingIndex < 0 || replacingIndex >= newElements.length) return
 
-      const replacingIndex = index + direction
-      if (replacingIndex < 0 || replacingIndex >= newTimeline.length) return {}
+        const movingElement = newElements[index]
+        const replacingElement = newElements[replacingIndex]
 
-      const movingElement = newTimeline[index]
-      const replacingElement = newTimeline[replacingIndex]
-
-      newTimeline.splice(index, 1, replacingElement)
-      newTimeline.splice(replacingIndex, 1, movingElement)
-
-      return { timeline: newTimeline }
-    }),
+        newElements.splice(index, 1, replacingElement)
+        newElements.splice(replacingIndex, 1, movingElement)
+        return newElements
+      })
+    ),
 
   duplicateElement: id =>
-    set(({ timeline }) => {
-      const newTimeline = structuredClone(timeline)
-      const index = getIndex(newTimeline, id)
-      const newId = generateElementId(newTimeline)
-      const elementCopy = { ...newTimeline[index], id: newId }
-      newTimeline.splice(index, 0, elementCopy)
-      return { timeline: newTimeline }
-    }),
-
-  onAddingElementCooldown: false,
-  setOnAddingElementCooldown: (value: boolean) => set(() => ({ onAddingElementCooldown: value })),
+    set(({ timeline }) =>
+      modifyElements(timeline, id, (newElements, index) => {
+        const newId = generateId(newElements)
+        const elementCopy = { ...structuredClone(newElements[index]), id: newId }
+        newElements.splice(index, 0, elementCopy)
+        return newElements
+      })
+    ),
 
   pointerEvents: 'auto',
   setPointerEvents: value => set(() => ({ pointerEvents: value }))

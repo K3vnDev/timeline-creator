@@ -1,12 +1,18 @@
-.timeline {
-  --timeline-height: 16px;
-  height: var(--timeline-height);
-  background: #0B0B0B;
+.timeline-wrapper {
   display: flex;
-  gap: 110px;
-  --p: 8px;
-  min-width: 100vw;
-  padding: 0 200px 0 70px;
-  justify-content: center;
-  width: 100%;
+  align-items: center;
+  height: calc(100vh - 60px);
+
+  .timeline {
+    --timeline-height: 16px;
+    height: var(--timeline-height);
+    background: #0B0B0B;
+    display: flex;
+    gap: 110px;
+    --p: 8px;
+    min-width: 100vw;
+    padding: 0 200px 0 70px;
+    justify-content: center;
+    width: 100%;
+  }
 }

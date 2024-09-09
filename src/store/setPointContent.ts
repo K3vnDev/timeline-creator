@@ -7,16 +7,17 @@ interface Values {
 }
 
 export const setPointContent = ({ title, image, desc }: Values, timeline: Timeline, id: string) => {
-  const newTimeline = structuredClone(timeline)
-  const index = timeline.findIndex(el => el.id === id)
+  const newElements = structuredClone(timeline.elements)
+  const index = newElements.findIndex(el => el.id === id)
 
-  const newPoint = timeline[index]
+  const newPoint = newElements[index]
   if (newPoint.type !== 'point') return {}
 
   if (title !== undefined) newPoint.content.title = title
   if (image !== undefined) newPoint.content.image = image
   if (desc !== undefined) newPoint.content.desc = desc
 
-  newTimeline.splice(index, 1, newPoint)
+  newElements.splice(index, 1, newPoint)
+  const newTimeline = { ...timeline, elements: newElements }
   return { timeline: newTimeline }
 }
