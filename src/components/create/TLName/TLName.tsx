@@ -7,18 +7,20 @@ import { useFocusOnClick } from '../../../hooks/useFocusOnClick'
 import { Pencil as PencilIcon } from '../../root/icons'
 
 export const TLName = () => {
+  // biome-ignore format: <>
+  const [{ name }, setTimelineName, pointerEvents] = 
+    useStore(s => [s.timeline, s.setTimelineName, s.pointerEvents])
+
   const [editing, setEditing] = useState(false)
-  const [{ name }, setTimelineName] = useStore(s => [s.timeline, s.setTimelineName])
   const { animation, handleChange } = useTextInput(name, setTimelineName, 30)
-  useFocusOnClick('.tl-name', setEditing)
+  useFocusOnClick(setEditing, 'click', '.tl-name')
   const inputRef = useRef(null)
 
   useEffect(() => {
-    if (!editing && name === '') {
-      setTimelineName(TIMELINE_DEFAULT_NAME)
-    }
+    if (pointerEvents === 'none') setEditing(false)
+    if (!editing && name === '') setTimelineName(TIMELINE_DEFAULT_NAME)
     recalculateWidth()
-  }, [editing])
+  }, [editing, pointerEvents])
 
   const recalculateWidth = () => {
     if (!inputRef.current) return
@@ -47,7 +49,7 @@ export const TLName = () => {
   return (
     <>
       {!editing ? (
-        <h1 className='tl-name'>
+        <h1 className='tl-name' style={{ pointerEvents }}>
           {name}
           <PencilIcon />
         </h1>

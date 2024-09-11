@@ -1,0 +1,103 @@
+.tl-menu {
+  --menu-width: 400px;
+  width: var(--menu-width);
+
+  position: fixed;
+  height: 100vh;
+  z-index: 5;
+  padding: var(--menu-padding);
+  padding-top: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  top: 0;
+  left: 0;
+
+  background:
+    linear-gradient(270deg,
+      rgba(0, 0, 0, 0.00) 0%,
+      rgba(0, 0, 0, 0.60) 50%,
+      rgba(0, 0, 0, 0.95) 100%);
+
+  transition: all .3s ease;
+  translate: calc(-1 * var(--menu-width));
+  opacity: 0;
+
+  &.showing {
+    translate: 0;
+    opacity: 1;
+  }
+
+  h3 {
+    color: #FFF;
+    font-family: Poppins;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 700;
+    text-wrap: nowrap;
+    cursor: default;
+  }
+
+  .create-new-btn {
+    --move: 4px;
+    width: 240px;
+    min-height: 60px;
+    border-radius: 10px;
+    background: #25179C;
+    box-shadow: var(--move)var(--move) 0px 0px #170D68;
+    border: none;
+    text-align: center;
+    font-family: Inter;
+    font-size: 26px;
+    font-weight: 700;
+    transition: all .25s ease, filter .1s ease;
+    cursor: pointer;
+
+    &:hover {
+      filter: brightness(120%);
+    }
+
+    &:active {
+      box-shadow: none;
+      translate: var(--move) var(--move);
+      filter: brightness(90%);
+    }
+  }
+
+  .tl-symbol {
+    align-self: center;
+    margin: 44px 0 16px 0;
+  }
+
+  .github-btn {
+    --size: 50px;
+    --color: #444;
+    border-radius: 10px;
+    border: 1px solid var(--color);
+    background: #0d0d0d;
+    width: var(--size);
+    min-height: var(--size);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    svg {
+      --size: 75%;
+      height: var(--size);
+      width: var(--size);
+      color: var(--color);
+    }
+
+    transition: all .2s ease-out,
+    filter .1s ease;
+
+    &:hover {
+      filter: brightness(130%);
+    }
+
+    &:active {
+      scale: .9;
+    }
+  }
+}

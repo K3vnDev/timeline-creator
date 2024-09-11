@@ -1,0 +1,44 @@
+:root {
+  --menu-padding: 40px;
+}
+
+.toggle-menu-btn {
+  --size: 60px;
+  width: var(--size);
+  height: var(--size);
+  position: fixed;
+  top: var(--menu-padding);
+  left: var(--menu-padding);
+  border-radius: 10px;
+  border: 1px solid #444;
+  background: #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  transition: all .2s ease-out, filter .1s ease;
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(130%);
+  }
+
+  &:active {
+    scale: .9;
+  }
+
+  &.with-menu {
+    background: transparent;
+    border-color: transparent;
+
+    svg {
+      --size: 90%;
+    }
+  }
+
+  svg {
+    --size: 75%;
+    width: var(--size);
+    height: var(--size);
+  }
+}

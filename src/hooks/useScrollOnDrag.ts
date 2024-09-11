@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { useStore } from '../store/useStore'
 
-export const useScrollOnDrag = () => {
+export const useScrollPageOnDrag = () => {
   const [dragging, setDragging] = useState(false)
-  const setPointerEvents = useStore(s => s.setPointerEvents)
+  const [setPointerEvents, setShowingMenu] = useStore(s => [s.setPointerEvents, s.setShowingMenu])
   const lastValueX = useRef(0)
 
   useEffect(() => {
@@ -51,6 +51,7 @@ export const useScrollOnDrag = () => {
     const newScrollValue = window.scrollX + scrollMovement
     document.body.scrollLeft = newScrollValue
     window.scrollTo({ left: newScrollValue, behavior: 'instant' })
+    setShowingMenu(false)
   }
 
   const setDraggingCursor = (value: boolean) => {

@@ -17,7 +17,7 @@ export const newMarkTemplate: Mark = {
   }
 }
 
-export const TIMELINE_DEFAULT_NAME = 'My Cool Timeline'
+export const TIMELINE_DEFAULT_NAME = 'My New Timeline'
 
 export const intialTimeline: Timeline = {
   name: TIMELINE_DEFAULT_NAME,

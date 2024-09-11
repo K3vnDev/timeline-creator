@@ -1,10 +1,11 @@
 export type Element = Point | Mark
 export type PointerEvents = 'auto' | 'none'
+export type HexColor = `#${string}`
 
 export type Timeline = {
   name: string
   id: string
-  color: `#${string}`
+  color: HexColor
   elements: Array<Element>
 }
 

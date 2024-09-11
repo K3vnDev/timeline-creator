@@ -1,18 +1,24 @@
 import { useEffect } from 'react'
 
-type ToggleValue = (value: boolean) => void
+type EventName = 'click' | 'pointerdown'
 
-export const useFocusOnClick = (selector: string, toggleValue: ToggleValue) => {
+export const useFocusOnClick = (
+  action: (value: boolean) => void,
+  eventName: EventName,
+  ...selectors: string[]
+) => {
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       const { target } = e
       if (!target) return
 
-      const clickedInside = Boolean((target as HTMLElement).closest(selector))
-      toggleValue(clickedInside)
+      const clickedInside = selectors.some(selector =>
+        Boolean((target as HTMLElement).closest(selector))
+      )
+      action(clickedInside)
     }
 
-    document.addEventListener('click', handleClick)
-    return () => document.removeEventListener('click', handleClick)
+    document.addEventListener(eventName, handleClick)
+    return () => document.removeEventListener(eventName, handleClick)
   }, [])
 }

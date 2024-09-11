@@ -11,6 +11,8 @@ interface Store {
 
   setTimelineName: (value: string) => void
 
+  savedTimelines: Array<Timeline>
+
   setPointTitle: (value: string) => void
   setPointImage: (value: string) => void
   setPointDesc: (value: string) => void
@@ -30,6 +32,9 @@ interface Store {
 
   pointerEvents: PointerEvents
   setPointerEvents: (value: PointerEvents) => void
+
+  showingMenu: boolean
+  setShowingMenu: (value: boolean) => void
 }
 
 export const useStore = create<Store>()(set => ({
@@ -41,6 +46,8 @@ export const useStore = create<Store>()(set => ({
       newTimeline.name = value
       return { timeline: newTimeline }
     }),
+
+  savedTimelines: Array(5).fill(intialTimeline),
 
   setPointTitle: value =>
     set(({ timeline, editingElement }) =>
@@ -112,5 +119,8 @@ export const useStore = create<Store>()(set => ({
     ),
 
   pointerEvents: 'auto',
-  setPointerEvents: value => set(() => ({ pointerEvents: value }))
+  setPointerEvents: value => set(() => ({ pointerEvents: value })),
+
+  showingMenu: false,
+  setShowingMenu: value => set(() => ({ showingMenu: value }))
 }))

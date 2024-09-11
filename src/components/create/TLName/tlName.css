@@ -10,6 +10,7 @@
   font-family: Inter;
   transform: translateX(-50%);
   text-align: center;
+  text-wrap: nowrap;
 
   svg {
     position: absolute;
