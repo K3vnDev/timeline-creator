@@ -10,10 +10,7 @@ export const ToggleMenuButton = () => {
   const [showingMenu, setShowingMenu, pointerEvents] = 
     useStore(s => [s.showingMenu, s.setShowingMenu, s.pointerEvents])
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.stopPropagation()
-    setShowingMenu(!showingMenu)
-  }
+  const handleClick = () => setShowingMenu(!showingMenu)
   const className = showingMenu ? 'toggle-menu-btn  with-menu' : 'toggle-menu-btn'
 
   // biome-ignore format: <>

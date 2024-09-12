@@ -1,0 +1,26 @@
+.blue-button {
+  --move: 4px;
+  padding: 16px 40px;
+  width: min-content;
+  text-wrap: nowrap;
+  border-radius: 10px;
+  background: var(--blue);
+  box-shadow: var(--move)var(--move) 0px 0px #170D68;
+  border: none;
+  text-align: center;
+  font-family: Inter;
+  font-size: 26px;
+  font-weight: 700;
+  transition: all .25s ease, filter .1s ease;
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(120%);
+  }
+
+  &:active {
+    box-shadow: none;
+    translate: var(--move) var(--move);
+    filter: brightness(90%);
+  }
+}

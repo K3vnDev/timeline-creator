@@ -26,7 +26,7 @@ export const MoveArrows = ({ id }: Props) => {
 
   const checkFocusingOnInput = () => Boolean(document.querySelector('input:focus, textarea:focus'))
 
-  const [moveLeft, moveRight] = [() => moveElement(id, -1), () => moveElement(id, 1)]
+  const [moveLeft, moveRight] = [() => moveElement(-1), () => moveElement(1)]
   const [onLeftEdge, onRightEdge] = [index === 0, index === elements.length - 1]
 
   return (

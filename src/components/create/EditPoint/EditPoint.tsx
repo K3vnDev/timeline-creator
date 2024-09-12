@@ -3,13 +3,13 @@ import { useEditPoint } from '../../../hooks/useEditPoint'
 import { useFocusOnKey } from '../../../hooks/useFocusOnKey'
 import { useTextInput } from '../../../hooks/useTextInput'
 import { useStore } from '../../../store/useStore'
+import { ClearInputButton } from '../ClearInputButton/ClearInputButton'
 import { DeleteButton } from '../DeleteButton/DeleteButton'
 import { DragAndDropImage } from '../DragAndDropImage/DragAndDropImage'
+import { DuplicateButton } from '../DuplicateButton/DuplicateButton'
 import { MoveArrows } from '../MoveArrows/MoveArrows'
 import { PointContext } from '../Point/Point'
 import './editPoint.css'
-import { ClearInputButton } from '../ClearInputButton/ClearInputButton'
-import { DuplicateButton } from '../DuplicateButton/DuplicateButton'
 
 export const EditPoint = () => {
   const { id } = useContext(PointContext)
@@ -23,7 +23,7 @@ export const EditPoint = () => {
 
       <div className='btns-wrapper'>
         <DeleteButton id={id} />
-        <DuplicateButton id={id} />
+        <DuplicateButton />
         <MoveArrows id={id} />
       </div>
     </>
@@ -61,12 +61,12 @@ const Title = ({
 }
 
 const Image = () => {
-  const { image: url, id } = useContext(PointContext)
+  const { image: url } = useContext(PointContext)
 
   return (
     <div className='image-wrapper'>
       {url && <img className='image' src={url} draggable={false} />}
-      <DragAndDropImage url={url} id={id} />
+      <DragAndDropImage url={url} />
     </div>
   )
 }

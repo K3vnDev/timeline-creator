@@ -1,17 +1,25 @@
 import { create } from 'zustand'
 import { intialTimeline, newMarkTemplate, newPointTemplate } from '../consts.d'
-import type { Mark, PointerEvents, Timeline } from '../types.d'
+import type { HexColor, Mark, PointerEvents, Timeline } from '../types.d'
+import { generateColor } from '../utils/generateColor'
 import { generateId } from '../utils/generateId'
 import { createElement } from './createElement'
+import { getIndex } from './getIndex'
 import { modifyElements } from './modifyElements'
+import { modifyTimelines } from './modifyTimelines'
 import { setPointContent } from './setPointContent'
 
 interface Store {
   timeline: Timeline
-
-  setTimelineName: (value: string) => void
-
   savedTimelines: Array<Timeline>
+
+  setEditingTimeline: (id: string | null) => void
+  createTimeline: () => void
+  saveTimeline: () => void
+  setTimelineName: (value: string) => void
+  setTimelineColor: (value: HexColor) => void
+  duplicateTimeline: () => void
+  deleteTimeline: () => void
 
   setPointTitle: (value: string) => void
   setPointImage: (value: string) => void
@@ -21,14 +29,12 @@ interface Store {
 
   createPoint: (index: number) => void
   createMark: (index: number) => void
+  duplicateElement: () => void
+  moveElement: (direction: 1 | -1) => void
   deleteElement: (id: string) => void
 
   editingElement: string
   setEditingElement: (id: string) => void
-
-  moveElement: (id: string, direction: 1 | -1) => void
-
-  duplicateElement: (id: string) => void
 
   pointerEvents: PointerEvents
   setPointerEvents: (value: PointerEvents) => void
@@ -39,6 +45,34 @@ interface Store {
 
 export const useStore = create<Store>()(set => ({
   timeline: intialTimeline,
+  savedTimelines: [intialTimeline],
+
+  setEditingTimeline: id =>
+    set(({ savedTimelines }) => {
+      if (!id) return { timeline: undefined }
+      const index = getIndex(savedTimelines, id)
+      return { timeline: savedTimelines[index] }
+    }),
+
+  createTimeline: () =>
+    set(({ savedTimelines }) => {
+      const newTimeline: Timeline = {
+        ...structuredClone(intialTimeline),
+        id: generateId(savedTimelines),
+        color: generateColor()
+      }
+      const newSavedTimelines = [...savedTimelines, newTimeline]
+      return { savedTimelines: newSavedTimelines, timeline: newTimeline }
+    }),
+
+  saveTimeline: () =>
+    set(({ timeline, savedTimelines }) =>
+      modifyTimelines(savedTimelines, timeline.id, (newTimelines, index) => {
+        const savingTimeline = structuredClone(timeline)
+        newTimelines.splice(index, 1, savingTimeline)
+        return newTimelines
+      })
+    ),
 
   setTimelineName: value =>
     set(({ timeline }) => {
@@ -47,7 +81,36 @@ export const useStore = create<Store>()(set => ({
       return { timeline: newTimeline }
     }),
 
-  savedTimelines: Array(5).fill(intialTimeline),
+  setTimelineColor: value =>
+    set(({ timeline }) => {
+      const newTimeline = structuredClone(timeline)
+      newTimeline.color = value
+      return { timeline: newTimeline }
+    }),
+
+  duplicateTimeline: () =>
+    set(({ timeline, savedTimelines }) =>
+      modifyTimelines(savedTimelines, timeline.id, (newTimelines, index) => {
+        const duplicatedTimeline = { ...structuredClone(timeline), id: generateId(savedTimelines) }
+        newTimelines.splice(index + 1, 0, duplicatedTimeline)
+        return newTimelines
+      })
+    ),
+
+  deleteTimeline: () =>
+    set(({ timeline, savedTimelines, setEditingTimeline }) =>
+      modifyTimelines(savedTimelines, timeline.id, (newTimelines, index) => {
+        newTimelines.splice(index, 1)
+
+        if (newTimelines.length !== 0) {
+          const newEditingTimelineIndex = index < newTimelines.length ? index : index - 1
+          setEditingTimeline(newTimelines[newEditingTimelineIndex].id)
+        } else {
+          setEditingTimeline(null)
+        }
+        return newTimelines
+      })
+    ),
 
   setPointTitle: value =>
     set(({ timeline, editingElement }) =>
@@ -93,9 +156,9 @@ export const useStore = create<Store>()(set => ({
   editingElement: '',
   setEditingElement: id => set(() => ({ editingElement: id })),
 
-  moveElement: (id, direction) =>
-    set(({ timeline }) =>
-      modifyElements(timeline, id, (newElements, index) => {
+  moveElement: direction =>
+    set(({ timeline, editingElement }) =>
+      modifyElements(timeline, editingElement, (newElements, index) => {
         const replacingIndex = index + direction
         if (replacingIndex < 0 || replacingIndex >= newElements.length) return
 
@@ -108,9 +171,9 @@ export const useStore = create<Store>()(set => ({
       })
     ),
 
-  duplicateElement: id =>
-    set(({ timeline }) =>
-      modifyElements(timeline, id, (newElements, index) => {
+  duplicateElement: () =>
+    set(({ timeline, editingElement }) =>
+      modifyElements(timeline, editingElement, (newElements, index) => {
         const newId = generateId(newElements)
         const elementCopy = { ...structuredClone(newElements[index]), id: newId }
         newElements.splice(index, 0, elementCopy)
@@ -118,7 +181,7 @@ export const useStore = create<Store>()(set => ({
       })
     ),
 
-  pointerEvents: 'auto',
+  pointerEvents: 'auto' as PointerEvents,
   setPointerEvents: value => set(() => ({ pointerEvents: value })),
 
   showingMenu: false,

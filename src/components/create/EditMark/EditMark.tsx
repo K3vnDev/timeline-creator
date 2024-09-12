@@ -25,7 +25,7 @@ export const EditMark = () => {
       />
       <div className='options-btns'>
         <DeleteButton id={id} />
-        <DuplicateButton id={id} />
+        <DuplicateButton />
       </div>
       <MoveArrows id={id} />
     </>

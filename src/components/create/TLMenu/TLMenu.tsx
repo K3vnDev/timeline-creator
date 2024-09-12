@@ -4,6 +4,8 @@ import { ToggleMenuButton } from '../ToggleMenuButton/ToggleMenuButton'
 import './tlMenu.css'
 import { useCantScrollPage } from '../../../hooks/useCantScrollPage'
 import { useMenu } from '../../../hooks/useMenu'
+import { useStore } from '../../../store/useStore'
+import { BlueButton } from '../../root/BlueButton/BlueButton'
 import { TLSymbol } from '../TLSymbol/TLSymbol'
 
 export const TLMenu = () => {
@@ -26,7 +28,9 @@ export const TLMenu = () => {
 }
 
 const CreateNewButton = () => {
-  return <button className='create-new-btn'>Create New...</button>
+  const createTimeline = useStore(s => s.createTimeline)
+
+  return <BlueButton onClick={createTimeline}>Create new...</BlueButton>
 }
 
 const GithubButton = () => {

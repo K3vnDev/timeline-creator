@@ -26,6 +26,7 @@
   --scroll-bg: #1a1a1c;
   --scroll-thumb: #2c2c2e;
   --scroll-bg-l: #333335;
+  --blue: #25179C;
 }
 
 ::-webkit-scrollbar {
@@ -33,7 +34,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  border: 1px solid #222;
+  border-top: 1px solid #222;
   background: #111;
 }
 

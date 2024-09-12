@@ -1,6 +1,5 @@
 import { useStore } from '../../../store/useStore'
-import type { Timeline } from '../../../types.d'
-import { Settings as SettingsIcon } from '../../root/icons'
+import { TLSItem } from '../TLSItem/TLSItem'
 import './tlsList.css'
 
 export const TLSList = () => {
@@ -13,20 +12,5 @@ export const TLSList = () => {
         return <TLSItem key={timeline.id} timeline={timeline} />
       })}
     </ul>
-  )
-}
-
-interface TLSItemProps {
-  timeline: Timeline
-}
-
-const TLSItem = ({ timeline }: TLSItemProps) => {
-  return (
-    <li className='tls-item'>
-      <span>{timeline.name}</span>
-      <button>
-        <SettingsIcon />
-      </button>
-    </li>
   )
 }

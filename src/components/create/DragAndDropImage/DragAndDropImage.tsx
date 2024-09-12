@@ -9,10 +9,9 @@ import './dragAndDropImage.css'
 
 interface Props {
   url: string
-  id: string
 }
 
-export const DragAndDropImage = ({ url, id }: Props) => {
+export const DragAndDropImage = ({ url }: Props) => {
   const setPointImage = useStore(s => s.setPointImage)
   const [draggingOver, setDraggingOver] = useState(false)
   const inputRef = useRef(null)
@@ -60,12 +59,12 @@ export const DragAndDropImage = ({ url, id }: Props) => {
   const setImage = (image: File) => {
     if (!acceptedFormats.includes(image.type)) return
     const url = URL.createObjectURL(image)
-    setPointImage(id, url)
+    setPointImage(url)
   }
 
   const handleDeleteImage = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation()
-    setPointImage(id, '')
+    setPointImage('')
   }
 
   return (

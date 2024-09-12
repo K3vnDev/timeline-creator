@@ -3,7 +3,6 @@ import { useStore } from '../../../store/useStore'
 import { EditPoint } from '../EditPoint/EditPoint'
 import { TLElement } from '../TLElement/TLElement'
 import './point.css'
-import { useElementFocusOnClick } from '../../../hooks/useElementFocusOnClick'
 
 interface Props {
   id: string

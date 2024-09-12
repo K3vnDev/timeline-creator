@@ -1,0 +1,219 @@
+.tls-item {
+  border-radius: 10px;
+  border: 1px solid #333;
+  background: #1C1C1C;
+  position: relative;
+  width: calc(var(--w) - var(--scroll-w) - var(--scroll-gap));
+  cursor: pointer;
+
+  --default-h: 64px;
+  --on-settings-h: 120px;
+
+  height: var(--default-h);
+  min-height: var(--default-h);
+  min-width: 200px;
+  --padding: 18px;
+  padding: var(--padding);
+  padding-left: 28px;
+  overflow: hidden;
+
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 14px;
+  transition: all .25s ease, filter .1s ease;
+  --outline-w: 2px;
+  outline: var(--outline-w) solid transparent;
+
+  &.selected {
+    background: #333;
+    border-color: transparent;
+    outline: var(--outline-w) solid #444;
+    outline-offset: calc(-1 * var(--outline-w));
+    padding-left: 36px;
+
+    &::before {
+      width: 16px;
+    }
+  }
+
+  &.showing-settings {
+    height: var(--on-settings-h);
+    min-height: var(--on-settings-h);
+    padding-left: 28px;
+    outline-style: dashed;
+
+    &::before {
+      width: 0px;
+    }
+  }
+
+  &::before {
+    background: var(--prev-color);
+    height: 100%;
+    width: 10px;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: width .2s ease;
+  }
+
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+    cursor: default;
+    line-height: 24px;
+    height: 24px;
+
+    color: #FFF;
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .settings-btn {
+    background: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: all .1s ease-out;
+    position: relative;
+    --size: 20px;
+    min-width: var(--size);
+    min-height: var(--size);
+    cursor: pointer;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      translate: -50% -50%;
+      --size: 220%;
+      width: var(--size);
+      height: var(--size);
+    }
+
+    svg {
+      --size: 100%;
+      width: var(--size);
+      height: var(--size);
+      scale: 1.25;
+      color: #666;
+    }
+
+    &:hover {
+      filter: brightness(150%);
+      scale: 1.05;
+    }
+
+    &:active {
+      filter: brightness(80%);
+      scale: .9;
+      rotate: 45deg;
+    }
+
+  }
+
+  .settings-wrapper {
+    position: absolute;
+    bottom: var(--padding);
+    left: var(--padding);
+    width: calc(100% - var(--padding) * 2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .3s ease .1s;
+    gap: 18px;
+
+    button {
+      --size: 45px;
+      height: var(--size);
+      width: var(--size);
+      background: #1e1e1e;
+      border: 1px solid #444;
+      border-radius: 10px;
+      cursor: pointer;
+
+      transition: background .15s ease, scale .3s ease;
+
+      svg {
+        --size: 80%;
+        height: var(--size);
+        width: var(--size);
+      }
+
+      &:hover {
+        background: #161616;
+
+        &.settings-color-btn {
+          background: var(--color);
+        }
+
+        &>svg {
+          color: #fff;
+        }
+      }
+
+      &:active {
+        scale: .9;
+        background: #000;
+
+        &>svg {
+          color: #bbb;
+        }
+      }
+
+      svg {
+        --size: 60%;
+        height: var(--size);
+        width: var(--size);
+        color: #bbb;
+        stroke-width: 1.4;
+        transition: color .15s ease;
+      }
+
+      &.settings-color-btn {
+        position: relative;
+
+        input {
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+          position: absolute;
+          left: 0;
+          top: 0;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  &:not(.showing-settings) {
+    .settings-wrapper {
+      pointer-events: none;
+      transition: all .1s ease;
+      opacity: 0;
+    }
+  }
+
+  &:hover {
+    filter: brightness(125%);
+
+    .settings-btn {
+      opacity: 1;
+      transition: all .3s ease-out;
+    }
+  }
+
+  &:active {
+    scale: .95;
+    filter: brightness(90%);
+  }
+}

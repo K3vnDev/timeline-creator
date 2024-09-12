@@ -3,26 +3,24 @@ import { AddElement } from '../components/create/AddElement/AddElement'
 import { Mark } from '../components/create/Mark/Mark'
 import { Point } from '../components/create/Point/Point'
 import { useStore } from '../store/useStore'
+import { useFocusOnClick } from './useFocusOnClick'
 
 export const useTimeline = () => {
-  const [timeline, setEditingElement] = useStore(s => [s.timeline, s.setEditingElement])
+  // biome-ignore format: <>
+  const [timeline, setEditingElement, saveTimeline] = 
+    useStore(s => [s.timeline, s.setEditingElement, s.saveTimeline])
 
-  useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      e.stopPropagation()
+  useFocusOnClick(
+    clickedInside => {
+      if (!clickedInside) setEditingElement('')
+    },
+    'click',
+    '.point',
+    '.mark',
+    '.add-element'
+  )
 
-      const target = e?.target as HTMLElement
-      if (
-        !target.closest('.point') &&
-        !target.closest('.mark') &&
-        !target.closest('.add-element')
-      ) {
-        setEditingElement('')
-      }
-    }
-    document.addEventListener('click', handleClick)
-    return () => document.removeEventListener('click', handleClick)
-  }, [setEditingElement])
+  useEffect(saveTimeline, [timeline])
 
   const mappedElements = (() => {
     const elements = [<AddElement key={-0.5} index={0} />]
@@ -36,9 +34,9 @@ export const useTimeline = () => {
           <Point content={content} id={id} key={id} onBottom={pointsCount++ % 2 === 0} index={i} />
         ) : (
           <Mark content={content} id={id} key={id} index={i} />
-        )
+        ),
+        <AddElement key={i + 0.5} index={i + 1} />
       )
-      elements.push(<AddElement key={i + 0.5} index={i + 1} />)
     }
 
     return elements

@@ -16,7 +16,11 @@ export const TLSymbol = ({ steps, size, width, length }: Props) => {
 
   return (
     <div style={style} className='tl-symbol'>
-      {Array(steps).fill(<span />)}
+      {Array(steps)
+        .fill('')
+        .map((_, index) => (
+          <span key={index} />
+        ))}
     </div>
   )
 }

@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { TIMELINE_DEFAULT_NAME } from '../../../consts.d'
-import { useTextInput } from '../../../hooks/useTextInput'
 import { useStore } from '../../../store/useStore'
 import './tlName.css'
 import { useFocusOnClick } from '../../../hooks/useFocusOnClick'
+import { useTextInput } from '../../../hooks/useTextInput'
 import { Pencil as PencilIcon } from '../../root/icons'
 
 export const TLName = () => {

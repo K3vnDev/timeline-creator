@@ -29,7 +29,7 @@ const letters = [
   'Z'
 ]
 
-export function generateId(array: Timeline[] | Element[]): string {
+export const generateId = (array: Timeline[] | Element[]): string => {
   let id = ''
   for (let i = 0; i < 4; i++) {
     const randomIndex = Math.floor(Math.random() * letters.length)
