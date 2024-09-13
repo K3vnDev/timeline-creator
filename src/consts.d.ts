@@ -1,4 +1,4 @@
-import type { Mark, Point, Timeline } from './types.d'
+import type { HexColor, Mark, Point, Timeline } from './types.d'
 import { generateId } from './utils/generateId'
 
 export const newPointTemplate: Point = {
@@ -18,20 +18,21 @@ export const newMarkTemplate: Mark = {
 }
 
 export const TIMELINE_DEFAULT_NAME = 'My New Timeline'
+export const TIMELINE_DEFAULT_COLOR: HexColor = '#2633e0'
 
-export const intialTimeline: Timeline = {
+export const defaultTimeline: Timeline = {
   name: TIMELINE_DEFAULT_NAME,
   id: generateId([]),
-  color: '#2633e0',
+  color: TIMELINE_DEFAULT_COLOR,
   elements: [
     {
       type: 'mark',
-      id: generateId([]),
+      id: '0000',
       content: { text: 'My mark' }
     },
     {
       type: 'point',
-      id: generateId([]),
+      id: '0001',
       content: {
         title: 'My first title',
         image: 'https://www.cdc.gov/healthy-pets/media/images/2024/04/Cat-on-couch.jpg',
@@ -40,7 +41,7 @@ export const intialTimeline: Timeline = {
     },
     {
       type: 'point',
-      id: generateId([]),
+      id: '0010',
       content: {
         title: '',
         image:
@@ -50,7 +51,7 @@ export const intialTimeline: Timeline = {
     },
     {
       type: 'point',
-      id: generateId([]),
+      id: '0011',
       content: {
         title: '',
         image:
@@ -60,7 +61,7 @@ export const intialTimeline: Timeline = {
     },
     {
       type: 'point',
-      id: generateId([]),
+      id: '0100',
       content: {
         title: 'My second title',
         desc: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Enim, autem.'

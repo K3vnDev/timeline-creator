@@ -1,10 +1,11 @@
 import { create } from 'zustand'
-import { intialTimeline, newMarkTemplate, newPointTemplate } from '../consts.d'
+import { defaultTimeline, newMarkTemplate, newPointTemplate } from '../consts.d'
 import type { HexColor, Mark, PointerEvents, Timeline } from '../types.d'
 import { generateColor } from '../utils/generateColor'
 import { generateId } from '../utils/generateId'
 import { createElement } from './createElement'
 import { getIndex } from './getIndex'
+import { initialSavedTimelines, initialTimeline } from './initialState.d'
 import { modifyElements } from './modifyElements'
 import { modifyTimelines } from './modifyTimelines'
 import { setPointContent } from './setPointContent'
@@ -44,8 +45,8 @@ interface Store {
 }
 
 export const useStore = create<Store>()(set => ({
-  timeline: intialTimeline,
-  savedTimelines: [intialTimeline],
+  timeline: initialTimeline,
+  savedTimelines: initialSavedTimelines,
 
   setEditingTimeline: id =>
     set(({ savedTimelines }) => {
@@ -57,7 +58,7 @@ export const useStore = create<Store>()(set => ({
   createTimeline: () =>
     set(({ savedTimelines }) => {
       const newTimeline: Timeline = {
-        ...structuredClone(intialTimeline),
+        ...structuredClone(defaultTimeline),
         id: generateId(savedTimelines),
         color: generateColor()
       }
