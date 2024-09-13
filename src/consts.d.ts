@@ -17,6 +17,8 @@ export const newMarkTemplate: Mark = {
   }
 }
 
+export const IMAGE_ACCEPTED_FORMATS = ['image/png', 'image/jpeg', 'image/webp']
+
 export const TIMELINE_DEFAULT_NAME = 'My New Timeline'
 export const TIMELINE_DEFAULT_COLOR: HexColor = '#2633e0'
 

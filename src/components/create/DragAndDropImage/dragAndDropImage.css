@@ -1,86 +1,93 @@
-.point.editing {
-  & .drag-and-drop-image {
-    height: 100%;
-    border: 2px dashed #484848;
-    color: var(--text-light-gray);
-    font-family: Inter;
-    text-align: center;
-    font-size: 18px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: var(--p);
-    align-items: center;
-    border-radius: var(--p);
-    cursor: pointer;
+.point.editing .drag-and-drop-image {
+  height: 100%;
+  border: 2px dashed #484848;
+  color: var(--text-light-gray);
+  font-family: Inter;
+  text-align: center;
+  font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--p);
+  align-items: center;
+  border-radius: var(--p);
+  cursor: pointer;
 
-    &>svg {
-      --size: 40px;
-      height: var(--size);
-      width: var(--size);
-      stroke-width: 1.6;
-      pointer-events: none;
-    }
+  &>svg {
+    --size: 40px;
+    height: var(--size);
+    width: var(--size);
+    stroke-width: 1.6;
+    pointer-events: none;
+  }
 
-    &.with-image {
-      position: absolute;
-      top: var(--p);
-      left: var(--p);
-      --size: calc(100% - var(--p) * 2);
-      width: var(--size);
-      height: var(--size);
-      background: rgb(0 0 0 / .65);
-      text-shadow: 0px 0px 16px #000;
+  .loading-arrows {
+    --size: 50%;
+    height: var(--size);
+    width: var(--size);
+    stroke-width: 1.5;
+    pointer-events: none;
+    opacity: .5;
+  }
 
-      &>span {
-        display: flex;
-        flex-direction: row;
-        gap: 12px;
+  &.with-image {
+    position: absolute;
+    top: var(--p);
+    left: var(--p);
+    --size: calc(100% - var(--p) * 2);
+    width: var(--size);
+    height: var(--size);
+    background: rgb(0 0 0 / .65);
+    text-shadow: 0px 0px 16px #000;
 
-        &>button {
-          background: rgb(0 0 0 / .6);
-          padding: var(--p);
-          --size: 60px;
+    &>span {
+      display: flex;
+      flex-direction: row;
+      gap: 12px;
+
+      button {
+        background: rgb(0 0 0 / .6);
+        padding: var(--p);
+        --size: 60px;
+        width: var(--size);
+        height: var(--size);
+        border-radius: var(--p);
+        backdrop-filter: blur(4px);
+        cursor: pointer;
+        border: none;
+
+        svg {
+          --size: 80%;
           width: var(--size);
           height: var(--size);
-          border-radius: var(--p);
-          backdrop-filter: blur(4px);
-          cursor: pointer;
-          border: none;
-
-          &>svg {
-            --size: 80%;
-            width: var(--size);
-            height: var(--size);
-            color: var(--text-light-gray);
-            pointer-events: none;
-          }
+          color: var(--text-light-gray);
+          pointer-events: none;
         }
       }
     }
+  }
 
-    &.dragging-over {
-      border: 2px dashed var(--text-light-gray);
+  &.dragging-over {
+    border: 2px dashed var(--text-light-gray);
 
-      &.with-image {
-        background: rgb(0 0 0 / .75);
-      }
+    &.with-image {
+      background: rgb(0 0 0 / .75);
+    }
 
-      &>svg {
-        --size: 64px;
-        stroke-width: 2;
-        height: var(--size);
-        width: var(--size);
-        pointer-events: none;
-        animation: upload-bounce 1s ease infinite;
-      }
+    &>svg {
+      --size: 64px;
+      stroke-width: 2;
+      height: var(--size);
+      width: var(--size);
+      pointer-events: none;
+      animation: upload-bounce 1s ease infinite;
+    }
 
-      &>span {
-        animation: size-in-out .5s ease-in-out infinite alternate;
-        font-weight: 500;
-        font-size: 20px;
-        pointer-events: none;
-      }
+    &>span {
+      animation: size-in-out .5s ease-in-out infinite alternate;
+      font-weight: 500;
+      font-size: 20px;
+      pointer-events: none;
     }
   }
 }

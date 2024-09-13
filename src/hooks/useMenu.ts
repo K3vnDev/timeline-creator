@@ -12,8 +12,8 @@ export const useMenu = () => {
       if (!clickedInside) setShowingMenu(false)
     },
     'pointerdown',
-    'tl-menu',
-    'toggle-menu-btn'
+    '.tl-menu',
+    '.toggle-menu-btn'
   )
 
   useEffect(() => {

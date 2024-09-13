@@ -6,6 +6,9 @@ import {
   Upload as UploadIcon
 } from '../../root/icons'
 import './dragAndDropImage.css'
+import imageCompression from 'browser-image-compression'
+import { IMAGE_ACCEPTED_FORMATS } from '../../../consts.d'
+import { LoadingArrows } from '../../root/LoadingArrows/LoadingArrows'
 
 interface Props {
   url: string
@@ -14,8 +17,11 @@ interface Props {
 export const DragAndDropImage = ({ url }: Props) => {
   const setPointImage = useStore(s => s.setPointImage)
   const [draggingOver, setDraggingOver] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const inputRef = useRef(null)
   const dragnDropRef = useRef(null)
+
+  const cancelUploading = () => setUploading(false)
 
   const className = (() => {
     let c = 'drag-and-drop-image'
@@ -38,28 +44,49 @@ export const DragAndDropImage = ({ url }: Props) => {
 
       if (!e.dataTransfer?.files) return
       const [file] = e.dataTransfer.files
-      if (file) setImage(file)
+      if (file) compressImage(file)
     }
   }, [dragnDropRef.current])
 
   const handleBrowseFile = () => {
-    if (!inputRef.current) return
+    if (!inputRef.current || uploading) return
     ;(inputRef.current as HTMLElement).click()
   }
-
-  const acceptedFormats = ['image/png', 'image/jpeg', 'image/webp']
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return
     const [file] = e.target.files
     e.target.value = ''
-    setImage(file)
+
+    if (IMAGE_ACCEPTED_FORMATS.includes(file.type)) {
+      compressImage(file)
+    }
   }
 
-  const setImage = (image: File) => {
-    if (!acceptedFormats.includes(image.type)) return
-    const url = URL.createObjectURL(image)
-    setPointImage(url)
+  const compressImage = (image: File) => {
+    setUploading(true)
+
+    const options = {
+      maxSizeMB: 0.4,
+      maxWidthOrHeight: 1080,
+      useWebWorker: true
+    }
+
+    imageCompression(image, options)
+      .then(compressedImage => {
+        const reader = new FileReader()
+        reader.readAsDataURL(compressedImage)
+
+        reader.onload = e => {
+          const result = e.target?.result
+          if (!result || !uploading) return
+
+          setPointImage(result.toString())
+          setUploading(false)
+        }
+        reader.onerror = cancelUploading
+      })
+      .catch(cancelUploading)
   }
 
   const handleDeleteImage = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -69,34 +96,18 @@ export const DragAndDropImage = ({ url }: Props) => {
 
   return (
     <div className={className} onClick={handleBrowseFile} ref={dragnDropRef}>
-      {draggingOver ? (
-        <>
-          <UploadIcon />
-          <span>drop it here!</span>
-        </>
+      {uploading ? (
+        <LoadingArrows />
+      ) : draggingOver ? (
+        <DraggingOver />
       ) : url ? (
-        <>
-          <span>
-            <button onClick={handleDeleteImage}>
-              <ImageDeleteIcon />
-            </button>
-            <button>
-              <ImageUploadIcon />
-            </button>
-          </span>
-          or drop an image here
-        </>
+        <HasImageMenu handleDeleteImage={handleDeleteImage} />
       ) : (
-        <>
-          <ImageUploadIcon />
-          Drag & Drop an image here
-          <br />
-          or choose one
-        </>
+        <HasNotImageMenu />
       )}
       <input
         type='file'
-        accept={acceptedFormats.join(', ')}
+        accept={IMAGE_ACCEPTED_FORMATS.join(', ')}
         style={{ display: 'none' }}
         ref={inputRef}
         onChange={handleChange}
@@ -104,3 +115,36 @@ export const DragAndDropImage = ({ url }: Props) => {
     </div>
   )
 }
+
+const DraggingOver = () => (
+  <>
+    <UploadIcon />
+    <span>drop it here!</span>
+  </>
+)
+
+interface HasImageMenuProps {
+  handleDeleteImage: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+}
+const HasImageMenu = ({ handleDeleteImage }: HasImageMenuProps) => (
+  <>
+    <span>
+      <button onClick={handleDeleteImage}>
+        <ImageDeleteIcon />
+      </button>
+      <button>
+        <ImageUploadIcon />
+      </button>
+    </span>
+    or drop an image here
+  </>
+)
+
+const HasNotImageMenu = () => (
+  <>
+    <ImageUploadIcon />
+    Drag & Drop an image here
+    <br />
+    or choose one
+  </>
+)
