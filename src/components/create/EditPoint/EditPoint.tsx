@@ -13,13 +13,13 @@ import './editPoint.css'
 
 export const EditPoint = () => {
   const { id } = useContext(PointContext)
-  const { checkElement } = useEditPoint()
+  useEditPoint()
 
   return (
     <>
-      <Title checkElement={checkElement} />
+      <Title />
       <Image />
-      <Desc checkElement={checkElement} />
+      <Desc />
 
       <div className='btns-wrapper'>
         <DeleteButton id={id} />
@@ -30,15 +30,11 @@ export const EditPoint = () => {
   )
 }
 
-const Title = ({
-  checkElement
-}: { checkElement: (element: React.MutableRefObject<null>) => void }) => {
+const Title = () => {
   const { title: text, onBottom } = useContext(PointContext)
   const setPointTitle = useStore(s => s.setPointTitle)
   const elementRef = useRef(null)
   useFocusOnKey(elementRef, onBottom, 0)
-
-  useEffect(() => checkElement(elementRef), [elementRef.current])
 
   // biome-ignore format: <>
   const { animation, handleChange, trimText, handleClear } = 
@@ -71,19 +67,26 @@ const Image = () => {
   )
 }
 
-const Desc = ({
-  checkElement
-}: { checkElement: (element: React.MutableRefObject<null>) => void }) => {
+const Desc = () => {
   const { desc: text, onBottom } = useContext(PointContext)
   const setPointDesc = useStore(s => s.setPointDesc)
   const elementRef = useRef(null)
   useFocusOnKey(elementRef, onBottom, 1)
 
-  useEffect(() => checkElement(elementRef), [elementRef.current])
-
   // biome-ignore format: <>
   const { animation, handleChange, trimText, handleClear } = 
     useTextInput(text, setPointDesc, 120)
+
+  const recalculateWidth = () => {
+    if (!elementRef.current) return
+    const input: HTMLElement = elementRef.current
+
+    input.style.height = '0px'
+    const { scrollHeight } = input
+    input.style.height = `${scrollHeight}px`
+  }
+
+  useEffect(recalculateWidth, [text])
 
   return (
     <div className='desc-wrapper'>

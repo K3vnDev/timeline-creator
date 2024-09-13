@@ -1,4 +1,4 @@
-import { createContext } from 'react'
+import { createContext, useRef } from 'react'
 import { useStore } from '../../../store/useStore'
 import { EditPoint } from '../EditPoint/EditPoint'
 import { TLElement } from '../TLElement/TLElement'
@@ -19,6 +19,8 @@ export const Point = ({ id, content, onBottom, index }: Props) => {
   // biome-ignore format: <>
   const [editingElement, setEditingElement, deleteElement] =
     useStore(s => [s.editingElement, s.setEditingElement, s.deleteElement])
+
+  const elementRef = useRef(null)
 
   const { title, image, desc } = content
   const onEditMode = id === editingElement
@@ -49,12 +51,17 @@ export const Point = ({ id, content, onBottom, index }: Props) => {
     return c
   })()
 
-  const providerValue = { id, title, image, desc, imageHeight, onBottom }
+  const providerValue = { id, title, image, desc, imageHeight, onBottom, elementRef }
 
   return (
     <TLElement index={index}>
       <PointContext.Provider value={providerValue}>
-        <article className={className} onDragEnter={handleDragEnter} onClick={handleClick}>
+        <article
+          className={className}
+          onDragEnter={handleDragEnter}
+          onClick={handleClick}
+          ref={elementRef}
+        >
           {onEditMode ? (
             <EditPoint />
           ) : (
@@ -85,5 +92,6 @@ export const PointContext = createContext({
   image: '',
   desc: '',
   imageHeight: '',
-  onBottom: false
+  onBottom: false,
+  elementRef: { current: null } as React.MutableRefObject<null>
 })
