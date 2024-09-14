@@ -1,5 +1,4 @@
 .tl-symbol {
-  --color: #373737;
   width: var(--length);
   height: var(--width);
   background: var(--color);

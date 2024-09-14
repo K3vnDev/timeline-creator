@@ -1,0 +1,20 @@
+.app-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: -99;
+
+  .blurred-circle {
+    height: var(--size);
+    width: var(--size);
+    position: fixed;
+    border-radius: 50%;
+    top: var(--off-y);
+    left: var(--off-x);
+    background: var(--color);
+    opacity: .3;
+    filter: blur(60px);
+  }
+}

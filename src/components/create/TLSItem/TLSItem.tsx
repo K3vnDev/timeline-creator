@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import { UseTLSItem } from '../../../hooks/useTLSItem'
 import { useStore } from '../../../store/useStore'
 import type { HexColor, Timeline } from '../../../types.d'
@@ -8,6 +9,7 @@ import {
   Trash as TrashIcon
 } from '../../root/icons'
 import './tlsItem.css'
+import { useDebounce } from '../../../hooks/useDebounce'
 
 interface TLSItemProps {
   timeline: Timeline
@@ -71,22 +73,36 @@ interface ChangeColorButtonProps {
   showingSettings: boolean
 }
 
-const ChangeColorButton = ({ color, showingSettings }: ChangeColorButtonProps) => {
+const ChangeColorButton = ({ color: initialColor, showingSettings }: ChangeColorButtonProps) => {
   const setTimelineColor = useStore(s => s.setTimelineColor)
+  const inputRef = useRef(null)
+
+  const [inputColor, setInputColor] = useState<HexColor>(initialColor)
+  const debouncedColor = useDebounce(inputColor, 100)
+
+  useEffect(() => setTimelineColor(debouncedColor), [debouncedColor])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.stopPropagation()
-    setTimelineColor(e.target.value as HexColor)
+    setInputColor(e.target.value as HexColor)
+  }
+
+  const handleClick = () => {
+    if (!inputRef.current) return
+    const element: HTMLInputElement = inputRef.current
+
+    element.value = initialColor
+    element.click()
   }
 
   const style = {
-    '--color': color
+    '--color': inputColor
   } as React.CSSProperties
 
   return (
-    <button className='settings-color-btn' style={style}>
+    <button className='settings-color-btn' style={style} onClick={handleClick}>
       <PaletteIcon />
-      {showingSettings && <input type='color' value={color} onChange={handleChange} />}
+      {showingSettings && <input type='color' onChange={handleChange} ref={inputRef} />}
     </button>
   )
 }

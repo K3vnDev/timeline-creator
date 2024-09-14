@@ -1,17 +1,27 @@
-.blue-button {
+.app-button {
   --move: 4px;
   padding: 16px 40px;
   width: min-content;
   text-wrap: nowrap;
-  border-radius: 10px;
-  background: var(--blue);
-  box-shadow: var(--move)var(--move) 0px 0px #170D68;
+  border-radius: 8px;
+
+  &.blue {
+    background: var(--blue);
+    box-shadow: var(--move)var(--move) 0px 0px #170D68;
+  }
+
+  &.gray {
+    background: #1E1E1F;
+    box-shadow: var(--move)var(--move) 0px 0px #141414;
+  }
+
   border: none;
   text-align: center;
   font-family: Inter;
   font-size: 26px;
   font-weight: 700;
-  transition: all .25s ease, filter .1s ease;
+  transition: all .25s ease,
+  filter .1s ease;
   cursor: pointer;
 
   &:hover {

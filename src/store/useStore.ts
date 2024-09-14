@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { defaultTimeline, newMarkTemplate, newPointTemplate } from '../consts.d'
+import { DEFAULT_TIMELINE, DEMO_TIMELINE, newMarkTemplate, newPointTemplate } from '../consts.d'
 import type { HexColor, Mark, PointerEvents, Timeline } from '../types.d'
 import { generateColor } from '../utils/generateColor'
 import { generateId } from '../utils/generateId'
@@ -21,6 +21,7 @@ interface Store {
   setTimelineColor: (value: HexColor) => void
   duplicateTimeline: () => void
   deleteTimeline: () => void
+  loadDemoTimeline: () => void
 
   setPointTitle: (value: string) => void
   setPointImage: (value: string) => void
@@ -58,7 +59,7 @@ export const useStore = create<Store>()(set => ({
   createTimeline: () =>
     set(({ savedTimelines }) => {
       const newTimeline: Timeline = {
-        ...structuredClone(defaultTimeline),
+        ...structuredClone(DEFAULT_TIMELINE),
         id: generateId(savedTimelines),
         color: generateColor()
       }
@@ -112,6 +113,13 @@ export const useStore = create<Store>()(set => ({
         return newTimelines
       })
     ),
+
+  loadDemoTimeline: () =>
+    set(({ savedTimelines }) => {
+      const newDemoTimeline = structuredClone(DEMO_TIMELINE)
+      const newSavedTimelines = [...savedTimelines, newDemoTimeline]
+      return { savedTimelines: newSavedTimelines, timeline: newDemoTimeline }
+    }),
 
   setPointTitle: value =>
     set(({ timeline, editingElement }) =>

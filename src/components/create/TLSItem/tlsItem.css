@@ -183,13 +183,13 @@
         position: relative;
 
         input {
+          position: absolute;
+          pointer-events: none;
+          opacity: 0;
           width: 100%;
           height: 100%;
-          opacity: 0;
-          position: absolute;
-          left: 0;
           top: 0;
-          cursor: pointer;
+          left: 0;
         }
       }
     }

@@ -1,5 +1,8 @@
 import type { HexColor, Mark, Point, Timeline } from './types.d'
+import { generateColor } from './utils/generateColor'
 import { generateId } from './utils/generateId'
+
+// templates
 
 export const newPointTemplate: Point = {
   type: 'point',
@@ -17,15 +20,19 @@ export const newMarkTemplate: Mark = {
   }
 }
 
-export const IMAGE_ACCEPTED_FORMATS = ['image/png', 'image/jpeg', 'image/webp']
+// accepted image formats
 
-export const TIMELINE_DEFAULT_NAME = 'My New Timeline'
-export const TIMELINE_DEFAULT_COLOR: HexColor = '#2633e0'
+export const ACCEPTED_IMAGE_FORMATS = ['image/png', 'image/jpeg', 'image/webp']
 
-export const defaultTimeline: Timeline = {
-  name: TIMELINE_DEFAULT_NAME,
+// default timeline
+
+export const DEFAULT_TIMELINE_NAME = 'My New Timeline'
+export const DEFAULT_TIMELINE_COLOR: HexColor = '#2633e0'
+
+export const DEFAULT_TIMELINE: Timeline = {
+  name: DEFAULT_TIMELINE_NAME,
   id: generateId([]),
-  color: TIMELINE_DEFAULT_COLOR,
+  color: DEFAULT_TIMELINE_COLOR,
   elements: [
     {
       type: 'mark',
@@ -67,6 +74,37 @@ export const defaultTimeline: Timeline = {
       content: {
         title: 'My second title',
         desc: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Enim, autem.'
+      }
+    }
+  ]
+}
+
+// demo timeline
+
+export const DEMO_TIMELINE: Timeline = {
+  name: 'Example Demo Timeline',
+  id: generateId([]),
+  color: generateColor(),
+  elements: [
+    {
+      type: 'mark',
+      id: '0000',
+      content: { text: 'Demo' }
+    },
+    {
+      type: 'point',
+      id: '0001',
+      content: {
+        title: 'This is the demo timeline',
+        image: 'https://www.cdc.gov/healthy-pets/media/images/2024/04/Cat-on-couch.jpg'
+      }
+    },
+    {
+      type: 'point',
+      id: '0010',
+      content: {
+        title: 'zzzzzzzzzzzzzzzzzzzz',
+        desc: 'Please upgrape this later'
       }
     }
   ]

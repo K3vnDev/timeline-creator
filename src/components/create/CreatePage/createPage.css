@@ -1,10 +1,10 @@
-body {
+body.create {
   background: linear-gradient(180deg, #151515, #0C0C0C);
   height: 100vh;
   overflow: scroll hidden;
 }
 
-#root {
+#root.create {
   height: 100vh;
   min-width: 100vw;
   display: flex;

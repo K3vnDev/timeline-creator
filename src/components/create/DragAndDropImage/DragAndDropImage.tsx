@@ -7,7 +7,7 @@ import {
 } from '../../root/icons'
 import './dragAndDropImage.css'
 import imageCompression from 'browser-image-compression'
-import { IMAGE_ACCEPTED_FORMATS } from '../../../consts.d'
+import { ACCEPTED_IMAGE_FORMATS } from '../../../consts.d'
 import { LoadingArrows } from '../../root/LoadingArrows/LoadingArrows'
 
 interface Props {
@@ -18,10 +18,11 @@ export const DragAndDropImage = ({ url }: Props) => {
   const setPointImage = useStore(s => s.setPointImage)
   const [draggingOver, setDraggingOver] = useState(false)
   const [uploading, setUploading] = useState(false)
+  const reader = useRef(new FileReader())
   const inputRef = useRef(null)
   const dragnDropRef = useRef(null)
 
-  const cancelUploading = () => setUploading(false)
+  const stopUploading = () => setUploading(false)
 
   const className = (() => {
     let c = 'drag-and-drop-image'
@@ -48,6 +49,8 @@ export const DragAndDropImage = ({ url }: Props) => {
     }
   }, [dragnDropRef.current])
 
+  useEffect(() => () => reader.current.abort(), [])
+
   const handleBrowseFile = () => {
     if (!inputRef.current || uploading) return
     ;(inputRef.current as HTMLElement).click()
@@ -58,7 +61,7 @@ export const DragAndDropImage = ({ url }: Props) => {
     const [file] = e.target.files
     e.target.value = ''
 
-    if (IMAGE_ACCEPTED_FORMATS.includes(file.type)) {
+    if (ACCEPTED_IMAGE_FORMATS.includes(file.type)) {
       compressImage(file)
     }
   }
@@ -74,19 +77,17 @@ export const DragAndDropImage = ({ url }: Props) => {
 
     imageCompression(image, options)
       .then(compressedImage => {
-        const reader = new FileReader()
-        reader.readAsDataURL(compressedImage)
+        reader.current.readAsDataURL(compressedImage)
 
-        reader.onload = e => {
+        reader.current.onload = e => {
           const result = e.target?.result
-          if (!result || !uploading) return
+          if (!result) return
 
           setPointImage(result.toString())
-          setUploading(false)
+          stopUploading()
         }
-        reader.onerror = cancelUploading
       })
-      .catch(cancelUploading)
+      .catch(stopUploading)
   }
 
   const handleDeleteImage = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -107,7 +108,7 @@ export const DragAndDropImage = ({ url }: Props) => {
       )}
       <input
         type='file'
-        accept={IMAGE_ACCEPTED_FORMATS.join(', ')}
+        accept={ACCEPTED_IMAGE_FORMATS.join(', ')}
         style={{ display: 'none' }}
         ref={inputRef}
         onChange={handleChange}

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { TIMELINE_DEFAULT_NAME } from '../../../consts.d'
+import { DEFAULT_TIMELINE_NAME } from '../../../consts.d'
 import { useStore } from '../../../store/useStore'
 import './tlName.css'
 import { useFocusOnClick } from '../../../hooks/useFocusOnClick'
@@ -18,7 +18,7 @@ export const TLName = () => {
 
   useEffect(() => {
     if (pointerEvents === 'none') setEditing(false)
-    if (!editing && name === '') setTimelineName(TIMELINE_DEFAULT_NAME)
+    if (!editing && name === '') setTimelineName(DEFAULT_TIMELINE_NAME)
     recalculateWidth()
   }, [editing, pointerEvents])
 
