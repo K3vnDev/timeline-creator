@@ -20,7 +20,7 @@ interface Store {
   setTimelineName: (value: string) => void
   setTimelineColor: (value: HexColor) => void
   duplicateTimeline: () => void
-  deleteTimeline: () => void
+  deleteTimeline: (id: string) => void
   loadDemoTimeline: () => void
 
   setPointTitle: (value: string) => void
@@ -99,9 +99,9 @@ export const useStore = create<Store>()(set => ({
       })
     ),
 
-  deleteTimeline: () =>
-    set(({ timeline, savedTimelines, setEditingTimeline }) =>
-      modifyTimelines(savedTimelines, timeline.id, (newTimelines, index) => {
+  deleteTimeline: id =>
+    set(({ savedTimelines, setEditingTimeline }) =>
+      modifyTimelines(savedTimelines, id, (newTimelines, index) => {
         newTimelines.splice(index, 1)
 
         if (newTimelines.length !== 0) {

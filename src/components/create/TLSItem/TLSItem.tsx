@@ -3,6 +3,7 @@ import { UseTLSItem } from '../../../hooks/useTLSItem'
 import { useStore } from '../../../store/useStore'
 import type { HexColor, Timeline } from '../../../types.d'
 import {
+  Cancel as CancelIcon,
   Duplicate as DuplicateIcon,
   Palette as PaletteIcon,
   Settings as SettingsIcon,
@@ -16,41 +17,56 @@ interface TLSItemProps {
 }
 
 export const TLSItem = ({ timeline: { id, name, color } }: TLSItemProps) => {
-  const { className, style, setTimeline, showingSettings, toggleShowingSetting, elementRef } =
-    UseTLSItem(id, color)
+  // biome-ignore format: <>
+  const { 
+    className, style, handleClick, showingSettings, 
+    toggleShowingSetting, elementRef, deleting, setDeleting 
+  } = UseTLSItem(id, color)
 
+  // biome-ignore format: <>
   return (
-    <li className={className} onClick={setTimeline} style={style} ref={elementRef}>
-      <span>{name}</span>
-      <SettingsButton onClick={toggleShowingSetting} />
+    <li className={className} onClick={handleClick} style={style} ref={elementRef}>
+      <div className='name-wrapper'>
+        {deleting && <span>To delete:</span>}
+        <h5>{name}</h5>
+      </div>
+      {deleting 
+        ? <CancelButton setDeleting={setDeleting} />
+        : <SettingsButton onClick={toggleShowingSetting} />
+      }
       <section className='settings-wrapper'>
         <ChangeColorButton color={color} showingSettings={showingSettings} />
-        <DeleteButton />
+        <DeleteButton setDeleting={setDeleting} />
         <DuplicateButton />
       </section>
     </li>
   )
 }
 
-const SettingsButton = ({ onClick }: { onClick: () => void }) => (
+// ---
+
+const SettingsButton = ({ onClick }: SettingButtonProps) => (
   <button className='settings-btn' onClick={onClick}>
     <SettingsIcon />
   </button>
 )
+interface SettingButtonProps {
+  onClick: () => void
+}
 
-const DeleteButton = () => {
-  const deleteTimeline = useStore(s => s.deleteTimeline)
-
+const DeleteButton = ({ setDeleting }: DeleteButtonProps) => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation()
-    deleteTimeline()
+    setDeleting(true)
   }
-
   return (
     <button className='settings-delete-btn' onClick={handleClick}>
       <TrashIcon />
     </button>
   )
+}
+interface DeleteButtonProps {
+  setDeleting: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const DuplicateButton = () => {
@@ -66,11 +82,6 @@ const DuplicateButton = () => {
       <DuplicateIcon />
     </button>
   )
-}
-
-interface ChangeColorButtonProps {
-  color: HexColor
-  showingSettings: boolean
 }
 
 const ChangeColorButton = ({ color: initialColor, showingSettings }: ChangeColorButtonProps) => {
@@ -105,4 +116,21 @@ const ChangeColorButton = ({ color: initialColor, showingSettings }: ChangeColor
       {showingSettings && <input type='color' onChange={handleChange} ref={inputRef} />}
     </button>
   )
+}
+interface ChangeColorButtonProps {
+  color: HexColor
+  showingSettings: boolean
+}
+
+const CancelButton = ({ setDeleting }: CancelButtonProps) => {
+  const handleClick = () => setDeleting(false)
+
+  return (
+    <button className='cancel-btn' onClick={handleClick}>
+      <CancelIcon />
+    </button>
+  )
+}
+interface CancelButtonProps {
+  setDeleting: React.Dispatch<React.SetStateAction<boolean>>
 }
