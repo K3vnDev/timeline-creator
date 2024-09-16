@@ -1,0 +1,34 @@
+.tooltip {
+  --bg-color: #222;
+  --border-color: #333;
+  --tooltip-gap: 32px;
+
+  z-index: 29;
+  position: fixed;
+  translate: var(--tooltip-gap) -50%;
+  border-radius: 4px;
+  padding: 8px 16px;
+  outline: .5px solid var(--border-color);
+  background: var(--bg-color);
+
+  span {
+    font-size: 1rem;
+    font-family: Inter;
+    text-wrap: nowrap;
+  }
+
+  &::after {
+    content: '';
+    --size: 10px;
+    width: var(--size);
+    height: var(--size);
+    background: var(--bg-color);
+    position: absolute;
+    top: 50%;
+    translate: -50% -50%;
+    left: 0;
+    border: .5px solid;
+    border-color: transparent transparent var(--border-color) var(--border-color);
+    rotate: 45deg;
+  }
+}

@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useStore } from '../../../store/useStore'
 import { Plus as PlusIcon } from '../../root/icons'
 import { TLElement } from '../TLElement/TLElement'
 import './addElement.css'
+import { useTooltip } from '../../../hooks/useTooltip'
 
 interface Props {
   index: number
@@ -11,7 +12,7 @@ interface Props {
 export const AddElement = ({ index }: Props) => {
   const [createPoint, createMark] = useStore(s => [s.createPoint, s.createMark])
   const [opacity, setOpacity] = useState(0)
-  const buttonRef = useRef(null)
+  const buttonRef = useTooltip('Shift to create a Mark', 500)
 
   const getElementPosition = (element: HTMLButtonElement) => {
     const { x, y } = element.getBoundingClientRect()

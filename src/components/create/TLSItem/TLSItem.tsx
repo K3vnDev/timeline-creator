@@ -123,7 +123,10 @@ interface ChangeColorButtonProps {
 }
 
 const CancelButton = ({ setDeleting }: CancelButtonProps) => {
-  const handleClick = () => setDeleting(false)
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation()
+    setDeleting(false)
+  }
 
   return (
     <button className='cancel-btn' onClick={handleClick}>

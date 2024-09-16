@@ -75,7 +75,7 @@ const Desc = () => {
 
   // biome-ignore format: <>
   const { animation, handleChange, trimText, handleClear } = 
-    useTextInput(text, setPointDesc, 120)
+    useTextInput(text, setPointDesc, 150)
 
   const recalculateWidth = () => {
     if (!elementRef.current) return

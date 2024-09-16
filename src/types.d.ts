@@ -2,7 +2,7 @@ export type Element = Point | Mark
 export type PointerEvents = 'auto' | 'none'
 export type HexColor = `#${string}`
 
-export type Timeline = {
+export interface Timeline {
   name: string
   id: string
   color: HexColor

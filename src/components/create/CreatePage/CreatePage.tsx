@@ -1,5 +1,6 @@
 import { usePersistState } from '../../../hooks/usePersistState'
 import { useRouteClassName } from '../../../hooks/useRouteClassName'
+import { Tooltip } from '../../root/Tooltip/Tooltip'
 import { NoTLSign } from '../NoTLSign/NoTLSign'
 import { TLMenu } from '../TLMenu/TLMenu'
 import { TLName } from '../TLName/TLName'
@@ -21,6 +22,7 @@ export const CreatePage = () => {
       ) : (
         <NoTLSign />
       )}
+      <Tooltip />
     </>
   )
 }
