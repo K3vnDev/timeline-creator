@@ -2,7 +2,7 @@
   height: 100%;
   border: 2px dashed #484848;
   color: var(--text-light-gray);
-  font-family: Inter;
+  font-family: var(--inter);
   text-align: center;
   font-size: 18px;
   display: flex;

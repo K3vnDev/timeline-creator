@@ -7,7 +7,7 @@ body.landing {
   height: 100vh;
 
   h1 {
-    font-family: Poppins;
+    font-family: var(--poppins);
     font-size: 6rem;
     text-align: center;
   }
@@ -21,7 +21,7 @@ body.landing {
     h3 {
       font-size: 2rem;
       font-weight: 500;
-      font-family: Inter;
+      font-family: var(--inter);
       color: #D0D0D0;
     }
   }

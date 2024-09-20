@@ -24,7 +24,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     color: #FFF;
-    font-family: Inter;
+    font-family: var(--inter);
     font-size: 32px;
     font-style: normal;
     font-weight: 700;

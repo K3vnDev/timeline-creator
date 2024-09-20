@@ -28,10 +28,7 @@ export const useTooltip = (message: string, delay = 0) => {
     const element: HTMLElement = elementRef.current
 
     const handlePointerEnter = (e: MouseEvent) => {
-      if (delay === 0) {
-      } else {
-        startTimeout(e)
-      }
+      if (delay !== 0) startTimeout(e)
       element.addEventListener('pointermove', handlePointerMove)
     }
 

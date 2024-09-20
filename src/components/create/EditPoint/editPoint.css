@@ -23,7 +23,7 @@
       text-align: center;
       font-size: 22px;
       font-weight: 400;
-      font-family: Inter;
+      font-family: var(--inter);
     }
   }
 
@@ -51,7 +51,7 @@
       resize: none;
       border: none;
       outline: none;
-      font-family: Inter;
+      font-family: var(--inter);
       color: var(--text-light-gray);
       font-size: 16px;
       font-weight: 400;
