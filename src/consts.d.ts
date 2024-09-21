@@ -2,6 +2,8 @@ import type { HexColor, Mark, Point, Timeline } from './types.d'
 import { generateColor } from './utils/generateColor'
 import { generateId } from './utils/generateId'
 
+export const CHANGES_HISTORY_MAX_LENGTH = 10
+
 // templates
 
 export const newPointTemplate: Point = {
@@ -74,37 +76,6 @@ export const DEFAULT_TIMELINE: Timeline = {
       content: {
         title: 'My second title',
         desc: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Enim, autem.'
-      }
-    }
-  ]
-}
-
-// demo timeline
-
-export const DEMO_TIMELINE: Timeline = {
-  name: 'Example Demo Timeline',
-  id: generateId([]),
-  color: generateColor(),
-  elements: [
-    {
-      type: 'mark',
-      id: '0000',
-      content: { text: 'Demo' }
-    },
-    {
-      type: 'point',
-      id: '0001',
-      content: {
-        title: 'This is the demo timeline',
-        image: 'https://www.cdc.gov/healthy-pets/media/images/2024/04/Cat-on-couch.jpg'
-      }
-    },
-    {
-      type: 'point',
-      id: '0010',
-      content: {
-        title: 'zzzzzzzzzzzzzzzzzzzz',
-        desc: 'Please upgrape this later'
       }
     }
   ]

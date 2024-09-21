@@ -48,7 +48,6 @@ export const useEditMark = (text: string, inputRef: InputRef) => {
       triggerAnimation()
     }
   }
-  const trimText = () => setMarkText(text.trim())
 
-  return { trimText, handleChange, animation }
+  return { handleChange, animation }
 }

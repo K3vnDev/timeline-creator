@@ -37,14 +37,13 @@ const Title = () => {
   useFocusOnKey(elementRef, onBottom, 0)
 
   // biome-ignore format: <>
-  const { animation, handleChange, trimText, handleClear } = 
+  const { animation, handleChange, handleClear } = 
     useTextInput(text, setPointTitle, 20)
 
   return (
     <div className='title-wrapper'>
       <input
         ref={elementRef}
-        onBlur={trimText}
         className='title'
         value={text}
         onChange={handleChange}
@@ -74,7 +73,7 @@ const Desc = () => {
   useFocusOnKey(elementRef, onBottom, 1)
 
   // biome-ignore format: <>
-  const { animation, handleChange, trimText, handleClear } = 
+  const { animation, handleChange, handleClear } = 
     useTextInput(text, setPointDesc, 150)
 
   const recalculateWidth = () => {
@@ -92,7 +91,6 @@ const Desc = () => {
     <div className='desc-wrapper'>
       <textarea
         ref={elementRef}
-        onBlur={trimText}
         className='desc'
         value={text}
         onChange={handleChange}

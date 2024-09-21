@@ -11,8 +11,7 @@ export const useTextInput = (value: string, setValue: SetValue, maxCharacters: n
     if (validateText(value)) setValue(value)
   }
 
-  const trimText = () => setValue(value.trim())
   const handleClear = () => setValue('')
 
-  return { animation, handleChange, trimText, handleClear }
+  return { animation, handleChange, handleClear }
 }

@@ -20,8 +20,10 @@ export const useTimeline = () => {
     '.add-element'
   )
 
+  // Add changes to Saved Timelines
   useEffect(saveTimeline, [timeline])
 
+  // Map elements
   const mappedElements = (() => {
     const elements = [<AddElement key={-0.5} index={0} />]
     let pointsCount = 0
