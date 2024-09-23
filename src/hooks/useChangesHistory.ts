@@ -18,7 +18,7 @@ export const useChangesHistory = () => {
       return
     }
 
-    // Delete first state if theres more than max length
+    // Delete first state if there are gonna be more than max length
     if (changesHistory.length >= CHANGES_HISTORY_MAX_LENGTH) {
       setChangesHistory(c => {
         const newChangesHistory = structuredClone(c)
@@ -32,7 +32,7 @@ export const useChangesHistory = () => {
       setChangesHistory(c => c.slice(0, historyIndex.current - 1))
     }
 
-    // Push State
+    // Push state
     setChangesHistory(c => {
       const newChangesHistory = [...c, addingToHistoryTimeline]
       historyIndex.current = newChangesHistory.length - 1
@@ -46,6 +46,8 @@ export const useChangesHistory = () => {
       const { key, ctrlKey, shiftKey } = e
 
       if (key.toLowerCase() === 'z' && ctrlKey && changesHistory.length > 1) {
+        e.preventDefault()
+
         if (shiftKey && historyIndex.current < changesHistory.length - 1) historyIndex.current++
         else if (!shiftKey && historyIndex.current > 0) historyIndex.current--
 

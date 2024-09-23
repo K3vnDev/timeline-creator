@@ -20,7 +20,7 @@ export const TLName = () => {
     if (pointerEvents === 'none') setEditing(false)
     if (!editing && name === '') setTimelineName(DEFAULT_TIMELINE_NAME)
     recalculateWidth()
-  }, [editing, pointerEvents])
+  }, [editing, pointerEvents, name])
 
   const recalculateWidth = () => {
     if (!inputRef.current) return
@@ -33,11 +33,6 @@ export const TLName = () => {
 
     input.style.width =
       scrollWidth > minWidth - padding ? `${scrollWidth + padding}px` : `${minWidth}px`
-  }
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    recalculateWidth()
-    handleChange(e)
   }
 
   const exitEditMode = () => setEditing(false)
@@ -57,7 +52,7 @@ export const TLName = () => {
         <input
           className='tl-name'
           value={name}
-          onChange={handleInputChange}
+          onChange={handleChange}
           onKeyDown={handleKeyDown}
           ref={inputRef}
           style={{ animation }}

@@ -7,6 +7,7 @@ import './timeline.css'
 export const Timeline = () => {
   const { mappedElements } = useTimeline()
   const pointerEvents = useStore(s => s.pointerEvents)
+
   useScrollPageOnDrag()
   useChangesHistory()
 
