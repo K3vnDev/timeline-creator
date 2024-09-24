@@ -2,8 +2,12 @@
   --bg-light-color: #121212;
   padding: 0 10px;
 
+  * {
+    font-family: var(--inter);
+  }
+
   &>input {
-    font-size: 32px;
+    font-size: var(--text-l);
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -18,7 +22,7 @@
 
     &::placeholder {
       font-weight: 400;
-      font-size: 22px;
+      font-size: var(--text-m3);
       color: #444;
     }
   }

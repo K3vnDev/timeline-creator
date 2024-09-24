@@ -25,7 +25,7 @@
     white-space: nowrap;
     color: #FFF;
     font-family: var(--inter);
-    font-size: 32px;
+    font-size: var(--text-l);
     font-style: normal;
     font-weight: 700;
     line-height: normal;

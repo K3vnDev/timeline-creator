@@ -8,7 +8,7 @@ body.landing {
 
   h1 {
     font-family: var(--poppins);
-    font-size: 6rem;
+    font-size: var(--text-gigant);
     text-align: center;
     text-wrap: nowrap;
   }
@@ -21,7 +21,7 @@ body.landing {
 
     h3 {
       text-wrap: nowrap;
-      font-size: 2rem;
+      font-size: var(--text-l);
       font-weight: 500;
       font-family: var(--inter);
       color: #D0D0D0;

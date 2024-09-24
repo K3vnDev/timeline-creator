@@ -4,6 +4,8 @@ import { generateId } from './utils/generateId'
 
 export const CHANGES_HISTORY_MAX_LENGTH = 10
 
+export const APP_NAME = 'Timeline Creator'
+
 // templates
 
 export const newPointTemplate: Point = {

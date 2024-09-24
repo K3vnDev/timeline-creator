@@ -21,7 +21,7 @@
 
       color: #FFF;
       text-align: center;
-      font-size: 22px;
+      font-size: var(--text-m3);
       font-weight: 400;
       font-family: var(--inter);
     }
@@ -53,10 +53,24 @@
       outline: none;
       font-family: var(--inter);
       color: var(--text-light-gray);
-      font-size: 16px;
+      font-size: var(--text-m1);
       font-weight: 400;
       padding: var(--p);
       width: 100%;
+      line-height: var(--text-m2);
+      max-height: calc(var(--p) * 2 + var(--text-m2) * 3);
+
+      &::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: none;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: #3c3c3c;
+      }
     }
   }
 

@@ -5,8 +5,8 @@
 
   position: fixed;
   left: 50%;
-  top: 50px;
-  font-size: 42px;
+  top: 45px;
+  font-size: var(--text-xl);
   font-family: var(--inter);
   transform: translateX(-50%);
   text-align: center;

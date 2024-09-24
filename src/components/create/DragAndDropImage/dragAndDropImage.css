@@ -4,7 +4,7 @@
   color: var(--text-light-gray);
   font-family: var(--inter);
   text-align: center;
-  font-size: 18px;
+  font-size: var(--text-m2);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -86,7 +86,7 @@
     &>span {
       animation: size-in-out .5s ease-in-out infinite alternate;
       font-weight: 500;
-      font-size: 20px;
+      font-size: var(--text-m2);
       pointer-events: none;
     }
   }

@@ -12,7 +12,7 @@
   background: var(--bg-color);
 
   span {
-    font-size: 1rem;
+    font-size: var(--text-m1);
     font-family: var(--inter);
     text-wrap: nowrap;
   }

@@ -10,6 +10,7 @@ import { DuplicateButton } from '../DuplicateButton/DuplicateButton'
 import { MoveArrows } from '../MoveArrows/MoveArrows'
 import { PointContext } from '../Point/Point'
 import './editPoint.css'
+import { useCantScrollPage } from '../../../hooks/useCantScrollPage'
 
 export const EditPoint = () => {
   const { id } = useContext(PointContext)
@@ -69,7 +70,13 @@ const Image = () => {
 const Desc = () => {
   const { desc: text, onBottom } = useContext(PointContext)
   const setPointDesc = useStore(s => s.setPointDesc)
-  const elementRef = useRef(null)
+
+  const { elementRef } = useCantScrollPage(() => {
+    if (!elementRef.current) return false
+    const { scrollHeight, clientHeight }: HTMLElement = elementRef.current
+    return scrollHeight > clientHeight
+  })
+
   useFocusOnKey(elementRef, onBottom, 1)
 
   // biome-ignore format: <>

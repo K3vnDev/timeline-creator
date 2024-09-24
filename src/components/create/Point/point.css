@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: column;
   --bg-color: #252525;
-  gap: 10px;
+  gap: var(--p);
   user-select: none;
   cursor: pointer;
 
@@ -45,12 +45,16 @@
     word-wrap: break-word;
     overflow-wrap: break-word;
     white-space: normal;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   &>.title {
     color: #FFF;
     text-align: center;
-    font-size: 22px;
+    font-size: var(--text-m3);
     font-weight: 600;
     min-height: 48px;
   }
@@ -58,7 +62,7 @@
   &>.desc {
     color: #AFAFAF;
     font-family: var(--inter);
-    font-size: 16px;
+    font-size: var(--text-m1);
     font-weight: 400;
   }
 
