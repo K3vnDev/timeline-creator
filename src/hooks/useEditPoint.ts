@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react'
 import { PointContext } from '../components/create/Point/Point'
 import { useStore } from '../store/useStore'
+import { getElementRef } from '../utils/getElementRef'
 
 export type FocusingInput = React.MutableRefObject<null> | null
 
@@ -11,31 +12,19 @@ export const useEditPoint = () => {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const { key, shiftKey } = event
+      const element = getElementRef(elementRef)
 
-      switch (key) {
-        case 'Escape':
-          clearFocusing()
-          break
-        case 'Enter': {
-          const element = getElementRef()
-          if (!shiftKey || !element?.querySelector('.desc:focus')) setEditingElement('')
-        }
-      }
+      if (key === 'Enter' && (!shiftKey || !element.querySelector('.desc:focus'))) {
+        setEditingElement('')
+      } else if (key === 'Escape') clearFocusing()
     }
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [])
 
-  const getElementRef = () => {
-    if (!elementRef.current) return
-    return elementRef.current as HTMLElement
-  }
-
   const clearFocusing = () => {
-    const element = getElementRef()
-    ;(element?.querySelector('.desc') as HTMLInputElement)?.blur()
-    ;(element?.querySelector('.title') as HTMLInputElement)?.blur()
+    const element = getElementRef(elementRef)
+    element.querySelector('desc')?.blur()
+    element.querySelector('title')?.blur()
   }
-
-  return { elementRef }
 }

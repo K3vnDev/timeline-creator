@@ -12,7 +12,7 @@ export const TLName = () => {
     useStore(s => [s.timeline, s.setTimelineName, s.pointerEvents])
 
   const [editing, setEditing] = useState(false)
-  const { animation, handleChange } = useTextInput(name, setTimelineName, 30)
+  const { animation, handleChange } = useTextInput(setTimelineName, 30)
   useFocusOnClick(setEditing, 'click', '.tl-name')
   const inputRef = useRef(null)
 

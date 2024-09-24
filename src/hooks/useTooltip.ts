@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import type { Tooltip } from '../components/root/Tooltip/Tooltip'
+import { getElementRef } from '../utils/getElementRef'
 
 export const useTooltip = (message: string, delay = 0) => {
   const elementRef = useRef(null)
@@ -24,8 +25,7 @@ export const useTooltip = (message: string, delay = 0) => {
   }
 
   useEffect(() => {
-    if (!elementRef.current) return
-    const element: HTMLElement = elementRef.current
+    const element = getElementRef(elementRef)
 
     const handlePointerEnter = (e: MouseEvent) => {
       if (delay !== 0) startTimeout(e)

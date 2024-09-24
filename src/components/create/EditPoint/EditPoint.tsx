@@ -11,6 +11,7 @@ import { MoveArrows } from '../MoveArrows/MoveArrows'
 import { PointContext } from '../Point/Point'
 import './editPoint.css'
 import { useCantScrollPage } from '../../../hooks/useCantScrollPage'
+import { getElementRef } from '../../../utils/getElementRef'
 
 export const EditPoint = () => {
   const { id } = useContext(PointContext)
@@ -39,7 +40,7 @@ const Title = () => {
 
   // biome-ignore format: <>
   const { animation, handleChange, handleClear } = 
-    useTextInput(text, setPointTitle, 20)
+    useTextInput(setPointTitle, 20)
 
   return (
     <div className='title-wrapper'>
@@ -81,12 +82,10 @@ const Desc = () => {
 
   // biome-ignore format: <>
   const { animation, handleChange, handleClear } = 
-    useTextInput(text, setPointDesc, 150)
+    useTextInput(setPointDesc, 150)
 
   const recalculateWidth = () => {
-    if (!elementRef.current) return
-    const input: HTMLElement = elementRef.current
-
+    const input = getElementRef(elementRef)
     input.style.height = '0px'
     const { scrollHeight } = input
     input.style.height = `${scrollHeight}px`

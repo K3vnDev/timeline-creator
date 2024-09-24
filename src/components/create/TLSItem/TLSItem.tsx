@@ -11,6 +11,7 @@ import {
 } from '../../root/icons'
 import './tlsItem.css'
 import { useDebounce } from '../../../hooks/useDebounce'
+import { getElementRef } from '../../../utils/getElementRef'
 
 interface TLSItemProps {
   timeline: Timeline
@@ -99,8 +100,7 @@ const ChangeColorButton = ({ color: initialColor, showingSettings }: ChangeColor
   }
 
   const handleClick = () => {
-    if (!inputRef.current) return
-    const element: HTMLInputElement = inputRef.current
+    const element = getElementRef<HTMLInputElement>(inputRef)
 
     element.value = initialColor
     element.click()

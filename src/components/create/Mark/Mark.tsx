@@ -3,6 +3,7 @@ import { useStore } from '../../../store/useStore'
 import { EditMark } from '../EditMark/EditMark'
 import { TLElement } from '../TLElement/TLElement'
 import './mark.css'
+import { getClassName } from '../../../utils/getClassName'
 
 interface Props {
   id: string
@@ -27,7 +28,8 @@ export const Mark = ({ id, index, content: { text } }: Props) => {
     setEditingElement(id)
   }
 
-  const className = onEditMode ? 'mark editing' : 'mark'
+  const className = getClassName('mark', [onEditMode, 'editing'])
+
   const providerValue = { id, text }
 
   return (

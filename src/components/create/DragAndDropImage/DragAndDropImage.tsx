@@ -8,6 +8,8 @@ import {
 import './dragAndDropImage.css'
 import imageCompression from 'browser-image-compression'
 import { ACCEPTED_IMAGE_FORMATS } from '../../../consts.d'
+import { getClassName } from '../../../utils/getClassName'
+import { getElementRef } from '../../../utils/getElementRef'
 import { LoadingArrows } from '../../root/LoadingArrows/LoadingArrows'
 
 interface Props {
@@ -24,17 +26,14 @@ export const DragAndDropImage = ({ url }: Props) => {
 
   const stopUploading = () => setUploading(false)
 
-  const className = (() => {
-    let c = 'drag-and-drop-image'
-    if (url) c += ' with-image'
-    if (draggingOver) c += ' dragging-over'
-    return c
-  })()
+  const className = getClassName(
+    'drag-and-drop-image',
+    [url, 'with-image'],
+    [draggingOver, 'dragging-over']
+  )
 
   useEffect(() => {
-    if (!dragnDropRef.current) return
-    const dragnDrop: HTMLElement = dragnDropRef.current
-
+    const dragnDrop = getElementRef(dragnDropRef)
     dragnDrop.ondragenter = () => setDraggingOver(true)
     dragnDrop.ondragleave = () => setDraggingOver(false)
     dragnDrop.ondragover = e => e.preventDefault()

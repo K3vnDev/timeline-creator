@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useStore } from '../store/useStore'
+import { getElementRef } from '../utils/getElementRef'
 
 export const useFocusOnKey = (
   inputRef: React.MutableRefObject<null>,
@@ -9,8 +10,7 @@ export const useFocusOnKey = (
   const timeline = useStore(s => s.timeline)
 
   useEffect(() => {
-    if (!inputRef.current) return
-    const input: HTMLInputElement = inputRef.current
+    const input = getElementRef<HTMLInputElement>(inputRef)
 
     const handleKeyDown = (e: KeyboardEvent) => {
       const { key, ctrlKey } = e

@@ -1,3 +1,4 @@
+import { getClassName } from '../../../utils/getClassName'
 import { Cross as CrossIcon } from '../../root/icons'
 import './clearInputButton.css'
 
@@ -8,7 +9,7 @@ interface Props {
 
 export const ClearInputButton = ({ onClick, text }: Props) => {
   const disabled = text === ''
-  const buttonClassName = disabled ? 'clear-btn hidden' : 'clear-btn'
+  const buttonClassName = getClassName('clear-btn', [disabled, 'hidden'])
 
   return (
     <div className='clear-input-btn-wrapper'>

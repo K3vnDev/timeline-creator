@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react'
+import { useContext } from 'react'
 import './editMark.css'
 import { useEditMark } from '../../../hooks/useEditMark'
 import { useFocusOnKey } from '../../../hooks/useFocusOnKey'
@@ -9,8 +9,7 @@ import { MoveArrows } from '../MoveArrows/MoveArrows'
 
 export const EditMark = () => {
   const { id, text } = useContext(MarkContext)
-  const inputRef = useRef(null)
-  const { handleChange, animation } = useEditMark(text, inputRef)
+  const { handleChange, animation, inputRef } = useEditMark()
   useFocusOnKey(inputRef)
 
   return (

@@ -1,22 +1,20 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useStore } from '../store/useStore'
+import { getElementRef } from '../utils/getElementRef'
 import { useCharacterLimit } from './useCharacterLimit'
 
-type InputRef = React.RefObject<HTMLInputElement>
-
-export const useEditMark = (text: string, inputRef: InputRef) => {
+export const useEditMark = () => {
   const [setMarkText, setEditingElement] = useStore(s => [s.setMarkText, s.setEditingElement])
   const { animation, triggerAnimation, validateText } = useCharacterLimit(10)
+  const inputRef = useRef(null)
 
   useEffect(() => {
-    inputRef.current?.focus()
+    getElementRef(inputRef).focus()
     recalculateWidth()
   }, [inputRef.current])
 
   const recalculateWidth = () => {
-    const input = inputRef.current
-    if (!input) return
-
+    const input = getElementRef(inputRef)
     input.style.width = '0px'
     const { scrollWidth } = input
     input.style.width = scrollWidth > 90 ? `${scrollWidth}px` : '90px'
@@ -24,13 +22,8 @@ export const useEditMark = (text: string, inputRef: InputRef) => {
 
   useEffect(() => {
     const handleKeyDown = ({ key }: KeyboardEvent) => {
-      switch (key) {
-        case 'Escape':
-          inputRef.current?.blur()
-          break
-        case 'Enter':
-          setEditingElement('')
-      }
+      if (key === 'Enter') setEditingElement('')
+      else if (key === 'Escape') getElementRef(inputRef).blur()
     }
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
@@ -39,9 +32,10 @@ export const useEditMark = (text: string, inputRef: InputRef) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target
     if (validateText(value)) setMarkText(value)
-
     recalculateWidth()
-    const inputWidth = Number(inputRef?.current?.style.width.slice(0, -2))
+
+    const { width } = getElementRef(inputRef).style
+    const inputWidth = Number(width.slice(0, -2))
 
     if (inputWidth > 200) {
       setMarkText(value.slice(0, -1))
@@ -49,5 +43,5 @@ export const useEditMark = (text: string, inputRef: InputRef) => {
     }
   }
 
-  return { handleChange, animation }
+  return { handleChange, animation, inputRef }
 }

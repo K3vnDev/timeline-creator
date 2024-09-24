@@ -4,6 +4,7 @@ import { Plus as PlusIcon } from '../../root/icons'
 import { TLElement } from '../TLElement/TLElement'
 import './addElement.css'
 import { useTooltip } from '../../../hooks/useTooltip'
+import { getElementRef } from '../../../utils/getElementRef'
 
 interface Props {
   index: number
@@ -14,7 +15,8 @@ export const AddElement = ({ index }: Props) => {
   const [opacity, setOpacity] = useState(0)
   const buttonRef = useTooltip('Shift to create a Mark', 500)
 
-  const getElementPosition = (element: HTMLButtonElement) => {
+  const getElementPosition = () => {
+    const element = getElementRef<HTMLButtonElement>(buttonRef)
     const { x, y } = element.getBoundingClientRect()
     const { clientWidth: elementWidth, clientHeight: elementHeight } = element
     const [elementX, elementY] = [x + elementWidth / 2, y + elementHeight / 2]
@@ -22,12 +24,9 @@ export const AddElement = ({ index }: Props) => {
   }
 
   useEffect(() => {
-    if (!buttonRef.current) return
-    const element: HTMLButtonElement = buttonRef.current
-
     const handleMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e
-      const { elementX, elementY } = getElementPosition(element)
+      const { elementX, elementY } = getElementPosition()
 
       const distance = Math.sqrt((elementX - clientX) ** 2 + (elementY - clientY) ** 2)
 

@@ -1,8 +1,8 @@
 .point {
-  width: 300px;
+  width: 310px;
   height: auto;
   position: absolute;
-  --timeline-p: 14px;
+  --timeline-p: 12px;
   left: 50%;
   translate: -50% calc(var(--timeline-p) + var(--timeline-height) * 2);
   display: flex;

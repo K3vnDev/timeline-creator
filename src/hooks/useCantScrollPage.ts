@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react'
+import { getElementRef } from '../utils/getElementRef'
 
 export const useCantScrollPage = (enabled = () => true) => {
   const elementRef = useRef(null)
 
   useEffect(() => {
-    if (!elementRef.current) return
-    const element: HTMLElement = elementRef.current
+    const element = getElementRef(elementRef)
 
     const handleCantScroll = (e: Event) => {
       if (enabled()) e.stopPropagation()

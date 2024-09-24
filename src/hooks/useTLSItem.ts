@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useStore } from '../store/useStore'
 import type { HexColor } from '../types.d'
+import { getClassName } from '../utils/getClassName'
 
 export const UseTLSItem = (id: string, color: HexColor) => {
   // biome-ignore format: <>
@@ -29,13 +30,14 @@ export const UseTLSItem = (id: string, color: HexColor) => {
     if (!showingMenu && deleting) deleteTimeline(id)
   }, [showingMenu])
 
-  const className = (() => {
-    let c = 'tls-item'
-    if (timeline && timeline.id === id) c += ' selected'
-    if (showingSettings) c += ' showing-settings'
-    if (deleting) c += ' deleting'
-    return c
-  })()
+  const selected = timeline && timeline.id === id
+
+  const className = getClassName(
+    'tls-item',
+    [selected, 'selected'],
+    [showingSettings, 'showing-settings'],
+    [deleting, 'deleting']
+  )
 
   const handleClick = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     if (e.shiftKey) setDeleting(true)

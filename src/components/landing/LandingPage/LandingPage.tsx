@@ -15,7 +15,7 @@ export const LandingPage = () => {
   const navigate = useNavigate()
   useRouteClassName('landing')
 
-  const demo = () => {
+  const loadDemo = () => {
     loadDemoTimeline()
     navigate('/create')
   }
@@ -34,7 +34,7 @@ export const LandingPage = () => {
         {symbol}
       </article>
       <section className='buttons'>
-        <AppButton color='gray' onClick={demo}>
+        <AppButton color='gray' onClick={loadDemo}>
           Demo
         </AppButton>
         <AppButton color='blue' onClick={startCreating}>
