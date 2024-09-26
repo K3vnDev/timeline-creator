@@ -1,5 +1,6 @@
 .point.editing .drag-and-drop-image {
   height: 100%;
+  width: 100%;
   border: 2px dashed #484848;
   color: var(--text-light-gray);
   font-family: var(--inter);

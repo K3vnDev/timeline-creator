@@ -2,15 +2,16 @@
   --bg-light-color: #313131;
   --text-light-gray: #AFAFAF;
 
-  &>.title-wrapper {
+  .title-wrapper {
     width: 100%;
     background: var(--bg-color);
     border-radius: var(--p);
     min-height: 48px;
     padding: var(--p);
     position: relative;
+    display: flex;
 
-    &>.title {
+    .title {
       width: 100%;
       background: var(--bg-light-color);
       border-radius: var(--p);
@@ -27,25 +28,21 @@
     }
   }
 
-  &>.image-wrapper {
+  .image-wrapper {
     position: relative;
-    height: 170px;
-
-    &>.image {
-      width: 100%;
-      height: 100%;
-    }
+    height: var(--min-img-height);
   }
 
 
-  &>.desc-wrapper {
+  .desc-wrapper {
     width: 100%;
     background: var(--bg-color);
     border-radius: var(--p);
     padding: var(--p);
     position: relative;
+    display: flex;
 
-    &>.desc {
+    .desc {
       border-radius: var(--p);
       background: var(--bg-light-color);
       resize: none;
@@ -55,10 +52,10 @@
       color: var(--text-light-gray);
       font-size: var(--text-m1);
       font-weight: 400;
-      padding: var(--p);
+      padding: calc(var(--p) / 3) var(--p);
       width: 100%;
       line-height: var(--text-m2);
-      max-height: calc(var(--p) * 2 + var(--text-m2) * 3);
+      max-height: calc(var(--p) + var(--text-m2) * 3);
 
       &::-webkit-scrollbar {
         width: 10px;
@@ -74,14 +71,14 @@
     }
   }
 
-  & .desc-wrapper:hover,
-  & .title-wrapper:hover {
-    & .clear-btn:not(.hidden) {
+  .desc-wrapper:hover,
+  .title-wrapper:hover {
+    .clear-btn:not(.hidden) {
       opacity: 1;
     }
   }
 
-  &>.btns-wrapper {
+  .element-optns-btns {
     display: flex;
     justify-content: center;
     align-items: center;

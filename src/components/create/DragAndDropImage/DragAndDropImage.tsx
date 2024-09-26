@@ -69,8 +69,8 @@ export const DragAndDropImage = ({ url }: Props) => {
     setUploading(true)
 
     const options = {
-      maxSizeMB: 0.33,
-      maxWidthOrHeight: 1080,
+      maxSizeMB: 0.3,
+      maxWidthOrHeight: 480,
       useWebWorker: true
     }
 

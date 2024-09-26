@@ -11,10 +11,21 @@
     width: var(--size);
     position: fixed;
     border-radius: 50%;
-    top: var(--off-y);
-    left: var(--off-x);
+
+    top: calc(var(--off-y) - var(--size) / 2);
+    left: calc(var(--off-x) - var(--size) / 2);
+
     background: var(--color);
     opacity: .3;
     filter: blur(60px);
+    scale: var(--max-scale);
+
+    animation: breathe var(--time) ease-in-out infinite alternate both;
+  }
+}
+
+@keyframes breathe {
+  to {
+    scale: 1;
   }
 }

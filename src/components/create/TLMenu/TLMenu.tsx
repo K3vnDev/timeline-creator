@@ -19,7 +19,7 @@ export const TLMenu = () => {
       <aside className={className} style={style} ref={elementRef}>
         <h3>MY TIMELINES</h3>
         <CreateNewButton />
-        <TLSymbol color='#373737' length={200} steps={3} size={26} width={18} />
+        <TLSymbol color='#666' length={200} steps={3} size={26} width={18} />
         <TLSList />
         <GithubButton />
       </aside>

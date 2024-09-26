@@ -4,14 +4,12 @@ import { useFocusOnKey } from '../../../hooks/useFocusOnKey'
 import { useTextInput } from '../../../hooks/useTextInput'
 import { useStore } from '../../../store/useStore'
 import { ClearInputButton } from '../ClearInputButton/ClearInputButton'
-import { DeleteButton } from '../DeleteButton/DeleteButton'
 import { DragAndDropImage } from '../DragAndDropImage/DragAndDropImage'
-import { DuplicateButton } from '../DuplicateButton/DuplicateButton'
-import { MoveArrows } from '../MoveArrows/MoveArrows'
 import { PointContext } from '../Point/Point'
 import './editPoint.css'
 import { useCantScrollPage } from '../../../hooks/useCantScrollPage'
 import { getElementRef } from '../../../utils/getElementRef'
+import { ElementOptionsButtons } from '../ElementOptionsButtons/ElementOptionsButtons'
 
 export const EditPoint = () => {
   const { id } = useContext(PointContext)
@@ -22,12 +20,7 @@ export const EditPoint = () => {
       <Title />
       <Image />
       <Desc />
-
-      <div className='btns-wrapper'>
-        <DeleteButton id={id} />
-        <DuplicateButton />
-        <MoveArrows id={id} />
-      </div>
+      <ElementOptionsButtons id={id} />
     </>
   )
 }

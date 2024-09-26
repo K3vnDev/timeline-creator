@@ -3,6 +3,7 @@ import { Background } from '../../root/Background/Background'
 import '../../../index.css'
 import './landingPage.css'
 import { useNavigate } from 'react-router-dom'
+import { useWindowSize } from '../../../hooks/useWindowSize'
 import { useStore } from '../../../store/useStore'
 import { AppButton } from '../../root/AppButton/AppButton'
 import { TLSymbol } from '../../root/TLSymbol/TLSymbol'
@@ -29,9 +30,9 @@ export const LandingPage = () => {
     <>
       <h1>TIMELINE CREATOR</h1>
       <article className='slogan'>
-        {symbol}
+        <TLSymbolRef />
         <h3>Creating timelines was never that easy</h3>
-        {symbol}
+        <TLSymbolRef />
       </article>
       <section className='buttons'>
         <AppButton color='gray' onClick={loadDemo}>
@@ -46,4 +47,9 @@ export const LandingPage = () => {
   )
 }
 
-const symbol = <TLSymbol color='#D0D0D0' length={200} steps={3} size={22} width={10} />
+const TLSymbolRef = () => {
+  const { onMinWidth } = useWindowSize({ minWidth: 1300 })
+  const { length, steps } = onMinWidth ? { length: 200, steps: 3 } : { length: 650, steps: 7 }
+
+  return <TLSymbol color='#D0D0D0' length={length} steps={steps} size={22} width={9} />
+}

@@ -19,12 +19,12 @@ export const useMenu = () => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const { key, ctrlKey } = e
-      if (key.toLowerCase() === 'm' && ctrlKey) setShowingMenu(true)
+      if (key.toLowerCase() === 'm' && ctrlKey) setShowingMenu(!showingMenu)
       if (key === 'Escape') setShowingMenu(false)
     }
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [])
+  }, [showingMenu])
 
   const pointerEvents = showingMenu && draggingPointerEvents === 'auto' ? 'auto' : 'none'
   const className = showingMenu ? 'tl-menu showing' : 'tl-menu'

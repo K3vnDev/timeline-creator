@@ -22,7 +22,7 @@
   --text-gigant: 6rem;
 
   --inter: Inter, system-ui, Arial, Helvetica, Tahoma, Geneva, Verdana, sans-serif;
-  --poppins: Poppins, 'Segoe UI', Arial, Helvetica, Tahoma, Geneva, Verdana, sans-serif;
+  --poppins: Poppins, 'Segoe UI', system-ui, Arial, Helvetica, Tahoma, Geneva, Verdana, sans-serif;
 }
 
 ::-webkit-scrollbar {
@@ -54,5 +54,19 @@
   38% {
     translate: 10px 0px;
     color: rgb(255 255 255 / 0.5);
+  }
+}
+
+@media screen and (max-height: 900px) {
+  :root {
+    --text-s: .8rem;
+    --text-m1: .9rem;
+    --text-m2: 1.1rem;
+    --text-m3: 1.2rem;
+    --text-m4: 1.5rem;
+    --text-l: 1.8rem;
+    --text-xl: 2.2rem;
+    --text-xxl: 2.8rem;
+    --text-gigant: 5rem;
   }
 }

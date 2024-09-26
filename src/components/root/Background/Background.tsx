@@ -4,8 +4,6 @@ import type { HexColor } from '../../../types.d'
 import { repeat } from '../../../utils/repeat'
 import './background.css'
 
-type Properties = { x: number; y: number; size: number; color: HexColor }
-
 interface Props {
   colors: HexColor[]
   min: number
@@ -15,44 +13,71 @@ interface Props {
 
 export const Background = ({ colors, min, max, n }: Props) => {
   const getRandomProperties = () => {
-    const { innerWidth, innerHeight } = window
-    const [rawX, rawY] = [Math.random() * innerWidth, Math.random() * innerHeight]
-
     const sizeDiff = max - min
     const size = Math.random() * sizeDiff + min
 
-    const [x, y] = [rawX - size / 2, rawY - size / 2]
-    return { x, y, size }
+    const getRandomOffset = () => Math.random() * 100
+    const [x, y] = repeat(2, getRandomOffset)
+
+    return { offset: { x, y }, size }
   }
   const getRandomColor = () => {
     return colors[Math.floor(Math.random() * colors.length)]
+  }
+  const getRandomAnimationValues = () => {
+    const getRandomValue = (target: number, range: number) => {
+      const randomAdd = Math.random() * range - range / 2
+      return target + randomAdd
+    }
+    return {
+      maxScale: getRandomValue(1.25, 0.15),
+      time: getRandomValue(1.5, 0.5)
+    }
   }
 
   // biome-ignore format: <>
   const properties = useMemo(() => 
     repeat(n, () => ({
       ...getRandomProperties(),
-      color: getRandomColor() 
+      color: getRandomColor(),
+      animationValues: getRandomAnimationValues()
     })),[])
 
   return (
     <div className='app-background'>
-      {repeat(n, i => (
-        <BlurredCircle key={i} properties={properties[i]} />
+      {properties.map((property, i) => (
+        <BlurredCircle key={i} properties={property} />
       ))}
     </div>
   )
 }
 
-const BlurredCircle = ({ properties }: { properties: Properties }) => {
-  const { x, y, size, color } = properties
+const BlurredCircle = ({ properties }: BlurredCircleProps) => {
+  const { animationValues, offset, size, color } = properties
 
   const style = {
-    '--off-x': `${x}px`,
-    '--off-y': `${y}px`,
+    '--off-x': `${offset.x}vw`,
+    '--off-y': `${offset.y}vh`,
     '--size': `${size}px`,
-    '--color': color ?? DEFAULT_TIMELINE_COLOR
+    '--color': color ?? DEFAULT_TIMELINE_COLOR,
+    '--max-scale': animationValues.maxScale,
+    '--time': `${animationValues.time}s`
   } as React.CSSProperties
 
   return <div className='blurred-circle' style={style} />
+}
+
+interface BlurredCircleProps {
+  properties: {
+    animationValues: {
+      maxScale: number
+      time: number
+    }
+    offset: {
+      x: number
+      y: number
+    }
+    size: number
+    color: HexColor
+  }
 }

@@ -1,12 +1,18 @@
 body.create {
   background: linear-gradient(180deg, #151515, #0C0C0C);
+  background-repeat: repeat-x;
+  max-height: 100vh;
   height: 100vh;
   overflow: scroll hidden;
+  --tl-name-off: 45px;
+  --tl-name-height: 50px;
 }
 
 #root.create {
   height: 100vh;
+  max-height: 100vh;
   min-width: 100vw;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: end;

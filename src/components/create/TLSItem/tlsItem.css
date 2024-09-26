@@ -5,11 +5,11 @@
   position: relative;
   width: calc(var(--w) - var(--scroll-w) - var(--scroll-gap));
   cursor: pointer;
+  user-select: none;
 
   --default-h: 64px;
   --on-settings-h: 120px;
 
-  /* height: var(--default-h); */
   min-height: var(--default-h);
   min-width: 200px;
   --padding: 18px;

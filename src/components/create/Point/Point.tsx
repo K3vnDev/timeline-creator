@@ -3,8 +3,8 @@ import { useStore } from '../../../store/useStore'
 import { EditPoint } from '../EditPoint/EditPoint'
 import { TLElement } from '../TLElement/TLElement'
 import './point.css'
+import { useImageHeight } from '../../../hooks/useImageHeight'
 import { getClassName } from '../../../utils/getClassName'
-import { getImageHeight } from '../../../utils/getImageHeight'
 
 interface Props {
   id: string
@@ -27,6 +27,8 @@ export const Point = ({ id, content, onBottom, index }: Props) => {
   const { title, image, desc } = content
   const onEditMode = id === editingElement
 
+  const { imageHeight, minImageHeight } = useImageHeight(title, desc)
+
   if (!(title || image || desc || onEditMode)) {
     deleteElement(id)
     return
@@ -38,10 +40,13 @@ export const Point = ({ id, content, onBottom, index }: Props) => {
   }
   const handleDragEnter = () => setEditingElement(id)
 
-  const imageHeight = getImageHeight(title, desc)
   const className = getClassName('point', [onBottom, 'on-bottom'], [onEditMode, 'editing'])
+  const providerValue = { id, title, image, desc, onBottom, elementRef }
 
-  const providerValue = { id, title, image, desc, imageHeight, onBottom, elementRef }
+  const style = {
+    '--img-height': imageHeight,
+    '--min-img-height': minImageHeight
+  } as React.CSSProperties
 
   return (
     <TLElement index={index}>
@@ -51,6 +56,7 @@ export const Point = ({ id, content, onBottom, index }: Props) => {
           onDragEnter={handleDragEnter}
           onClick={handleClick}
           ref={elementRef}
+          style={style}
         >
           {onEditMode ? (
             <EditPoint />
@@ -59,12 +65,7 @@ export const Point = ({ id, content, onBottom, index }: Props) => {
               {title && <h3 className='title'>{title}</h3>}
               {image && (
                 <div className='image-wrapper'>
-                  <img
-                    className='image'
-                    src={image}
-                    style={{ height: imageHeight }}
-                    draggable={false}
-                  />
+                  <img className='image' src={image} draggable={false} />
                 </div>
               )}
               {desc && <p className='desc'>{desc}</p>}
@@ -81,7 +82,6 @@ export const PointContext = createContext({
   title: '',
   image: '',
   desc: '',
-  imageHeight: '',
   onBottom: false,
   elementRef: { current: null } as React.MutableRefObject<null>
 })

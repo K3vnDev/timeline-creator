@@ -6,7 +6,7 @@
     font-family: var(--inter);
   }
 
-  &>input {
+  input {
     font-size: var(--text-l);
     font-style: normal;
     font-weight: 700;
@@ -27,24 +27,27 @@
     }
   }
 
-  --buttons-offset: 60px;
+  --btns-offset: 60px;
 
-  .options-btns {
+  .element-optns-btns {
     position: absolute;
     left: 50%;
-    translate: -50% var(--buttons-offset);
+    top: 50%;
+    translate: -50% -50%;
     display: flex;
     gap: 16px;
 
-    .delete-btn {
+    .delete-btn,
+    .duplicate-btn {
       --size: 40px;
+      transform: translateY(var(--btns-offset));
     }
-  }
 
-
-  .move-arrows {
-    position: absolute;
-    left: 50%;
-    translate: -50% calc(-1 * var(--buttons-offset));
+    .move-arrows {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      translate: -50% calc(-1 * var(--btns-offset));
+    }
   }
 }

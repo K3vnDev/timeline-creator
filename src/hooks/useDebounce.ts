@@ -16,9 +16,7 @@ export const useDebounce = <T>(value: T, wait: number) => {
       setDebouncedValue(value)
     }, wait)
 
-    return () => {
-      clearTimeout(timeout.current)
-    }
+    return () => clearTimeout(timeout.current)
   }, [value])
 
   return debouncedValue
