@@ -1,0 +1,331 @@
+{
+  "name": "My history with coding",
+  "color": "#f9c50b",
+  "elements": [
+    { "type": "mark", "id": "3F996", "content": { "text": "2020" } },
+    {
+      "type": "point",
+      "content": {
+        "title": "First steps",
+        "image": "",
+        "desc": "My very first time 'coding' was on this program called PSeint, a program where you can make really basic algorithyms for learning purposes."
+      },
+      "id": "7E19a"
+    },
+    {
+      "type": "point",
+      "content": { "title": "", "image": "https://i.imgur.com/iYukrJC.png", "desc": "" },
+      "id": "MbnRX"
+    },
+    { "type": "mark", "content": { "text": "2021" }, "id": "110d2" },
+    {
+      "type": "point",
+      "content": {
+        "title": "Meeting Java",
+        "image": "https://i.imgur.com/4jw1raE.png",
+        "desc": "I did two semesters of Java on my university. I even learned some OOP."
+      },
+      "id": "3gtf0"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "",
+        "desc": "I used to make my own Java basic programs after my classes, I discovered how fun coding could be."
+      },
+      "id": "2Rd0Q"
+    },
+    { "type": "mark", "content": { "text": "2023" }, "id": "198r2" },
+    {
+      "type": "point",
+      "content": {
+        "title": "HTML and CSS",
+        "image": "",
+        "desc": "In march, I saw some basic HTML and CSS at my university. That day, as soon as I got to my house, I started learning more about it by myself."
+      },
+      "id": "4oAwh"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "https://i.imgur.com/tANwLaH.png",
+        "desc": "Post card (03/05)."
+      },
+      "id": "39893"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "https://i.imgur.com/CALWZgX.png",
+        "desc": "Disney+ login page clone (03/17)."
+      },
+      "id": "0dksr"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "Game Development",
+        "image": "",
+        "desc": "Web Development first era didn't last long as I started to focus on Game Development."
+      },
+      "id": "903N3"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "https://i.imgur.com/P7vW84H.png",
+        "desc": "In april, I made my first game on Unity C#. It was a platformer with some basic combat system, there's no much to say about it."
+      },
+      "id": "71aK1"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "https://i.imgur.com/gVIh2zb.png",
+        "desc": "Practice game (04/11)."
+      },
+      "id": "J98Wk"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "First real game",
+        "image": "",
+        "desc": "Days later, I started working on a team project for my university. We had to develop a game within the next few months. I was in charge of the coding."
+      },
+      "id": "42553"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "",
+        "desc": "The game was called Elixir Quest, a platformer game where you have to travel and fight against enemies to find the elixir at the end of the way."
+      },
+      "id": "0XVe8"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "https://i.imgur.com/vkFuImo.png",
+        "desc": "Elixir Quest (05/21)."
+      },
+      "id": "nJ6wC"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "https://i.imgur.com/FbMDaQb.png",
+        "desc": "Elixir Quest (06/02)."
+      },
+      "id": "Vrg08"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "",
+        "desc": "After finishing Elixir Quest and some weeks of rest, I continued with my game development learning path. I started making clones, just for practicing."
+      },
+      "id": "72c18"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "https://i.imgur.com/oPnPBMY.png",
+        "desc": "Flappy Bird Clone (06/19)."
+      },
+      "id": "37X44"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "https://i.imgur.com/tqtYVuU.png",
+        "desc": "Super Mario Bros Clone (06/27)."
+      },
+      "id": "t7F7T"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "First own game",
+        "image": "",
+        "desc": "I wanted to make my own game from scratch so I started working on Dizzy Cat, a game where you have to solve puzzles by rotating the scenario."
+      },
+      "id": "0765Q"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "https://i.imgur.com/pmSBsDL.png",
+        "desc": "After almost three months of development, I finally finished the game."
+      },
+      "id": "S39T6"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "https://i.imgur.com/cYXJGVQ.png",
+        "desc": "Dizzy Cat (10/13)."
+      },
+      "id": "3652E"
+    },
+    { "type": "mark", "content": { "text": "2024" }, "id": "412Wk" },
+    {
+      "type": "point",
+      "content": {
+        "title": "Back on Websites",
+        "image": "",
+        "desc": "I wanted to give it another try to web development so I started to review HTML and CSS, remaking some old projects."
+      },
+      "id": "463qo"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "JavaScript",
+        "image": "",
+        "desc": "Doing static pages was good but I needed to be able to add interactivity to them. Then I discovered JavaScript and started learning it right after."
+      },
+      "id": "8EF09"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "https://i.imgur.com/EJqXEmf.png",
+        "desc": "Hangman (01/31)."
+      },
+      "id": "0ybep"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "https://i.imgur.com/xsSzuPq.png",
+        "desc": "Color Sequence (02/02)."
+      },
+      "id": "3s573"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "https://i.imgur.com/nlYYntB.png",
+        "desc": "Tic Tac Toe (02/06)."
+      },
+      "id": "3G5YR"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "https://i.imgur.com/L3hmn8J.png",
+        "desc": "Music Player (02/17)."
+      },
+      "id": "3W596"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "https://i.imgur.com/1j2UkAn.png",
+        "desc": "Rick and Morty API (02/26)."
+      },
+      "id": "43uvk"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "Alpha Timeline Creator",
+        "image": "",
+        "desc": "After all those projects I started working on the first version of this very app in vanilla JavaScript."
+      },
+      "id": "51w3G"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "",
+        "desc": "But doing more complex apps in vanilla JavaScript started to get not too comfortable to me. Then I found out about React and started unsing it."
+      },
+      "id": "39P26"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "https://i.imgur.com/fpujCOc.png",
+        "desc": "First version of Timeline Creator (04/18)."
+      },
+      "id": "6aK12"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "Switching to React",
+        "image": "https://i.imgur.com/9beAmiN.png",
+        "desc": "I wanted to remake Timeline Creator but first, I had to make some projects to get experience with the library."
+      },
+      "id": "97w0J"
+    },
+    {
+      "type": "point",
+      "content": {
+        "image": "",
+        "title": "https://i.imgur.com/z5U2bB8.png",
+        "desc": "Weather App (05/03)."
+      },
+      "id": "091X9"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "https://i.imgur.com/ZywdkjM.png",
+        "desc": "IP Geolocation (05/15)."
+      },
+      "id": "73q34"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "https://i.imgur.com/JqpqJBA.png",
+        "desc": "Emoji Finder (05/22)."
+      },
+      "id": "u7523"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "Getting Into Backend",
+        "image": "https://i.imgur.com/VOup3Hf.png",
+        "desc": "After some projects, I started to feel limited for only being able to do Frontend so I started learning NodeJS and MongoDB."
+      },
+      "id": "s450b"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "https://i.imgur.com/hBtjKh4.png",
+        "desc": "URL Shortener (06/02)."
+      },
+      "id": "g04a2"
+    }
+  ],
+  "id": "x38YF"
+}

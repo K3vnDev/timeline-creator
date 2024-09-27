@@ -2,7 +2,7 @@ import type { Element, Timeline } from '../types.d'
 
 const ID_LENGTH = 5
 const LOWERCASE_CHANCE = 0.5
-const LETTER_CHANCE = 0.4
+const LETTER_CHANCE = 0.7
 
 export const generateId = (array: Timeline[] | Element[]): string => {
   let id = ''

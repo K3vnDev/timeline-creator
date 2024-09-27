@@ -1,15 +1,16 @@
 import { useContext, useEffect, useRef } from 'react'
+import { TIMELINE_MAX_LENGTHS } from '../../../consts.d'
+import { useCantScrollPage } from '../../../hooks/useCantScrollPage'
 import { useEditPoint } from '../../../hooks/useEditPoint'
 import { useFocusOnKey } from '../../../hooks/useFocusOnKey'
 import { useTextInput } from '../../../hooks/useTextInput'
 import { useStore } from '../../../store/useStore'
+import { getElementRef } from '../../../utils/getElementRef'
 import { ClearInputButton } from '../ClearInputButton/ClearInputButton'
 import { DragAndDropImage } from '../DragAndDropImage/DragAndDropImage'
+import { ElementOptionsButtons } from '../ElementOptionsButtons/ElementOptionsButtons'
 import { PointContext } from '../Point/Point'
 import './editPoint.css'
-import { useCantScrollPage } from '../../../hooks/useCantScrollPage'
-import { getElementRef } from '../../../utils/getElementRef'
-import { ElementOptionsButtons } from '../ElementOptionsButtons/ElementOptionsButtons'
 
 export const EditPoint = () => {
   const { id } = useContext(PointContext)
@@ -33,7 +34,7 @@ const Title = () => {
 
   // biome-ignore format: <>
   const { animation, handleChange, handleClear } = 
-    useTextInput(setPointTitle, 20)
+    useTextInput(setPointTitle, TIMELINE_MAX_LENGTHS.TITLE)
 
   return (
     <div className='title-wrapper'>
@@ -75,7 +76,7 @@ const Desc = () => {
 
   // biome-ignore format: <>
   const { animation, handleChange, handleClear } = 
-    useTextInput(setPointDesc, 150)
+    useTextInput(setPointDesc, TIMELINE_MAX_LENGTHS.DESC)
 
   const recalculateWidth = () => {
     const input = getElementRef(elementRef)

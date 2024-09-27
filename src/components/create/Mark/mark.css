@@ -11,8 +11,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  user-select: none;
-  cursor: pointer;
+
+  &:not(.editing) {
+    user-select: none;
+    cursor: pointer;
+  }
 
   &:not(.editing) {
     max-width: 250px;

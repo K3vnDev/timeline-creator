@@ -3,6 +3,7 @@ import { DEFAULT_TIMELINE_COLOR } from '../../../consts.d'
 import type { HexColor } from '../../../types.d'
 import { repeat } from '../../../utils/repeat'
 import './background.css'
+import { randomRange } from '../../../utils/randomRange'
 
 interface Props {
   colors: HexColor[]
@@ -13,8 +14,7 @@ interface Props {
 
 export const Background = ({ colors, min, max, n }: Props) => {
   const getRandomProperties = () => {
-    const sizeDiff = max - min
-    const size = Math.random() * sizeDiff + min
+    const size = randomRange(min, max)
 
     const getRandomOffset = () => Math.random() * 100
     const [x, y] = repeat(2, getRandomOffset)
@@ -22,7 +22,7 @@ export const Background = ({ colors, min, max, n }: Props) => {
     return { offset: { x, y }, size }
   }
   const getRandomColor = () => {
-    return colors[Math.floor(Math.random() * colors.length)]
+    return colors[randomRange(0, colors.length)]
   }
   const getRandomAnimationValues = () => {
     const getRandomValue = (target: number, range: number) => {

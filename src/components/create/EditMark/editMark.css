@@ -19,6 +19,7 @@
     border-radius: var(--p);
     padding: 4px 10px;
     text-align: center;
+    cursor: text;
 
     &::placeholder {
       font-weight: 400;

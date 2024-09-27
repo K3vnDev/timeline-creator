@@ -1,5 +1,6 @@
 .element-optns-btns {
   --btns-size: 40px;
+  pointer-events: none;
 
   .delete-btn,
   .duplicate-btn {
@@ -10,6 +11,7 @@
     background: #0f0f0f;
     border: 1px solid #333;
     cursor: pointer;
+    pointer-events: all;
     transition: background .15s ease, scale .3s ease;
 
     &:hover {
