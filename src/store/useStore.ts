@@ -1,15 +1,15 @@
 import { create } from 'zustand'
 import { DEFAULT_TIMELINE, newMarkTemplate, newPointTemplate } from '../consts.d'
-import type { HexColor, Mark, PointerEvents, Timeline } from '../types.d'
+import type { HexColor, Mark, PointerEvents, Timeline, UploadedFiles } from '../types.d'
 import { generateColor } from '../utils/generateColor'
 import { generateId } from '../utils/generateId'
-import { createElement } from './createElement'
 import demoTimeline from './demoTimeline.json'
-import { getIndex } from './getIndex'
 import { initialSavedTimelines, initialTimeline } from './initialState.d'
-import { modifyElements } from './modifyElements'
-import { modifyTimelines } from './modifyTimelines'
-import { setPointContent } from './setPointContent'
+import { createElement } from './utils/createElement'
+import { getIndex } from './utils/getIndex'
+import { modifyElements } from './utils/modifyElements'
+import { modifyTimelines } from './utils/modifyTimelines'
+import { setPointContent } from './utils/setPointContent'
 
 interface Store {
   timeline: Timeline
@@ -45,6 +45,9 @@ interface Store {
 
   showingMenu: boolean
   setShowingMenu: (value: boolean) => void
+
+  settingImageOnNextPoint: UploadedFiles
+  setSettingImageOnNextPoint: (value: UploadedFiles) => void
 }
 
 export const useStore = create<Store>()(set => ({
@@ -197,5 +200,9 @@ export const useStore = create<Store>()(set => ({
   setPointerEvents: value => set(() => ({ pointerEvents: value })),
 
   showingMenu: false,
-  setShowingMenu: value => set(() => ({ showingMenu: value }))
+  setShowingMenu: value => set(() => ({ showingMenu: value })),
+
+  settingImageOnNextPoint: null,
+  setSettingImageOnNextPoint: (value: UploadedFiles) =>
+    set(() => ({ settingImageOnNextPoint: value }))
 }))

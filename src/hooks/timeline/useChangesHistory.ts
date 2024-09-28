@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import { CHANGES_HISTORY_MAX_LENGTH } from '../consts.d'
-import { useStore } from '../store/useStore'
-import type { Timeline } from '../types.d'
-import { useDebounce } from './useDebounce'
+import { CHANGES_HISTORY_MAX_LENGTH } from '../../consts.d'
+import { useStore } from '../../store/useStore'
+import type { Timeline } from '../../types.d'
+import { useDebounce } from '../useDebounce'
 
 export const useChangesHistory = () => {
   const [timeline, setTimeline] = useStore(s => [s.timeline, s.setTimeline])

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import type { Tooltip } from '../components/root/Tooltip/Tooltip'
+import { EVENT_NAMES } from '../consts.d'
 import { getElementRef } from '../utils/getElementRef'
 
 export const useTooltip = (message: string, delay = 0) => {
@@ -8,7 +9,7 @@ export const useTooltip = (message: string, delay = 0) => {
 
   const setTooltip = (data: Tooltip['position'] | null) => {
     const detail: Tooltip | null = data ? { message, position: data } : null
-    const event = new CustomEvent('settooltip', { detail })
+    const event = new CustomEvent(EVENT_NAMES.SET_TOOLTIP, { detail })
     document.dispatchEvent(event)
   }
 

@@ -24,6 +24,12 @@ export const newMarkTemplate: Mark = {
   }
 }
 
+// event names
+
+export const EVENT_NAMES = {
+  DROP_IMAGE_ON_BLANK: 'dropimageonblank'
+}
+
 // accepted image formats
 
 export const ACCEPTED_IMAGE_FORMATS = ['image/png', 'image/jpeg', 'image/webp']

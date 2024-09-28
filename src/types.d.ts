@@ -1,6 +1,7 @@
 export type Element = Point | Mark
 export type PointerEvents = 'auto' | 'none'
 export type HexColor = `#${string}`
+export type UploadedFiles = FileList | undefined | null
 
 export interface Timeline {
   name: string

@@ -1,4 +1,4 @@
-import type { Timeline } from '../types'
+import type { Timeline } from '../../types'
 import { getIndex } from './getIndex'
 
 type Callback = (savedTimelines: Timeline[], index: number) => Timeline[] | undefined

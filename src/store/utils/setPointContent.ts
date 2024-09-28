@@ -1,4 +1,4 @@
-import type { Timeline } from '../types.d'
+import type { Timeline } from '../../types'
 
 interface Values {
   title?: string

@@ -6,8 +6,9 @@ import {
   Upload as UploadIcon
 } from '../../root/icons'
 import './dragAndDropImage.css'
-import imageCompression from 'browser-image-compression'
 import { ACCEPTED_IMAGE_FORMATS } from '../../../consts.d'
+import type { UploadedFiles } from '../../../types.d'
+import { extractAndCompressImage } from '../../../utils/extractAndCompressImage'
 import { getClassName } from '../../../utils/getClassName'
 import { getElementRef } from '../../../utils/getElementRef'
 import { LoadingArrows } from '../../root/LoadingArrows/LoadingArrows'
@@ -17,21 +18,17 @@ interface Props {
 }
 
 export const DragAndDropImage = ({ url }: Props) => {
-  const setPointImage = useStore(s => s.setPointImage)
+  // biome-ignore format: <>
+  const [setPointImage, settingImageOnNextPoint, setSettingImageOnNextPoint] = 
+    useStore(s => [s.setPointImage, s.settingImageOnNextPoint, s.setSettingImageOnNextPoint])
+
   const [draggingOver, setDraggingOver] = useState(false)
   const [uploading, setUploading] = useState(false)
   const reader = useRef(new FileReader())
   const inputRef = useRef(null)
   const dragnDropRef = useRef(null)
 
-  const stopUploading = () => setUploading(false)
-
-  const className = getClassName(
-    'drag-and-drop-image',
-    [url, 'with-image'],
-    [draggingOver, 'dragging-over']
-  )
-
+  // Handle image drop
   useEffect(() => {
     const dragnDrop = getElementRef(dragnDropRef)
     dragnDrop.ondragenter = () => setDraggingOver(true)
@@ -40,15 +37,31 @@ export const DragAndDropImage = ({ url }: Props) => {
 
     dragnDrop.ondrop = e => {
       e.preventDefault()
-      setDraggingOver(false)
+      e.stopPropagation()
 
-      if (!e.dataTransfer?.files) return
-      const [file] = e.dataTransfer.files
-      if (file) compressImage(file)
+      handleImageUpload(e.dataTransfer?.files)
+      setDraggingOver(false)
     }
   }, [dragnDropRef.current])
 
+  // Abort reader process on unload
   useEffect(() => () => reader.current.abort(), [])
+
+  // Handle set image from drop on blank
+  useEffect(() => {
+    if (settingImageOnNextPoint) {
+      handleImageUpload(settingImageOnNextPoint)
+      setSettingImageOnNextPoint(null)
+    }
+  }, [])
+
+  const handleImageUpload = async (files: UploadedFiles) => {
+    setUploading(true)
+    const imageUrl = await extractAndCompressImage(files, reader.current)
+
+    if (imageUrl) setPointImage(imageUrl)
+    setUploading(false)
+  }
 
   const handleBrowseFile = () => {
     if (!inputRef.current || uploading) return
@@ -56,43 +69,20 @@ export const DragAndDropImage = ({ url }: Props) => {
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return
-    const [file] = e.target.files
+    handleImageUpload(e.target.files)
     e.target.value = ''
-
-    if (ACCEPTED_IMAGE_FORMATS.includes(file.type)) {
-      compressImage(file)
-    }
-  }
-
-  const compressImage = (image: File) => {
-    setUploading(true)
-
-    const options = {
-      maxSizeMB: 0.3,
-      maxWidthOrHeight: 480,
-      useWebWorker: true
-    }
-
-    imageCompression(image, options)
-      .then(compressedImage => {
-        reader.current.readAsDataURL(compressedImage)
-
-        reader.current.onload = e => {
-          const result = e.target?.result
-          if (!result) return
-
-          setPointImage(result.toString())
-          stopUploading()
-        }
-      })
-      .catch(stopUploading)
   }
 
   const handleDeleteImage = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation()
     setPointImage('')
   }
+
+  const className = getClassName(
+    'drag-and-drop-image',
+    [url, 'with-image'],
+    [draggingOver, 'dragging-over']
+  )
 
   return (
     <div className={className} onClick={handleBrowseFile} ref={dragnDropRef}>

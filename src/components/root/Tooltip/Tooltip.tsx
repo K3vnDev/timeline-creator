@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
 import './tooltip.css'
+import { useEffect, useState } from 'react'
+import { EVENT_NAMES } from '../../../consts.d'
 
 export interface Tooltip {
   message: string
@@ -17,8 +18,8 @@ export const Tooltip = () => {
       const { detail } = e as CustomEvent
       setTooltip(detail)
     }
-    document.addEventListener('settooltip', handleSetToolTip)
-    return () => document.removeEventListener('settooltip', handleSetToolTip)
+    document.addEventListener(EVENT_NAMES.SET_TOOLTIP, handleSetToolTip)
+    return () => document.removeEventListener(EVENT_NAMES.SET_TOOLTIP, handleSetToolTip)
   }, [])
 
   if (!tooltip) return

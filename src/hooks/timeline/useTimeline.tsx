@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
-import { AddElement } from '../components/create/AddElement/AddElement'
-import { Mark } from '../components/create/Mark/Mark'
-import { Point } from '../components/create/Point/Point'
-import { useStore } from '../store/useStore'
-import { useFocusOnClick } from './useFocusOnClick'
+import { AddElement } from '../../components/create/AddElement/AddElement'
+import { Mark } from '../../components/create/Mark/Mark'
+import { Point } from '../../components/create/Point/Point'
+import { useStore } from '../../store/useStore'
+import { useFocusOnClick } from '../useFocusOnClick'
 
 export const useTimeline = () => {
   // biome-ignore format: <>

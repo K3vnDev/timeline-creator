@@ -1,6 +1,7 @@
-import { useChangesHistory } from '../../../hooks/useChangesHistory'
-import { useScrollPageOnDrag } from '../../../hooks/useScrollOnDrag'
-import { useTimeline } from '../../../hooks/useTimeline'
+import { useChangesHistory } from '../../../hooks/timeline/useChangesHistory'
+import { useDropImageOnBlank } from '../../../hooks/timeline/useDropImageOnBlank'
+import { useScrollPageOnDrag } from '../../../hooks/timeline/useScrollPageOnDrag'
+import { useTimeline } from '../../../hooks/timeline/useTimeline'
 import { useStore } from '../../../store/useStore'
 import './timeline.css'
 
@@ -10,6 +11,7 @@ export const Timeline = () => {
 
   useScrollPageOnDrag()
   useChangesHistory()
+  useDropImageOnBlank()
 
   return (
     <div className='timeline-wrapper'>

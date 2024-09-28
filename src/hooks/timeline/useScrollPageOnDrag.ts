@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { useStore } from '../store/useStore'
+import { useStore } from '../../store/useStore'
 
 export const useScrollPageOnDrag = () => {
   const [dragging, setDragging] = useState(false)

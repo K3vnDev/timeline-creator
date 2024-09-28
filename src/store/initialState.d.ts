@@ -1,6 +1,6 @@
 import { DEFAULT_TIMELINE } from '../consts.d'
 import type { Timeline } from '../types.d'
-import { getIndex } from './getIndex'
+import { getIndex } from './utils/getIndex'
 
 const savedTimelinesFromStorage = JSON.parse(window.localStorage.getItem('saved-timelines'))
 export const initialSavedTimelines: Timeline[] = savedTimelinesFromStorage ?? [DEFAULT_TIMELINE]
