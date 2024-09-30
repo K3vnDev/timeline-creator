@@ -258,15 +258,6 @@
       "type": "point",
       "content": {
         "title": "",
-        "image": "",
-        "desc": "But doing more complex apps in vanilla JavaScript started to get not too comfortable to me. Then I found out about React and started unsing it."
-      },
-      "id": "39P26"
-    },
-    {
-      "type": "point",
-      "content": {
-        "title": "",
         "image": "https://i.imgur.com/fpujCOc.png",
         "desc": "First version of Timeline Creator (04/18)."
       },
@@ -277,15 +268,24 @@
       "content": {
         "title": "Switching to React",
         "image": "https://i.imgur.com/9beAmiN.png",
-        "desc": "I wanted to remake Timeline Creator but first, I had to make some projects to get experience with the library."
+        "desc": ""
       },
-      "id": "97w0J"
+      "id": "1t85M"
     },
     {
       "type": "point",
       "content": {
+        "title": "",
         "image": "",
-        "title": "https://i.imgur.com/z5U2bB8.png",
+        "desc": "As soon as I tried React, I completely fell in love with it. Doing UI for more complex projects was way fresher than in vanilla JavaScript."
+      },
+      "id": "e0vIj"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "https://i.imgur.com/z5U2bB8.png",
         "desc": "Weather App (05/03)."
       },
       "id": "091X9"
@@ -311,9 +311,18 @@
     {
       "type": "point",
       "content": {
-        "title": "Getting Into Backend",
+        "title": "Getting into Backend",
         "image": "https://i.imgur.com/VOup3Hf.png",
-        "desc": "After some projects, I started to feel limited for only being able to do Frontend so I started learning NodeJS and MongoDB."
+        "desc": ""
+      },
+      "id": "grHfb"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "",
+        "desc": "After some weeks, I started learning NodeJS and MongoDB. This was the first step for making more complete websites."
       },
       "id": "s450b"
     },
@@ -325,7 +334,52 @@
         "desc": "URL Shortener (06/02)."
       },
       "id": "g04a2"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "Making a bigger project",
+        "image": "",
+        "desc": "Then I decided to go for a bigger project. I wanted it to be a Fullstack project so I started working on Quizzie."
+      },
+      "id": "iL675"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "Quizzie",
+        "image": "https://i.imgur.com/Gg3AglR.png",
+        "desc": "Quizzie is a web application where you can create your own quizzes and share them with others."
+      },
+      "id": "4Df8k"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "https://i.imgur.com/sbLcjEO.png",
+        "desc": "This is how playing a quiz looks like. You have to select the only right answer before time runs out."
+      },
+      "id": "80f55"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "https://i.imgur.com/j0vGW8l.png",
+        "desc": "The creation page is made to the detail to give the user the best experience and customization for their quizzes."
+      },
+      "id": "VMEk7"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "",
+        "desc": "On july 27th and after almost two months of development, Quizzie was finally released. I learned a lot from this project, specially with user auth."
+      },
+      "id": "A1RQ5"
     }
   ],
-  "id": "x38YF"
+  "id": "j9J8C"
 }

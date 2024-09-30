@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react'
 import { useStore } from '../store/useStore'
 import { getElementRef } from '../utils/getElementRef'
-import { useCharacterLimit } from './useCharacterLimit'
+import { useValidateText } from './useValidateText'
 
 export const useEditMark = () => {
   const [setMarkText, setEditingElement] = useStore(s => [s.setMarkText, s.setEditingElement])
-  const { animation, triggerAnimation, validateText } = useCharacterLimit(10)
+  const { animation, triggerAnimation, validateText } = useValidateText(10)
   const inputRef = useRef(null)
 
   useEffect(() => {

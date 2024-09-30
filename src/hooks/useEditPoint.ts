@@ -24,7 +24,7 @@ export const useEditPoint = () => {
 
   const clearFocusing = () => {
     const element = getElementRef(elementRef)
-    element.querySelector('desc')?.blur()
-    element.querySelector('title')?.blur()
+    const toClearFocus = [...element.querySelectorAll('textarea.desc, input.title')]
+    toClearFocus.forEach(el => (el as HTMLInputElement).blur())
   }
 }

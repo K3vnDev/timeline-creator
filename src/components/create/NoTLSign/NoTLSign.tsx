@@ -10,7 +10,7 @@ export const NoTLSign = () => {
       <h2>
         Whoops, looks like
         <br />
-        someone ran out of timelines
+        someone ran out of timelines...
       </h2>
       <AppButton onClick={createTimeline} color='blue'>
         Create a new one

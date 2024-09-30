@@ -34,7 +34,7 @@ const Title = () => {
 
   // biome-ignore format: <>
   const { animation, handleChange, handleClear } = 
-    useTextInput(setPointTitle, TIMELINE_MAX_LENGTHS.TITLE)
+    useTextInput(setPointTitle, TIMELINE_MAX_LENGTHS.TITLE,elementRef)
 
   return (
     <div className='title-wrapper'>
@@ -76,7 +76,7 @@ const Desc = () => {
 
   // biome-ignore format: <>
   const { animation, handleChange, handleClear } = 
-    useTextInput(setPointDesc, TIMELINE_MAX_LENGTHS.DESC)
+    useTextInput(setPointDesc, TIMELINE_MAX_LENGTHS.DESC, elementRef)
 
   const recalculateWidth = () => {
     const input = getElementRef(elementRef)

@@ -27,7 +27,7 @@ export const newMarkTemplate: Mark = {
 // event names
 
 export const EVENT_NAMES = {
-  DROP_IMAGE_ON_BLANK: 'dropimageonblank'
+  SET_TOOLTIP: 'settooltip'
 }
 
 // accepted image formats
