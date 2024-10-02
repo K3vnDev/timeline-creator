@@ -5,8 +5,8 @@ import { useValidateText } from './useValidateText'
 
 export const useEditMark = () => {
   const [setMarkText, setEditingElement] = useStore(s => [s.setMarkText, s.setEditingElement])
-  const { animation, triggerAnimation, validateText } = useValidateText(10)
   const inputRef = useRef(null)
+  const { animation, triggerAnimation, validateText } = useValidateText(10, inputRef)
 
   useEffect(() => {
     getElementRef(inputRef).focus()

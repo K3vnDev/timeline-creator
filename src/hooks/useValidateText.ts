@@ -27,5 +27,5 @@ export const useValidateText = (maxCharacters: number, inputRef: React.MutableRe
     return isValid
   }
 
-  return { animation, validateText }
+  return { animation, triggerAnimation, validateText }
 }
