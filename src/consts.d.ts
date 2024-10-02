@@ -37,8 +37,8 @@ export const ACCEPTED_IMAGE_FORMATS = ['image/png', 'image/jpeg', 'image/webp']
 // timelines consts
 
 export const TIMELINE_MAX_LENGTHS = {
-  TITLE: 24,
-  DESC: 150
+  TITLE: 25,
+  DESC: 160
 }
 
 // default timeline consts

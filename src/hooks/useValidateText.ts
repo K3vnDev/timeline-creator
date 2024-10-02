@@ -19,7 +19,7 @@ export const useValidateText = (maxCharacters: number, inputRef: React.MutableRe
 
     if (!isValid) {
       setTimeout(() => {
-        const newCursorPos = cursorPos && cursorPos > 0 ? cursorPos - 1 : cursorPos
+        const newCursorPos = cursorPos ? cursorPos - 1 : cursorPos
         input.setSelectionRange(newCursorPos, newCursorPos)
       }, 0)
       triggerAnimation()

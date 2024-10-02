@@ -250,7 +250,7 @@
       "content": {
         "title": "Alpha Timeline Creator",
         "image": "",
-        "desc": "After all those projects I started working on the first version of this very app in vanilla JavaScript."
+        "desc": "I started working on the first version of this very app in vanilla JavaScript."
       },
       "id": "51w3G"
     },
@@ -268,18 +268,9 @@
       "content": {
         "title": "Switching to React",
         "image": "https://i.imgur.com/9beAmiN.png",
-        "desc": ""
-      },
-      "id": "1t85M"
-    },
-    {
-      "type": "point",
-      "content": {
-        "title": "",
-        "image": "",
         "desc": "As soon as I tried React, I completely fell in love with it. Doing UI for more complex projects was way fresher than in vanilla JavaScript."
       },
-      "id": "e0vIj"
+      "id": "1t85M"
     },
     {
       "type": "point",
@@ -303,7 +294,7 @@
       "type": "point",
       "content": {
         "title": "",
-        "image": "https://i.imgur.com/JqpqJBA.png",
+        "image": "https://i.imgur.com/Q2JryYI.png",
         "desc": "Emoji Finder (05/22)."
       },
       "id": "u7523"
@@ -313,18 +304,9 @@
       "content": {
         "title": "Getting into Backend",
         "image": "https://i.imgur.com/VOup3Hf.png",
-        "desc": ""
-      },
-      "id": "grHfb"
-    },
-    {
-      "type": "point",
-      "content": {
-        "title": "",
-        "image": "",
         "desc": "After some weeks, I started learning NodeJS and MongoDB. This was the first step for making more complete websites."
       },
-      "id": "s450b"
+      "id": "grHfb"
     },
     {
       "type": "point",
@@ -379,7 +361,25 @@
         "desc": "On july 27th and after almost two months of development, Quizzie was finally released. I learned a lot from this project, specially with user auth."
       },
       "id": "A1RQ5"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "Timeline Creator",
+        "image": "https://i.imgur.com/VQuDFyZ.png",
+        "desc": "I wasn't satisfied with the first version I made, so I started developing this really upgraped version. Im writing this a month of development later."
+      },
+      "id": "n7Qjb"
+    },
+    {
+      "type": "point",
+      "content": {
+        "title": "",
+        "image": "https://i.imgur.com/uJJRWFG.png",
+        "desc": "Timeline Creator (10/02)."
+      },
+      "id": "anS27"
     }
   ],
-  "id": "j9J8C"
+  "id": "ePu9r"
 }

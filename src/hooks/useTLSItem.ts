@@ -40,7 +40,7 @@ export const UseTLSItem = (id: string, color: HexColor) => {
   )
 
   const handleClick = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
-    if (e.shiftKey) setDeleting(true)
+    if (e.shiftKey) setDeleting(d => !d)
     else setEditingTimeline(id)
   }
 

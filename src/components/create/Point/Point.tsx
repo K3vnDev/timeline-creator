@@ -62,7 +62,11 @@ export const Point = ({ id, content, onBottom, index }: Props) => {
             <EditPoint />
           ) : (
             <>
-              {title && <h3 className='title'>{title}</h3>}
+              {title && (
+                <h3 className='title'>
+                  <span>{title}</span>
+                </h3>
+              )}
               {image && (
                 <div className='image-wrapper'>
                   <img className='image' src={image} draggable={false} />

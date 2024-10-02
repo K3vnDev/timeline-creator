@@ -50,11 +50,18 @@
   }
 
   &>.title {
-    color: #FFF;
-    text-align: center;
-    font-size: var(--text-m3);
-    font-weight: 600;
     min-height: 48px;
+
+    span{
+      color: #FFF;
+      text-align: center;
+      font-size: var(--text-m3);
+      font-weight: 600;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 100%;
+    }
   }
 
   &>.desc {
