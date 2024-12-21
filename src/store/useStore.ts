@@ -4,7 +4,6 @@ import type { HexColor, Mark, PointerEvents, Timeline, UploadedFiles } from '../
 import { generateColor } from '../utils/generateColor'
 import { generateId } from '../utils/generateId'
 import demoTimeline from './demoTimeline.json'
-import { initialSavedTimelines, initialTimeline } from './initialState.d'
 import { createElement } from './utils/createElement'
 import { getIndex } from './utils/getIndex'
 import { modifyElements } from './utils/modifyElements'
@@ -14,7 +13,9 @@ import { setPointContent } from './utils/setPointContent'
 interface Store {
   timeline: Timeline
   setTimeline: (value: Timeline) => void
+
   savedTimelines: Array<Timeline>
+  setSavedTimelines: (value: Timeline[]) => void
 
   setEditingTimeline: (id: string | null) => void
   createTimeline: () => void
@@ -51,9 +52,11 @@ interface Store {
 }
 
 export const useStore = create<Store>()(set => ({
-  timeline: initialTimeline,
+  timeline: DEFAULT_TIMELINE,
   setTimeline: value => set(() => ({ timeline: value })),
-  savedTimelines: initialSavedTimelines,
+
+  savedTimelines: [DEFAULT_TIMELINE],
+  setSavedTimelines: value => set(() => ({ savedTimelines: value })),
 
   setEditingTimeline: id =>
     set(({ savedTimelines }) => {

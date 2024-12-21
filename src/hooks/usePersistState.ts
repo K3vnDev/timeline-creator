@@ -1,17 +1,41 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useStore } from '../store/useStore'
+import { getIndex } from '../store/utils/getIndex'
+import type { Timeline } from '../types.d'
+import { getIDBItem, setIDBItem } from '../utils/idbStorage'
 
 export const usePersistState = () => {
-  const [timeline, savedTimelines] = useStore(s => [s.timeline, s.savedTimelines])
+  // biome-ignore format: <>
+  const [timeline, savedTimelines, setTimeline, setSavedTimelines] = 
+    useStore(s => [s.timeline, s.savedTimelines, s.setTimeline, s.setSavedTimelines])
+  const initialDataLoaded = useRef(false)
+
+  const loadInitialData = async () => {
+    const editingTimelineId: string = await getIDBItem('editing-timeline-id')
+    const savedTimelines: Timeline[] = await getIDBItem('saved-timelines')
+
+    if (savedTimelines && editingTimelineId) {
+      setSavedTimelines(savedTimelines)
+
+      const index = getIndex(savedTimelines, editingTimelineId)
+      setTimeline(savedTimelines[index])
+
+      initialDataLoaded.current = true
+    }
+  }
+  // biome-ignore format: <>
+  useEffect(() => { loadInitialData() }, [])
 
   // Save editing timeline id
   useEffect(() => {
-    window.localStorage.setItem('editing-timeline-id', timeline?.id ?? '')
-  }, [timeline])
+    if (!timeline?.id || !initialDataLoaded.current) return
+    setIDBItem('editing-timeline-id', timeline.id)
+  }, [timeline?.id])
 
   // Save all timelines
   useEffect(() => {
-    window.localStorage.setItem('saved-timelines', JSON.stringify(savedTimelines ?? []))
+    if (!savedTimelines || !initialDataLoaded.current) return
+    setIDBItem('saved-timelines', savedTimelines)
   }, [savedTimelines])
 
   return { timeline }
