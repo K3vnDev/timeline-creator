@@ -1,10 +1,11 @@
-import { Github as GithubIcon } from '../../root/icons'
+import { Github as GithubIcon, Upload as UploadIcon } from '../../root/icons'
 import { TLSList } from '../TLSList/TLSList'
 import { ToggleMenuButton } from '../ToggleMenuButton/ToggleMenuButton'
 import './tlMenu.css'
 import { useCantScrollPage } from '../../../hooks/useCantScrollPage'
 import { useMenu } from '../../../hooks/useMenu'
 import { useStore } from '../../../store/useStore'
+import { parseTimelines } from '../../../store/utils/parseTimelines'
 import { AppButton } from '../../root/AppButton/AppButton'
 import { TLSymbol } from '../../root/TLSymbol/TLSymbol'
 
@@ -21,7 +22,11 @@ export const TLMenu = () => {
         <CreateNewButton />
         <TLSymbol color='#666' length={200} steps={3} size={26} width={18} />
         <TLSList />
-        <GithubButton />
+
+        <div className='bts-wrapper'>
+          <GithubButton />
+          <UploadTimelinesButton />
+        </div>
       </aside>
     </>
   )
@@ -39,8 +44,39 @@ const CreateNewButton = () => {
 
 const GithubButton = () => {
   return (
-    <a className='github-btn' href='https://github.com/K3vnDev/timeline-creator' target='blank_'>
+    <a className='btn' href='https://github.com/K3vnDev/timeline-creator' target='blank_'>
       <GithubIcon />
     </a>
+  )
+}
+
+const UploadTimelinesButton = () => {
+  const savedTimelines = useStore(s => s.savedTimelines)
+  const setSavedTimelines = useStore(s => s.setSavedTimelines)
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { files } = e.target
+
+    if (files === null || files.length === 0) return
+    const [file] = files
+
+    const reader = new FileReader()
+    reader.readAsText(file)
+
+    reader.onload = async e => {
+      const result = e.target?.result?.toString() ?? ''
+
+      const parsedTimelines = await parseTimelines(result)
+      if (parsedTimelines === null) return
+
+      setSavedTimelines([...savedTimelines, ...parsedTimelines])
+    }
+  }
+
+  return (
+    <button className='btn' title='Upload timelines'>
+      <input type='file' accept='.json' onChange={handleChange} />
+      <UploadIcon />
+    </button>
   )
 }
