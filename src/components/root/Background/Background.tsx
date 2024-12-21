@@ -1,12 +1,11 @@
 import { useMemo } from 'react'
 import { DEFAULT_TIMELINE_COLOR } from '../../../consts.d'
-import type { HexColor } from '../../../types.d'
 import { repeat } from '../../../utils/repeat'
 import './background.css'
 import { randomRange } from '../../../utils/randomRange'
 
 interface Props {
-  colors: HexColor[]
+  colors: string[]
   min: number
   max: number
   n: number
@@ -78,6 +77,6 @@ interface BlurredCircleProps {
       y: number
     }
     size: number
-    color: HexColor
+    color: string
   }
 }

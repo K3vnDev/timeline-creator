@@ -1,9 +1,8 @@
-import type { HexColor } from '../../../types.d'
 import { repeat } from '../../../utils/repeat'
 import './tlSymbol.css'
 
 interface Props {
-  color: HexColor
+  color: string
   steps: number
   size: number
   width: number

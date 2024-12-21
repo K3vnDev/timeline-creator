@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { DEFAULT_TIMELINE, newMarkTemplate, newPointTemplate } from '../consts.d'
-import type { HexColor, Mark, PointerEvents, Timeline, UploadedFiles } from '../types.d'
+import type { Mark, PointerEvents, Timeline, UploadedFiles } from '../types.d'
 import { generateColor } from '../utils/generateColor'
 import { generateId } from '../utils/generateId'
 import demoTimeline from './demoTimeline.json'
@@ -21,7 +21,7 @@ interface Store {
   createTimeline: () => void
   saveTimeline: () => void
   setTimelineName: (value: string) => void
-  setTimelineColor: (value: HexColor) => void
+  setTimelineColor: (value: string) => void
   duplicateTimeline: () => void
   deleteTimeline: (id: string) => void
   loadDemoTimeline: () => void

@@ -1,4 +1,4 @@
-import type { HexColor, Mark, Point, Timeline } from './types.d'
+import type { Mark, Point, Timeline } from './types.d'
 import { generateColor } from './utils/generateColor'
 import { generateId } from './utils/generateId'
 
@@ -44,7 +44,7 @@ export const TIMELINE_MAX_LENGTHS = {
 // default timeline consts
 
 export const DEFAULT_TIMELINE_NAME = 'My New Timeline'
-export const DEFAULT_TIMELINE_COLOR: HexColor = '#2633e0'
+export const DEFAULT_TIMELINE_COLOR = '#2633e0'
 
 export const DEFAULT_TIMELINE: Timeline = {
   name: DEFAULT_TIMELINE_NAME,

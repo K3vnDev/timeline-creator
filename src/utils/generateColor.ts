@@ -1,6 +1,4 @@
-import type { HexColor } from '../types.d'
-
-const colors: HexColor[] = [
+const colors: string[] = [
   '#598a15', // light green
   '#24a17d', // aqua green
   '#0f808a', // aqua blue

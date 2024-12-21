@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { UseTLSItem } from '../../../hooks/useTLSItem'
 import { useStore } from '../../../store/useStore'
-import type { HexColor, Timeline } from '../../../types.d'
+import type { Timeline } from '../../../types.d'
 import {
   Cancel as CancelIcon,
   Duplicate as DuplicateIcon,
@@ -89,14 +89,14 @@ const ChangeColorButton = ({ color: initialColor, showingSettings }: ChangeColor
   const setTimelineColor = useStore(s => s.setTimelineColor)
   const inputRef = useRef(null)
 
-  const [inputColor, setInputColor] = useState<HexColor>(initialColor)
+  const [inputColor, setInputColor] = useState<string>(initialColor)
   const debouncedColor = useDebounce(inputColor, 100)
 
   useEffect(() => setTimelineColor(debouncedColor), [debouncedColor])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.stopPropagation()
-    setInputColor(e.target.value as HexColor)
+    setInputColor(e.target.value)
   }
 
   const handleClick = () => {
@@ -118,7 +118,7 @@ const ChangeColorButton = ({ color: initialColor, showingSettings }: ChangeColor
   )
 }
 interface ChangeColorButtonProps {
-  color: HexColor
+  color: string
   showingSettings: boolean
 }
 

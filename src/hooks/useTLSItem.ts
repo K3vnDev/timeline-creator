@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { useStore } from '../store/useStore'
-import type { HexColor } from '../types.d'
 import { getClassName } from '../utils/getClassName'
 
-export const UseTLSItem = (id: string, color: HexColor) => {
+export const UseTLSItem = (id: string, color: string) => {
   // biome-ignore format: <>
   const [setEditingTimeline, timeline, showingMenu, deleteTimeline] = 
     useStore(s => [s.setEditingTimeline, s.timeline, s.showingMenu, s.deleteTimeline])
