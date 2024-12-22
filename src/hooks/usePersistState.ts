@@ -11,32 +11,28 @@ export const usePersistState = () => {
   const initialDataLoaded = useRef(false)
 
   const loadInitialData = async () => {
-    const editingTimelineId: string = await getIDBItem('editing-timeline-id')
-    const savedTimelines: Timeline[] = await getIDBItem('saved-timelines')
+    const editingTimelineId: string | undefined = await getIDBItem('editing-timeline-id')
+    const savedTimelines: Timeline[] | undefined = await getIDBItem('saved-timelines')
 
     if (savedTimelines && editingTimelineId) {
       setSavedTimelines(savedTimelines)
 
       const index = getIndex(savedTimelines, editingTimelineId)
       setTimeline(savedTimelines[index])
-
-      initialDataLoaded.current = true
     }
+
+    initialDataLoaded.current = true
   }
   // biome-ignore format: <>
   useEffect(() => { loadInitialData() }, [])
 
-  // Save editing timeline id
+  // Save all timelines and editing timeline id
   useEffect(() => {
-    if (!timeline?.id || !initialDataLoaded.current) return
-    setIDBItem('editing-timeline-id', timeline.id)
-  }, [timeline?.id])
-
-  // Save all timelines
-  useEffect(() => {
-    if (!savedTimelines || !initialDataLoaded.current) return
-    setIDBItem('saved-timelines', savedTimelines)
-  }, [savedTimelines])
+    if (initialDataLoaded.current) {
+      setIDBItem('editing-timeline-id', timeline.id)
+      setIDBItem('saved-timelines', savedTimelines)
+    }
+  }, [savedTimelines, timeline.id])
 
   return { timeline }
 }
