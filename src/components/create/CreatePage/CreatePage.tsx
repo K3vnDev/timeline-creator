@@ -9,14 +9,15 @@ import { Timeline } from '../Timeline/Timeline'
 import './createPage.css'
 
 export const CreatePage = () => {
-  const { timeline } = usePersistState()
+  const { savedTimelines } = usePersistState()
+
   useRouteClassName('create')
   useAppTitle()
 
   return (
     <>
       <TLMenu />
-      {timeline ? (
+      {savedTimelines.length ? (
         <>
           <TLName />
           <Timeline />

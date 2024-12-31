@@ -65,6 +65,7 @@ const UploadTimelinesButton = () => {
 
     reader.onload = async e => {
       const result = e.target?.result?.toString() ?? ''
+      console.log({ result: JSON.parse(result) })
 
       const parsedTimelines = await parseTimelines(result)
       if (parsedTimelines === null) return

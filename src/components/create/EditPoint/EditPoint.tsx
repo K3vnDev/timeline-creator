@@ -36,6 +36,8 @@ const Title = () => {
   const { animation, handleChange, handleClear } = 
     useTextInput(setPointTitle, TIMELINE_MAX_LENGTHS.TITLE,elementRef)
 
+  useEffect(() => setPointTitle(text.trim()), [])
+
   return (
     <div className='title-wrapper'>
       <input
@@ -86,6 +88,8 @@ const Desc = () => {
   }
 
   useEffect(recalculateWidth, [text])
+
+  useEffect(() => setPointDesc(text.trim()), [])
 
   return (
     <div className='desc-wrapper'>

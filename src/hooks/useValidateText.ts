@@ -13,7 +13,7 @@ export const useValidateText = (maxCharacters: number, inputRef: React.MutableRe
   })
 
   const validateText = (text: string) => {
-    const isValid = text.length <= maxCharacters && !text.includes('  ')
+    const isValid = text.length <= maxCharacters
     const input = getElementRef<HTMLInputElement>(inputRef)
     const { selectionStart: cursorPos } = input
 

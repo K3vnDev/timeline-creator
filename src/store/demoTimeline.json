@@ -2,7 +2,13 @@
   "name": "My history with coding",
   "color": "#f9c50b",
   "elements": [
-    { "type": "mark", "id": "3F996", "content": { "text": "2020" } },
+    {
+      "type": "mark",
+      "id": "3F996",
+      "content": {
+        "text": "2020"
+      }
+    },
     {
       "type": "point",
       "content": {
@@ -14,10 +20,20 @@
     },
     {
       "type": "point",
-      "content": { "title": "", "image": "https://i.imgur.com/iYukrJC.png", "desc": "" },
+      "content": {
+        "title": "",
+        "image": "https://i.imgur.com/iYukrJC.png",
+        "desc": ""
+      },
       "id": "MbnRX"
     },
-    { "type": "mark", "content": { "text": "2021" }, "id": "110d2" },
+    {
+      "type": "mark",
+      "content": {
+        "text": "2021"
+      },
+      "id": "110d2"
+    },
     {
       "type": "point",
       "content": {
@@ -36,7 +52,13 @@
       },
       "id": "2Rd0Q"
     },
-    { "type": "mark", "content": { "text": "2023" }, "id": "198r2" },
+    {
+      "type": "mark",
+      "content": {
+        "text": "2023"
+      },
+      "id": "198r2"
+    },
     {
       "type": "point",
       "content": {
@@ -181,7 +203,13 @@
       },
       "id": "3652E"
     },
-    { "type": "mark", "content": { "text": "2024" }, "id": "412Wk" },
+    {
+      "type": "mark",
+      "content": {
+        "text": "2024"
+      },
+      "id": "412Wk"
+    },
     {
       "type": "point",
       "content": {

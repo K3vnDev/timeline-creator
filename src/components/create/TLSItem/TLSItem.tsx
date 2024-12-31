@@ -4,6 +4,7 @@ import { useStore } from '../../../store/useStore'
 import type { Timeline } from '../../../types.d'
 import {
   Cancel as CancelIcon,
+  Download as DownloadIcon,
   Duplicate as DuplicateIcon,
   Palette as PaletteIcon,
   Settings as SettingsIcon,
@@ -11,6 +12,7 @@ import {
 } from '../../root/icons'
 import './tlsItem.css'
 import { useDebounce } from '../../../hooks/useDebounce'
+import { getIndex } from '../../../store/utils/getIndex'
 import { getElementRef } from '../../../utils/getElementRef'
 
 interface TLSItemProps {
@@ -35,10 +37,11 @@ export const TLSItem = ({ timeline: { id, name, color } }: TLSItemProps) => {
         ? <CancelButton setDeleting={setDeleting} />
         : <SettingsButton onClick={toggleShowingSetting} />
       }
-      <section className='settings-wrapper'>
+      <section className='settings-wrapper' >
         <ChangeColorButton color={color} showingSettings={showingSettings} />
         <DeleteButton setDeleting={setDeleting} />
         <DuplicateButton />
+        <DownloadButton timelineId={id} />
       </section>
     </li>
   )
@@ -46,13 +49,18 @@ export const TLSItem = ({ timeline: { id, name, color } }: TLSItemProps) => {
 
 // ---
 
+interface SettingButtonProps {
+  onClick: () => void
+}
+
 const SettingsButton = ({ onClick }: SettingButtonProps) => (
   <button className='settings-btn' onClick={onClick}>
     <SettingsIcon />
   </button>
 )
-interface SettingButtonProps {
-  onClick: () => void
+
+interface DeleteButtonProps {
+  setDeleting: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const DeleteButton = ({ setDeleting }: DeleteButtonProps) => {
@@ -65,9 +73,6 @@ const DeleteButton = ({ setDeleting }: DeleteButtonProps) => {
       <TrashIcon />
     </button>
   )
-}
-interface DeleteButtonProps {
-  setDeleting: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const DuplicateButton = () => {
@@ -83,6 +88,11 @@ const DuplicateButton = () => {
       <DuplicateIcon />
     </button>
   )
+}
+
+interface ChangeColorButtonProps {
+  color: string
+  showingSettings: boolean
 }
 
 const ChangeColorButton = ({ color: initialColor, showingSettings }: ChangeColorButtonProps) => {
@@ -117,9 +127,9 @@ const ChangeColorButton = ({ color: initialColor, showingSettings }: ChangeColor
     </button>
   )
 }
-interface ChangeColorButtonProps {
-  color: string
-  showingSettings: boolean
+
+interface CancelButtonProps {
+  setDeleting: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const CancelButton = ({ setDeleting }: CancelButtonProps) => {
@@ -134,6 +144,44 @@ const CancelButton = ({ setDeleting }: CancelButtonProps) => {
     </button>
   )
 }
-interface CancelButtonProps {
-  setDeleting: React.Dispatch<React.SetStateAction<boolean>>
+
+interface DownloadButtonProps {
+  timelineId: string
+}
+
+const DownloadButton = ({ timelineId }: DownloadButtonProps) => {
+  const timelines = useStore(s => s.savedTimelines)
+
+  const downloadTimeline = (timeline: Timeline) => {
+    const content = JSON.stringify([timeline])
+    const { name } = timeline
+    const fileName = `${name.trim() ?? 'my-timeline'}.json`
+
+    const blob = new Blob([content], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+
+    const a = document.createElement('a')
+    a.href = url
+    a.download = fileName
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+  }
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation()
+
+    const index = getIndex(timelines, timelineId)
+    if (index === -1) return
+
+    const timeline = timelines[index]
+    downloadTimeline(timeline)
+  }
+
+  return (
+    <button className='settings-download-btn' onClick={handleClick}>
+      <DownloadIcon />
+    </button>
+  )
 }

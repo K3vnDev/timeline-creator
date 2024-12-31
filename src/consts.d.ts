@@ -90,6 +90,7 @@ export const DEFAULT_TIMELINE: Timeline = {
       id: '0100',
       content: {
         title: 'My second title',
+        image: '',
         desc: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Enim, autem.'
       }
     }

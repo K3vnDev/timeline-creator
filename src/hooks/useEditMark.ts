@@ -13,6 +13,11 @@ export const useEditMark = () => {
     recalculateWidth()
   }, [inputRef.current])
 
+  useEffect(() => {
+    const element = getElementRef<HTMLInputElement>(inputRef)
+    setMarkText(element.value.trim())
+  }, [inputRef.current])
+
   const recalculateWidth = () => {
     const input = getElementRef(inputRef)
     input.style.width = '0px'

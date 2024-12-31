@@ -29,10 +29,11 @@ export const usePersistState = () => {
   // Save all timelines and editing timeline id
   useEffect(() => {
     if (initialDataLoaded.current) {
-      setIDBItem('editing-timeline-id', timeline.id)
+      const id = timeline?.id ?? null
+      setIDBItem('editing-timeline-id', id)
       setIDBItem('saved-timelines', savedTimelines)
     }
-  }, [savedTimelines, timeline.id])
+  }, [savedTimelines, timeline?.id])
 
-  return { timeline }
+  return { timeline, savedTimelines }
 }
