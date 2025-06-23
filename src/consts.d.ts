@@ -2,7 +2,7 @@ import type { Mark, Point, Timeline } from './types.d'
 import { generateColor } from './utils/generateColor'
 import { generateId } from './utils/generateId'
 
-export const CHANGES_HISTORY_MAX_LENGTH = 10
+export const CHANGES_HISTORY_MAX_LENGTH = 3
 
 export const APP_NAME = 'Timeline Creator'
 
